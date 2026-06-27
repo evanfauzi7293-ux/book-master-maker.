@@ -38,7 +38,6 @@
     </header>
 
     <main class="max-w-7xl w-full mx-auto grid grid-cols-1 lg:grid-cols-12 gap-6 items-start flex-grow">
-        
         <section class="lg:col-span-4 pro-card p-6 rounded-2xl shadow-xl flex flex-col gap-4">
             <h2 class="text-sm font-bold tracking-wider text-gray-400 uppercase mb-2 flex items-center gap-2">
                 <i class="fa-solid fa-sliders text-indigo-400"></i> Konfigurasi Buku
@@ -136,29 +135,22 @@
                 });
             }
 
-            const apiKey = document.getElementById('apiKey').value;
+            const apiKey = document.getElementById('apiKey').value.trim();
             if (!apiKey) {
                 alert('Silakan masukkan API Key Gemini Anda atau aktifkan MODE DEMO!');
                 throw new Error('API Key Kosong');
             }
 
-            // MENGGUNAKAN FORMAT URL DAN NAMA MODEL PALING STANDAR DARI GOOGLE DEVELOPER
             try {
-                const response = await fetch(`https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash-latest:generateContent?key=${apiKey}`, {
+                const response = await fetch(`https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?key=${apiKey}`, {
                     method: 'POST',
                     headers: { 'Content-Type': 'application/json' },
                     body: JSON.stringify({ contents: [{ parts: [{ text: prompt }] }] })
                 });
                 const data = await response.json();
-                
-                if(data.error) {
-                    alert('Error dari Google: ' + data.error.message);
-                    throw new Error(data.error.message);
-                }
-                
                 return data.candidates[0].content.parts[0].text;
             } catch (err) {
-                alert('Gagal menghubungi AI. Pastikan API Key benar dan internet stabil.');
+                alert('Gagal menghubungi AI. Periksa kembali API Key Anda.');
                 console.error(err);
                 throw err;
             }
