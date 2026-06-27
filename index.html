@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Ebook Master Maker 5.0 - Pro Edition</title>
+    <title>Ebook Master Maker 5.0 - Pro Edition by Koh Ojiek</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
@@ -39,17 +39,17 @@
         </div>
     </div>
 
-    <!-- MAIN INTERFACE (Disembunyikan sebelum login berhasil) -->
+    <!-- MAIN INTERFACE -->
     <div id="mainAppInterface" class="w-full opacity-0 pointer-events-none transition-opacity duration-500 flex flex-col justify-between flex-grow">
         
-        <!-- Header -->
+        <!-- Header (SUDAH DITAMBAHKAN BRANDING BY KOH OJIEK) -->
         <header class="max-w-7xl w-full mx-auto mb-6 flex flex-col sm:flex-row justify-between items-center gap-4 pb-4 border-b border-gray-800">
             <div class="flex items-center gap-3">
                 <div class="bg-gradient-to-tr from-indigo-600 to-pink-500 p-2.5 rounded-xl shadow-lg shadow-indigo-500/20">
                     <i class="fa-solid fa-book-open-reader text-2xl text-white"></i>
                 </div>
                 <div>
-                    <h1 class="text-xl font-bold tracking-tight">Ebook Master Maker <span class="text-xs font-semibold px-2 py-0.5 bg-indigo-500/20 text-indigo-400 rounded-md border border-indigo-500/30">PRO v5.0</span></h1>
+                    <h1 class="text-xl font-bold tracking-tight">Ebook Master Maker <span class="text-xs font-semibold px-2 py-0.5 bg-indigo-500/20 text-indigo-400 rounded-md border border-indigo-500/30">PRO v5.0</span> <span class="text-gray-400 font-medium text-sm block sm:inline sm:ml-1">by. Koh Ojiek</span></h1>
                     <p class="text-xs text-gray-400">Professional Sales & Academic Book Generator</p>
                 </div>
             </div>
@@ -148,12 +148,12 @@
         </main>
 
         <footer class="max-w-7xl w-full mx-auto mt-6 text-center text-xs text-gray-600 border-t border-gray-900 pt-4">
-            &copy; 2026 Ebook Master Maker Pro. Hak Cipta Dilindungi.
+            &copy; 2026 Ebook Master Maker Pro by Koh Ojiek. Hak Cipta Dilindungi.
         </footer>
     </div>
 
     <script>
-        // KAMU BISA MENGUBAH PASSWORD AKSESNYA DI SINI
+        // MASIH MENGGUNAKAN PASSWORD AMAN YANG SAMA
         const MASTER_PASSWORD = "PRODUKDIGITALKOHOJIEK"; 
 
         function checkGatePassword() {
@@ -163,7 +163,6 @@
             const mainApp = document.getElementById('mainAppInterface');
 
             if (inputVal === MASTER_PASSWORD) {
-                // Sembunyikan gerbang login dan tampilkan dashboard utama aplikasi
                 gateway.classList.add('hidden');
                 mainApp.classList.remove('opacity-0', 'pointer-events-none');
                 errorText.classList.add('hidden');
@@ -172,7 +171,6 @@
             }
         }
 
-        // Jalankan login otomatis jika user menekan tombol Enter di kotak input password
         document.getElementById('gatePassword')?.addEventListener('keypress', function (e) {
             if (e.key === 'Enter') checkGatePassword();
         });
