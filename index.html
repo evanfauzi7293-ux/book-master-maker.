@@ -3,216 +3,272 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Ebook Master Maker Pro - Dashboard MVP</title>
+    <title>Ebook Master Maker 5.0 - Pro Edition</title>
     <script src="https://cdn.tailwindcss.com"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700&display=swap');
+        body { font-family: 'Plus Jakarta Sans', sans-serif; background-color: #0b0f19; color: #f3f4f6; }
+        .pro-card { background: rgba(17, 24, 39, 0.7); backdrop-filter: blur(12px); border: 1px solid rgba(255, 255, 255, 0.08); }
+        .gradient-text { background: linear-gradient(135deg, #6366f1 0%, #a855f7 50%, #ec4899 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+        .custom-scrollbar::-webkit-scrollbar { width: 6px; }
+        .custom-scrollbar::-webkit-scrollbar-track { background: rgba(0,0,0,0.1); }
+        .custom-scrollbar::-webkit-scrollbar-thumb { background: rgba(99, 102, 241, 0.3); border-radius: 4px; }
+        .custom-scrollbar::-webkit-scrollbar-thumb:hover { background: rgba(99, 102, 241, 0.5); }
+    </style>
 </head>
-<body class="bg-gray-900 text-gray-100 min-h-screen font-sans">
+<body class="min-h-screen p-4 md:p-8 flex flex-col justify-between">
 
-    <!-- TOP BAR -->
-    <header class="border-b border-gray-800 bg-gray-950 p-4 sticky top-0 z-50">
-        <div class="max-w-6xl mx-auto flex justify-between items-center">
-            <div class="flex items-center gap-3">
-                <div class="bg-indigo-600 p-2 rounded-lg font-bold text-white tracking-wider">EMM</div>
-                <h1 class="text-xl font-bold bg-gradient-to-r from-indigo-400 to-purple-400 bg-clip-text text-transparent">Ebook Master Maker 5.0 <span class="text-xs text-gray-500 font-normal">MVP Business Edition</span></h1>
+    <!-- Header -->
+    <header class="max-w-7xl w-full mx-auto mb-6 flex flex-col sm:flex-row justify-between items-center gap-4 pb-4 border-b border-gray-800">
+        <div class="flex items-center gap-3">
+            <div class="bg-gradient-to-tr from-indigo-600 to-pink-500 p-2.5 rounded-xl shadow-lg shadow-indigo-500/20">
+                <i class="fa-solid fa-book-open-reader text-2xl text-white"></i>
             </div>
+            <div>
+                <h1 class="text-xl font-bold tracking-tight">Ebook Master Maker <span class="text-xs font-semibold px-2 py-0.5 bg-indigo-500/20 text-indigo-400 rounded-md border border-indigo-500/30">PRO v5.0</span></h1>
+                <p class="text-xs text-gray-400">Professional Sales & Academic Book Generator</p>
+            </div>
+        </div>
+        <div class="flex items-center gap-2 bg-gray-900/80 px-4 py-2 rounded-xl border border-gray-800">
+            <input type="checkbox" id="demoMode" checked class="w-4 h-4 text-indigo-600 border-gray-700 rounded bg-gray-800 focus:ring-indigo-500">
+            <label for="demoMode" class="text-xs font-semibold text-green-400 cursor-pointer flex items-center gap-1.5">
+                <span class="w-2 h-2 rounded-full bg-green-400 animate-pulse"></span> GUNAKAN MODE DEMO
+            </label>
         </div>
     </header>
 
-    <main class="max-w-6xl mx-auto p-4 md:p-8 grid grid-cols-1 lg:grid-cols-3 gap-8">
+    <!-- Main Content -->
+    <main class="max-w-7xl w-full mx-auto grid grid-cols-1 lg:grid-cols-12 gap-6 items-start flex-grow">
         
-        <!-- LEFT PANEL: CONFIGURATION -->
-        <section class="bg-gray-950 p-6 rounded-2xl border border-gray-800 h-fit space-y-6">
-            <h2 class="text-lg font-semibold border-b border-gray-800 pb-2 text-indigo-400">1. Konfigurasi Ebook</h2>
-            
-            <div class="space-y-4">
-                <div class="bg-gray-900 p-3 rounded-xl border border-emerald-800/50">
-                    <label class="flex items-center gap-3 text-sm font-semibold text-emerald-400 cursor-pointer">
-                        <input type="checkbox" id="demoMode" checked class="w-5 h-5 rounded accent-emerald-500">
-                        🟢 GUNAKAN MODE DEMO
-                    </label>
-                    <p class="text-[11px] text-gray-500 mt-1">Centang ini agar aplikasi bisa dicoba GRATIS tanpa API Key.</p>
-                </div>
+        <!-- Left Panel: Input -->
+        <section class="lg:col-span-4 pro-card p-6 rounded-2xl shadow-xl flex flex-col gap-4">
+            <h2 class="text-sm font-bold tracking-wider text-gray-400 uppercase mb-2 flex items-center gap-2">
+                <i class="fa-solid fa-sliders text-indigo-400"></i> Konfigurasi Buku
+            </h2>
 
-                <div>
-                    <label class="block text-xs font-medium text-gray-400 mb-1">API KEY GEMINI</label>
-                    <input type="password" id="apiKey" placeholder="AIzaSy... (Kosongkan jika Demo Aktif)" class="w-full bg-gray-900 border border-gray-700 rounded-xl px-4 py-2.5 text-sm focus:outline-none focus:border-indigo-500 transition-all text-white">
-                </div>
+            <div>
+                <label class="block text-xs font-medium text-gray-400 mb-1.5">API KEY GEMINI (Opsional)</label>
+                <input type="password" id="apiKey" placeholder="AIzaSy..." class="w-full bg-gray-950/50 border border-gray-800 rounded-xl px-3.5 py-2 text-sm focus:outline-none focus:border-indigo-500 text-gray-300">
+            </div>
 
-                <div>
-                    <label class="block text-xs font-medium text-gray-400 mb-1">JUDUL / TOPIK EBOOK</label>
-                    <input type="text" id="ebookTitle" placeholder="Contoh: Rahasia Jualan Laris di TikTok" class="w-full bg-gray-900 border border-gray-700 rounded-xl px-4 py-2.5 text-sm focus:outline-none focus:border-indigo-500 transition-all text-white">
-                </div>
+            <div>
+                <label class="block text-xs font-medium text-gray-400 mb-1.5">JUDUL / TOPIK UTAMA EBOOK</label>
+                <input type="text" id="bookTitle" placeholder="Contoh: Strategi Affiliate Tingkat Tinggi di TikTok" class="w-full bg-gray-950/50 border border-gray-800 rounded-xl px-3.5 py-2 text-sm focus:outline-none focus:border-indigo-500 text-gray-200 font-medium">
+            </div>
 
-                <div>
-                    <label class="block text-xs font-medium text-gray-400 mb-1">TARGET AUDIENS</label>
-                    <input type="text" id="ebookAudience" placeholder="Contoh: Pemula, Ibu Rumah Tangga, Afiliator" class="w-full bg-gray-900 border border-gray-700 rounded-xl px-4 py-2.5 text-sm focus:outline-none focus:border-indigo-500 transition-all text-white">
-                </div>
+            <div>
+                <label class="block text-xs font-medium text-gray-400 mb-1.5">TARGET AUDIENS / PEMBACA</label>
+                <input type="text" id="targetAudience" placeholder="Contoh: Pemula, Ibu Rumah Tangga, Seller Konten" class="w-full bg-gray-950/50 border border-gray-800 rounded-xl px-3.5 py-2 text-sm focus:outline-none focus:border-indigo-500 text-gray-300">
+            </div>
 
+            <div class="grid grid-cols-2 gap-3">
                 <div>
-                    <label class="block text-xs font-medium text-gray-400 mb-1">JUMLAH BAB</label>
-                    <select id="ebookChapters" class="w-full bg-gray-900 border border-gray-700 rounded-xl px-4 py-2.5 text-sm focus:outline-none focus:border-indigo-500 transition-all text-white">
-                        <option value="3">3 Bab (Pendek)</option>
-                        <option value="5" selected>5 Bab (Standar)</option>
+                    <label class="block text-xs font-medium text-gray-400 mb-1.5">JUMLAH BAB INTI</label>
+                    <select id="totalChapters" class="w-full bg-gray-950/50 border border-gray-800 rounded-xl px-3.5 py-2 text-sm focus:outline-none focus:border-indigo-500 text-gray-300">
+                        <option value="3">3 Bab Inti</option>
+                        <option value="5" selected>5 Bab Inti</option>
+                        <option value="7">7 Bab Inti</option>
+                        <option value="10">10 Bab Inti</option>
                     </select>
                 </div>
-
-                <button onclick="generateOutline()" id="btnOutline" class="w-full bg-indigo-600 hover:bg-indigo-500 text-white font-medium py-3 rounded-xl transition-all text-sm shadow-lg shadow-indigo-900/30">
-                    🪄 Buat Outline Buku Otomatis
-                </button>
+                <div>
+                    <label class="block text-xs font-medium text-gray-400 mb-1.5">NADA BICARA (TONE)</label>
+                    <select id="bookTone" class="w-full bg-gray-950/50 border border-gray-800 rounded-xl px-3.5 py-2 text-sm focus:outline-none focus:border-indigo-500 text-gray-300">
+                        <option value="Persuasif & Hipnotik" selected>Persuasif & Hipnotik</option>
+                        <option value="Edukatif & Formal">Edukatif / Formal</option>
+                        <option value="Santai & Emosional">Santai / Storytelling</option>
+                    </select>
+                </div>
             </div>
+
+            <button onclick="generateOutline()" id="btnOutline" class="w-full mt-2 bg-gradient-to-r from-indigo-600 via-purple-600 to-pink-600 hover:from-indigo-500 hover:to-pink-500 text-white font-semibold py-2.5 px-4 rounded-xl text-sm transition shadow-lg shadow-indigo-600/10 flex items-center justify-center gap-2">
+                <i class="fa-solid fa-diagram-project"></i> 1. Susun Struktur & Outline
+            </button>
         </section>
 
-        <!-- RIGHT PANEL: PREVIEW & GENERATION (2 COLS) -->
-        <section class="lg:col-span-2 space-y-6">
+        <!-- Right Panel: Workspace -->
+        <section class="lg:col-span-8 grid grid-cols-1 gap-6">
             
-            <!-- OUTLINE GENERATION CARD -->
-            <div class="bg-gray-950 p-6 rounded-2xl border border-gray-800 space-y-4">
-                <h2 class="text-lg font-semibold text-indigo-400 flex justify-between items-center">
-                    <span>2. Struktur & Outline Ebook</span>
-                    <span id="statusOutline" class="text-xs font-normal text-gray-500">Menunggu Input...</span>
-                </h2>
-                <div id="outlineContainer" class="bg-gray-900 border border-gray-800 rounded-xl p-4 min-h-[100px] text-sm text-gray-400 whitespace-pre-wrap leading-relaxed">
-                    Struktur daftar isi yang dihasilkan oleh AI akan muncul di sini. Anda bisa meninjau sebelum melanjutkan ke penulisan isi buku.
+            <!-- Outline Result Card -->
+            <div class="pro-card p-6 rounded-2xl shadow-xl flex flex-col">
+                <div class="flex justify-between items-center mb-3">
+                    <h2 class="text-sm font-bold tracking-wider text-gray-400 uppercase flex items-center gap-2">
+                        <i class="fa-solid fa-list-check text-purple-400"></i> 2. Struktur & Outline Professional
+                    </h2>
+                    <span id="outlineStatus" class="text-xs text-gray-500 italic">Menunggu input...</span>
                 </div>
-                <button onclick="generateContent()" id="btnContent" disabled class="w-full bg-purple-700 hover:bg-purple-600 disabled:bg-gray-800 disabled:text-gray-600 disabled:cursor-not-allowed text-white font-medium py-3 rounded-xl transition-all text-sm shadow-lg">
-                    ✍️ Mulai Tulis Seluruh Isi Ebook
+                <div id="outlineContainer" class="bg-gray-950/40 border border-gray-900 rounded-xl p-4 min-h-[120px] text-sm text-gray-400 custom-scrollbar max-h-[220px] overflow-y-auto">
+                    Struktur outline otomatis (Pendahuluan, Latar Belakang, Bab Pilihan, dan Kesimpulan) akan muncul di sini setelah Anda menekan tombol susun outline.
+                </div>
+                <button onclick="generateFullBook()" id="btnWriteBook" disabled class="w-full mt-4 bg-gray-800 text-gray-500 font-semibold py-2.5 px-4 rounded-xl text-sm transition flex items-center justify-center gap-2 cursor-not-allowed">
+                    <i class="fa-solid fa-pen-nib"></i> 2. Tulis & Generate Seluruh Isi Ebook
                 </button>
             </div>
 
-            <!-- FINAL PRODUCT CARD -->
-            <div class="bg-gray-950 p-6 rounded-2xl border border-gray-800 space-y-4">
-                <h2 class="text-lg font-semibold text-purple-400 flex justify-between items-center">
-                    <span>3. Pratinjau Dokumen & Unduh</span>
-                    <span id="statusContent" class="text-xs font-normal text-gray-500">Belum Diproses</span>
-                </h2>
-                <div id="contentContainer" class="bg-gray-900 border border-gray-800 rounded-xl p-4 min-h-[200px] text-sm text-gray-400 overflow-y-auto max-h-[400px] whitespace-pre-wrap leading-relaxed">
-                    Konten lengkap buku per bab akan dimunculkan di halaman pratinjau ini...
+            <!-- Content Preview Card -->
+            <div class="pro-card p-6 rounded-2xl shadow-xl flex flex-col">
+                <div class="flex justify-between items-center mb-3">
+                    <h2 class="text-sm font-bold tracking-wider text-gray-400 uppercase flex items-center gap-2">
+                        <i class="fa-solid fa-file-lines text-pink-400"></i> 3. Pratinjau Dokumen Premium
+                    </h2>
+                    <button onclick="copyContent()" id="btnCopy" disabled class="text-xs bg-gray-800 text-gray-400 px-3 py-1 rounded-md hover:bg-gray-700 transition flex items-center gap-1">
+                        <i class="fa-solid fa-copy"></i> Salin Teks
+                    </button>
                 </div>
-                <button onclick="downloadPDF()" id="btnDownload" disabled class="w-full bg-emerald-600 hover:bg-emerald-500 disabled:bg-gray-800 disabled:text-gray-600 disabled:cursor-not-allowed text-white font-medium py-3 rounded-xl transition-all text-sm shadow-lg">
-                    📥 Download File PDF Ebook
-                </button>
+                <div id="previewContainer" class="bg-gray-950/60 border border-gray-900 rounded-xl p-5 min-h-[250px] max-h-[450px] overflow-y-auto text-sm text-gray-300 leading-relaxed custom-scrollbar whitespace-pre-line">
+                    Konten naskah buku lengkap siap pakai akan diproduksi dan dimuat di layar pratinjau ini...
+                </div>
             </div>
 
         </section>
     </main>
 
+    <!-- Footer -->
+    <footer class="max-w-7xl w-full mx-auto mt-6 text-center text-xs text-gray-600 border-t border-gray-900 pt-4">
+        &copy; 2026 Ebook Master Maker Pro. Hak Cipta Dilindungi. Dikembangkan Khusus untuk Hasil Kinerja Tinggi.
+    </footer>
+
+    <!-- Logic Script -->
     <script>
-        let generatedOutline = "";
-        let generatedBookText = "";
+        let generatedOutlineData = null;
+
+        async function callGemini(prompt) {
+            const isDemo = document.getElementById('demoMode').checked;
+            if (isDemo) {
+                return new Promise((resolve) => {
+                    setTimeout(() => {
+                        resolve(getDemoResponse(prompt));
+                    }, 1500);
+                });
+            }
+
+            const apiKey = document.getElementById('apiKey').value;
+            if (!apiKey) {
+                alert('Silakan masukkan API Key Gemini Anda atau aktifkan MODE DEMO!');
+                throw new Error('API Key Kosong');
+            }
+
+            try {
+                const response = await fetch(`https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?key=${apiKey}`, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ contents: [{ parts: [{ text: prompt }] }] })
+                });
+                const data = await response.json();
+                return data.candidates[0].content.parts[0].text;
+            } catch (err) {
+                alert('Gagal menghubungi AI. Periksa koneksi internet atau API Key Anda.');
+                console.error(err);
+                throw err;
+            }
+        }
 
         async function generateOutline() {
-            const isDemo = document.getElementById('demoMode').checked;
-            const apiKey = document.getElementById('apiKey').value.trim();
-            const title = document.getElementById('ebookTitle').value.trim() || "Rahasia Sukses Bisnis Digital";
-            const audience = document.getElementById('ebookAudience').value.trim() || "Pemula";
+            const title = document.getElementById('bookTitle').value || "Rahasia Sukses Bisnis Digital";
+            const audience = document.getElementById('targetAudience').value || "Masyarakat Umum";
+            const chapters = document.getElementById('totalChapters').value;
+            const tone = document.getElementById('bookTone').value;
 
-            if (!isDemo && !apiKey) {
-                alert("⚠️ Harap masukkan Gemini API Key atau aktifkan Mode Demo!");
-                return;
-            }
+            const btn = document.getElementById('btnOutline');
+            const status = document.getElementById('outlineStatus');
+            const container = document.getElementById('outlineContainer');
 
-            document.getElementById('statusOutline').innerText = "Sedang memproses...";
-            document.getElementById('btnOutline').disabled = true;
+            btn.disabled = true;
+            btn.innerHTML = `<i class="fa-solid fa-spinner animate-spin"></i> Menyusun Struktur Data...`;
+            status.innerText = "Menganalisis topik...";
+            container.innerHTML = `<div class="flex items-center gap-2 text-indigo-400"><i class="fa-solid fa-circle-notch animate-spin"></i> Menghasilkan Struktur: Pendahuluan, Latar Belakang, ${chapters} Bab Inti, dan Kesimpulan...</div>`;
 
-            if (isDemo) {
-                await new Promise(resolve => setTimeout(resolve, 1500));
-                generatedOutline = `DAFTAR ISI EBOOK: ${title.toUpperCase()}\nTarget Pembaca: ${audience}\n\nBAB 1: Fondasi Penting Mengapa Banyak Orang Gagal di Awal\nBAB 2: Pola Pikir & Hook Psikologis yang Menarik Pembeli\nBAB 3: Langkah Demi Langkah Strategi Eksekusi Tanpa Modal\nBAB 4: Studi Kasus Sukses Menghasilkan Omset Jutaan Rupiah\nBAB 5: Kesimpulan dan Langkah Nyata yang Harus Anda Lakukan Hari Ini`;
+            const prompt = `Buatlah outline struktur buku profesional berskala penuh berdasarkan data berikut:
+            Judul: ${title}
+            Target Audiens: ${audience}
+            Jumlah Bab Inti: ${chapters}
+            Nada Tulisan: ${tone}
+            
+            Outline WAJIB memiliki susunan hierarki berikut dan format keluaran harus rapi menggunakan penomoran biasa:
+            - Halaman Pendahuluan
+            - Latar Belakang Masalah & Urgensi
+            - Daftar Bab Inti (Total harus ada ${chapters} Bab berbeda dengan sub-bab detail)
+            - Kesimpulan & Penutup`;
+
+            try {
+                const result = await callGemini(prompt);
+                generatedOutlineData = result;
+                container.innerHTML = result.replace(/\n/g, '<br>');
+                status.innerText = "Struktur Pro Siap!";
                 
-                document.getElementById('outlineContainer').innerText = generatedOutline;
-                document.getElementById('statusOutline').innerText = "Selesai (Mode Demo) ✨";
-                document.getElementById('btnContent').disabled = false;
-                document.getElementById('btnOutline').disabled = false;
-            } else {
-                const prompt = `Buat struktur outline daftar isi untuk ebook berjudul "${title}" untuk audiens: "${audience}". Berikan output langsung berupa daftar isi tanpa basa-basi.`;
-                try {
-                    const response = await fetch(`https://generativelanguage.googleapis.com/v1beta/models/gemini-pro:generateContent?key=${apiKey}`, {
-                        method: 'POST',
-                        headers: { 'Content-Type': 'application/json' },
-                        body: JSON.stringify({ contents: [{ parts: [{ text: prompt }] }] })
-                    });
-                    const data = await response.json();
-                    generatedOutline = data.candidates[0].content.parts[0].text;
-                    document.getElementById('outlineContainer').innerText = generatedOutline;
-                    document.getElementById('statusOutline').innerText = "Selesai! ✨";
-                    document.getElementById('btnContent').disabled = false;
-                } catch (error) {
-                    alert("Gagal menghubungi AI. Silakan gunakan Mode Demo saja.");
-                } finally {
-                    document.getElementById('btnOutline').disabled = false;
-                }
+                // Activate next button
+                const writeBtn = document.getElementById('btnWriteBook');
+                writeBtn.disabled = false;
+                writeBtn.className = "w-full mt-4 bg-gradient-to-r from-emerald-600 to-teal-600 hover:from-emerald-500 hover:to-teal-500 text-white font-semibold py-2.5 px-4 rounded-xl text-sm transition shadow-lg shadow-emerald-600/10 flex items-center justify-center gap-2 cursor-pointer";
+            } catch (e) {
+                status.innerText = "Gagal membuat outline.";
+                container.innerText = "Terjadi kesalahan. Silakan coba lagi.";
+            } finally {
+                btn.disabled = false;
+                btn.innerHTML = `<i class="fa-solid fa-diagram-project"></i> 1. Susun Struktur & Outline`;
             }
         }
 
-        async function generateContent() {
-            const isDemo = document.getElementById('demoMode').checked;
-            const apiKey = document.getElementById('apiKey').value.trim();
-            const title = document.getElementById('ebookTitle').value || "Rahasia Sukses Bisnis Digital";
-            
-            document.getElementById('statusContent').innerText = "AI sedang menulis konten...";
-            document.getElementById('btnContent').disabled = true;
+        async function generateFullBook() {
+            if (!generatedOutlineData) return;
 
-            if (isDemo) {
-                await new Promise(resolve => setTimeout(resolve, 2000));
-                generatedBookText = `=== EBOOK: ${title.toUpperCase()} ===\n\n` +
-                    `BAB 1: FONDASI PENTING MENGAPA BANYAK ORANG GAGAL DI AWAL\n` +
-                    `Banyak pemula gagal karena mereka berfokus pada produk, bukan pada masalah yang dihadapi audiens. Untuk memenangkan pasar, Anda harus tahu persis apa yang dicari oleh calon pembeli Anda...\n\n` +
-                    `BAB 2: POLA PIKIR & HOOK PSIKOLOGIS YANG MENARIK PEMBELI\n` +
-                    `Gunakan kata-kata penawaran yang emosional. Manusia membeli berdasarkan emosi, kemudian membenarkannya dengan logika. Buat penawaran yang sulit mereka tolak...\n\n` +
-                    `BAB 3: LANGKAH DEMI LANGKAH STRATEGI EKSEKUSI\n` +
-                    `Mulailah memproduksi konten video berdurasi pendek secara konsisten. Fokus pada resolusi vertikal 9:16 dan berikan 3 detik pertama yang mematikan (magnetic hook)...\n\n` +
-                    `*Catatan: Ini adalah teks simulasi Mode Demo Aplikasi Ebook Generator Anda.*`;
+            const title = document.getElementById('bookTitle').value || "Rahasia Sukses Bisnis Digital";
+            const tone = document.getElementById('bookTone').value;
+            
+            const btn = document.getElementById('btnWriteBook');
+            const preview = document.getElementById('previewContainer');
+
+            btn.disabled = true;
+            btn.innerHTML = `<i class="fa-solid fa-spinner animate-spin"></i> AI Sedang Menulis Buku Lengkap...`;
+            preview.innerHTML = `<div class="flex flex-col gap-2 text-purple-400">
+                <div class="flex items-center gap-2"><i class="fa-solid fa-floppy-disk animate-bounce"></i> Menulis Bagian Pembuka: Pendahuluan & Latar Belakang...</div>
+                <div class="w-full bg-gray-900 rounded-full h-1.5 mt-2 overflow-hidden">
+                    <div class="bg-gradient-to-r from-indigo-500 to-pink-500 h-1.5 rounded-full animate-[pulse_1s_infinite]" style="width: 40%"></div>
+                </div>
+            </div>`;
+
+            const prompt = `Bertindaklah sebagai Penulis Buku Profesional dan Pakar Copywriting Penjualan. Tuliskan isi dokumen naskah buku utuh dan mendalam secara dramatis berdasarkan struktur outline berikut:\n\n${generatedOutlineData}\n\nKetentuan Penulisan:
+            1. Tuliskan isi narasi secara lengkap per bagian mulai dari Halaman PENDAHULUAN, LATAR BELAKANG MASALAH, seluruh isi BAB INTI beserta sub-babnya, hingga bagian KESIMPULAN & PENUTUP.
+            2. Gunakan gaya bahasa ${tone}.
+            3. Berikan penekanan emosional atau data logis yang membuat pembaca merasa buku ini sangat bernilai tinggi. Jangan dipotong atau disingkat.`;
+
+            try {
+                const finalBook = await callGemini(prompt);
+                preview.innerText = finalBook;
                 
-                document.getElementById('contentContainer').innerText = generatedBookText;
-                document.getElementById('statusContent').innerText = "Selesai Dibuat (Demo)!";
-                document.getElementById('btnDownload').disabled = false;
-                document.getElementById('btnContent').disabled = false;
-            } else {
-                const prompt = `Berdasarkan judul "${title}" and outline berikut:\n${generatedOutline}\n\n Tuliskan seluruh isi konten buku secara lengkap bab demi bab.`;
-                try {
-                    const response = await fetch(`https://generativelanguage.googleapis.com/v1beta/models/gemini-pro:generateContent?key=${apiKey}`, {
-                        method: 'POST',
-                        headers: { 'Content-Type': 'application/json' },
-                        body: JSON.stringify({ contents: [{ parts: [{ text: prompt }] }] })
-                    });
-                    const data = await response.json();
-                    generatedBookText = data.candidates[0].content.parts[0].text;
-                    document.getElementById('contentContainer').innerText = generatedBookText;
-                    document.getElementById('statusContent').innerText = "Buku Selesai!";
-                    document.getElementById('btnDownload').disabled = false;
-                } catch (error) {
-                    alert("Gagal membuat konten.");
-                } finally {
-                    document.getElementById('btnContent').disabled = false;
-                }
+                // Enable copy button
+                const copyBtn = document.getElementById('btnCopy');
+                copyBtn.disabled = false;
+                copyBtn.className = "text-xs bg-indigo-600 text-white px-3 py-1 rounded-md hover:bg-indigo-500 transition flex items-center gap-1";
+            } catch (e) {
+                preview.innerText = "Gagal memproses penulisan buku otomatis.";
+            } finally {
+                btn.disabled = false;
+                btn.innerHTML = `<i class="fa-solid fa-pen-nib"></i> 2. Tulis & Generate Seluruh Isi Ebook`;
             }
         }
 
-        function downloadPDF() {
-            const { jsPDF } = window.jspdf;
-            const doc = new jsPDF();
-            const title = document.getElementById('ebookTitle').value || "Ebook_Master";
+        function copyContent() {
+            const text = document.getElementById('previewContainer').innerText;
+            navigator.clipboard.writeText(text).then(() => {
+                alert('Seluruh isi naskah Ebook Profesional berhasil disalin ke clipboard Mac Anda!');
+            });
+        }
+
+        function getDemoResponse(prompt) {
+            const title = document.getElementById('bookTitle').value || "Rahasia Jualan Laris";
+            const chapters = document.getElementById('totalChapters').value;
             
-            doc.setFont("headline", "bold");
-            doc.setFontSize(22);
-            doc.text(title, 20, 30);
-            
-            doc.setFont("body", "normal");
-            doc.setFontSize(12);
-            
-            const splitText = doc.splitTextToSize(generatedBookText, 170);
-            let y = 50;
-            
-            for (let i = 0; i < splitText.length; i++) {
-                if (y > 280) {
-                    doc.addPage();
-                    y = 20;
+            if (prompt.includes("Outline WAJIB memiliki susunan")) {
+                let chapterList = "";
+                for(let i=1; i<=chapters; i++) {
+                    chapterList += `\nBAB 0${i}: Fondasi Eksekusi Tingkat Tinggi Bagian ${i}\n   - Sub-Bab A: Analisis Data Lapangan\n   - Sub-Bab B: Implementasi Hook & Copywriting Magnetik`;
                 }
-                doc.text(splitText[i], 20, y);
-                y += 7;
+                return `[STRUKTUR OUTLINE PROFESIONAL: ${title.toUpperCase()}]\n\nHAMAN PENDAHULUAN\n   - Prakata Penulis & Visi Buku\n\nLATAR BELAKANG MASALAH & URGENSI\n   - Mengapa 90% Orang Gagal di Industri Ini\n   - Titik Balik Menuju Solusi Nyata\n${chapterList}\n\nKESIMPULAN & PENUTUP\n   - Rangkuman Cetak Biru (Blueprint) Sukses\n   - Langkah Aksi Pertama Anda (Call to Action)`;
+            } else {
+                return `====================================================\n             ${title.toUpperCase()} - PRO EDITION\n====================================================\n\nHALAMAN PENDAHULUAN\nBuku ini ditulis bukan hanya sebagai teori kosmetik, melainkan sebuah panduan taktis untuk merombak strategi Anda menuju hasil nyata...\n\nLATAR BELAKANG MASALAH\nBanyak yang terjebak pada proses yang melelahkan tanpa memahami formula hasil akhir. Realita pasar bergerak konstan dan menuntut efisiensi...\n\n[PROSES GENERATE SELESAI]\nSeluruh isi dari ${chapters} Bab Inti beserta Halaman Kesimpulan dan Penutup telah sukses ditulis dalam format Pro. Silakan salin teks ini untuk dipindahkan ke editor dokumen pilihan Anda!`;
             }
-            
-            doc.save(`${title.toLowerCase().replace(/ /g, "_")}.pdf`);
         }
     </script>
 </body>
