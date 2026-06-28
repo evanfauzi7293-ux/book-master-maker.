@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Ebook Master Maker 5.0 - Pro Edition by Koh Ojiek</title>
+    <title>Ebook Master Maker 5.0 - Pro & License Edition</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
@@ -19,14 +19,14 @@
 </head>
 <body class="min-h-screen p-4 md:p-8 flex flex-col justify-between">
 
-    <!-- GERBANG KEAMANAN OTOMATIS (TERSEMBUNYI DI AWAL, MUNCUL JIKA DEMO DIMATIKAN) -->
+    <!-- GERBANG KEAMANAN DINAMIS -->
     <div id="loginGateway" class="fixed inset-0 z-50 bg-[#0b0f19]/90 backdrop-blur-md flex items-center justify-center p-4 hidden">
         <div class="max-w-md w-full pro-card p-8 rounded-2xl shadow-2xl text-center border border-indigo-500/20">
             <div class="bg-gradient-to-tr from-indigo-600 to-pink-500 p-3.5 rounded-2xl w-14 h-14 mx-auto mb-4 flex items-center justify-center shadow-lg shadow-indigo-500/20">
                 <i class="fa-solid fa-lock text-2xl text-white"></i>
             </div>
-            <h2 class="text-xl font-bold tracking-tight mb-1">Akses Mode Profesional Terkunci</h2>
-            <p class="text-xs text-gray-400 mb-6">Silakan masukkan Password Lisensi Premium untuk mengaktifkan fitur pencarian AI asli.</p>
+            <h2 class="text-xl font-bold tracking-tight mb-1">Akses Mode Premium</h2>
+            <p class="text-xs text-gray-400 mb-6">Silakan masukkan Password Lisensi untuk membuka fitur AI profesional.</p>
             
             <div class="mb-4">
                 <input type="password" id="gatePassword" placeholder="Masukkan password premium..." class="w-full bg-gray-950/80 border border-gray-800 rounded-xl px-4 py-3 text-sm focus:outline-none focus:border-indigo-500 text-center text-gray-200 tracking-widest font-bold">
@@ -44,7 +44,7 @@
         </div>
     </div>
 
-    <!-- MAIN INTERFACE (Bisa langsung diakses siapa saja sejak awal) -->
+    <!-- MAIN INTERFACE -->
     <div id="mainAppInterface" class="w-full transition-opacity duration-500 flex flex-col justify-between flex-grow">
         
         <!-- Header -->
@@ -54,8 +54,8 @@
                     <i class="fa-solid fa-book-open-reader text-2xl text-white"></i>
                 </div>
                 <div>
-                    <h1 class="text-xl font-bold tracking-tight">Ebook Master Maker <span class="text-xs font-semibold px-2 py-0.5 bg-indigo-500/20 text-indigo-400 rounded-md border border-indigo-500/30">PRO v5.0</span> <span class="text-gray-400 font-medium text-sm block sm:inline sm:ml-1">by. Koh Ojiek</span></h1>
-                    <p class="text-xs text-gray-400">Professional Sales & Academic Book Generator</p>
+                    <h1 class="text-xl font-bold tracking-tight">Ebook Master Maker <span class="text-xs font-semibold px-2 py-0.5 bg-indigo-500/20 text-indigo-400 rounded-md border border-indigo-500/30">PRO v5.0</span> <span id="brandingName" class="text-gray-400 font-medium text-sm block sm:inline sm:ml-1">by. Koh Ojiek</span></h1>
+                    <p class="text-xs text-gray-400">Professional Sales & Academic Book Generator (PLR Rights Active)</p>
                 </div>
             </div>
             <div class="flex items-center gap-2 bg-gray-900/80 px-4 py-2 rounded-xl border border-gray-800">
@@ -81,12 +81,12 @@
 
                 <div>
                     <label class="block text-xs font-medium text-gray-400 mb-1.5">JUDUL / TOPIK UTAMA EBOOK</label>
-                    <input type="text" id="bookTitle" placeholder="Contoh: Strategi Affiliate Tingkat Tinggi di TikTok" class="w-full bg-gray-950/50 border border-gray-800 rounded-xl px-3.5 py-2 text-sm focus:outline-none focus:border-indigo-500 text-gray-200 font-medium">
+                    <input type="text" id="bookTitle" placeholder="Contoh: Strategi Affiliate" class="w-full bg-gray-950/50 border border-gray-800 rounded-xl px-3.5 py-2 text-sm focus:outline-none focus:border-indigo-500 text-gray-200 font-medium">
                 </div>
 
                 <div>
                     <label class="block text-xs font-medium text-gray-400 mb-1.5">TARGET AUDIENS / PEMBACA</label>
-                    <input type="text" id="targetAudience" placeholder="Contoh: Pemula, Ibu Rumah Tangga, Seller Konten" class="w-full bg-gray-950/50 border border-gray-800 rounded-xl px-3.5 py-2 text-sm focus:outline-none focus:border-indigo-500 text-gray-300">
+                    <input type="text" id="targetAudience" placeholder="Contoh: Pemula, Seller Konten" class="w-full bg-gray-950/50 border border-gray-800 rounded-xl px-3.5 py-2 text-sm focus:outline-none focus:border-indigo-500 text-gray-300">
                 </div>
 
                 <div class="grid grid-cols-2 gap-3">
@@ -109,9 +109,8 @@
                     </div>
                 </div>
 
-                <!-- KOTAK ESTIMASI TOTAL HALAMAN YANG DIMINTA USER -->
                 <div>
-                    <label class="block text-xs font-medium text-gray-400 mb-1.5">ESTIMASI PANJANG EBOOK (MAX 500 HALAMAN)</label>
+                    <label class="block text-xs font-medium text-gray-400 mb-1.5">ESTIMASI PANJANG EBOOK</label>
                     <select id="targetPages" class="w-full bg-gray-950/50 border border-gray-800 rounded-xl px-3.5 py-2 text-sm focus:outline-none focus:border-indigo-500 text-indigo-400 font-bold">
                         <option value="10 Halaman">10 Halaman</option>
                         <option value="20 Halaman" selected>20 Halaman</option>
@@ -126,6 +125,20 @@
                 <button onclick="generateOutline()" id="btnOutline" class="w-full mt-2 bg-gradient-to-r from-indigo-600 via-purple-600 to-pink-600 hover:from-indigo-500 hover:to-pink-500 text-white font-semibold py-2.5 px-4 rounded-xl text-sm transition shadow-lg shadow-indigo-600/10 flex items-center justify-center gap-2">
                     <i class="fa-solid fa-diagram-project"></i> 1. Susun Struktur & Outline
                 </button>
+
+                <!-- PANEL LISENSI PENGEMBANG (UNTUK GANTI PASSWORD & NAMA BRAND SECARA MANDIRI) -->
+                <div class="mt-4 pt-4 border-t border-gray-800/60">
+                    <h3 class="text-xs font-bold text-pink-400 tracking-wider uppercase mb-2 flex items-center gap-1.5">
+                        <i class="fa-solid fa-gear"></i> Pengaturan Hak Lisensi
+                    </h3>
+                    <div class="flex flex-col gap-2">
+                        <input type="text" id="customBrandInput" placeholder="Ubah Nama Pemilik (ex: by. Budi)" class="w-full bg-gray-950/30 border border-gray-900 rounded-lg px-2.5 py-1.5 text-xs text-gray-300 focus:outline-none focus:border-pink-500">
+                        <input type="text" id="customPassInput" placeholder="Ubah Password Akses Baru" class="w-full bg-gray-950/30 border border-gray-900 rounded-lg px-2.5 py-1.5 text-xs text-gray-300 focus:outline-none focus:border-pink-500">
+                        <button onclick="saveLicenseSettings()" class="w-full bg-gray-900 hover:bg-pink-900/20 text-pink-400 border border-pink-500/20 py-1.5 px-3 rounded-lg text-xs font-semibold transition">
+                            Simpan Pengaturan Lisensi
+                        </button>
+                    </div>
+                </div>
             </section>
 
             <!-- Right Panel -->
@@ -167,25 +180,50 @@
         </main>
 
         <footer class="max-w-7xl w-full mx-auto mt-6 text-center text-xs text-gray-600 border-t border-gray-900 pt-4">
-            &copy; 2026 Ebook Master Maker Pro by Koh Ojiek. Hak Cipta Dilindungi.
+            &copy; 2026 Ebook Master Maker Pro. Hak Cipta Dilindungi.
         </footer>
     </div>
 
     <script>
-        const MASTER_PASSWORD = "PRODUKDIGITALKOHOJIEK";
+        // Sistem Penyimpanan Lokal Mandiri agar pembeli bisa bebas ganti password masing-masing
+        let currentPassword = localStorage.getItem('master_pass') || "PRODUKDIGITALKOHOJIEK";
         let isProUnlocked = false;
 
-        // Fungsi mendeteksi pergantian centang Demo/Pro
+        // Inisialisasi Nama Brand saat web dibuka
+        window.onload = function() {
+            const savedBrand = localStorage.getItem('custom_brand');
+            if(savedBrand) {
+                document.getElementById('brandingName').innerText = savedBrand;
+                document.getElementById('customBrandInput').value = savedBrand;
+            }
+            document.getElementById('customPassInput').value = currentPassword;
+        }
+
+        // Fungsi menyimpan konfigurasi lisensi baru ke memori browser lokal pembeli
+        function saveLicenseSettings() {
+            const brandVal = document.getElementById('customBrandInput').value.trim();
+            const passVal = document.getElementById('customPassInput').value.trim();
+
+            if(brandVal) {
+                localStorage.setItem('custom_brand', brandVal);
+                document.getElementById('brandingName').innerText = brandVal;
+            }
+            if(passVal) {
+                localStorage.setItem('master_pass', passVal);
+                currentPassword = passVal;
+            }
+            alert('Konfigurasi Hak Lisensi Berhasil Disimpan! Sekarang software ini berjalan dengan pengaturan khusus milik Anda.');
+        }
+
         function handleModeChange() {
             const demoCheckbox = document.getElementById('demoMode');
             const gateway = document.getElementById('loginGateway');
             const apiKeyBox = document.getElementById('apiKeyContainer');
 
             if (!demoCheckbox.checked) {
-                // Jika user mencoba mematikan mode demo tapi belum buka kunci password
                 if (!isProUnlocked) {
-                    demoCheckbox.checked = true; // Paksa tetap tercentang demo
-                    gateway.classList.remove('hidden'); // Munculkan pop-up minta password
+                    demoCheckbox.checked = true;
+                    gateway.classList.remove('hidden');
                     document.getElementById('gatePassword').focus();
                 } else {
                     apiKeyBox.classList.remove('hidden');
@@ -202,13 +240,13 @@
             const demoCheckbox = document.getElementById('demoMode');
             const apiKeyBox = document.getElementById('apiKeyContainer');
 
-            if (inputVal === MASTER_PASSWORD) {
+            if (inputVal === currentPassword) {
                 isProUnlocked = true;
                 gateway.classList.add('hidden');
-                demoCheckbox.checked = false; // Buka centang mode demo secara otomatis
-                apiKeyBox.classList.remove('hidden'); // Tampilkan kolom input API Key
+                demoCheckbox.checked = false;
+                apiKeyBox.classList.remove('hidden');
                 errorText.classList.add('hidden');
-                alert('Akses Premium Berhasil Terbuka! Silakan masukkan API Key Gemini Anda.');
+                alert('Akses Premium Berhasil Terbuka!');
             } else {
                 errorText.classList.remove('hidden');
             }
@@ -216,7 +254,7 @@
 
         function cancelProMode() {
             document.getElementById('loginGateway').classList.add('hidden');
-            document.getElementById('loginError').add('hidden');
+            document.getElementById('loginError').classList.add('hidden');
             document.getElementById('demoMode').checked = true;
         }
 
@@ -236,7 +274,7 @@
 
             const apiKey = document.getElementById('apiKey').value.trim();
             if (!apiKey) {
-                alert('Silakan masukkan API Key Gemini Anda untuk menjalankan Mode Pro!');
+                alert('Silakan masukkan API Key Gemini Anda!');
                 throw new Error('API Key Kosong');
             }
 
@@ -249,7 +287,7 @@
                 const data = await response.json();
                 return data.candidates[0].content.parts[0].text;
             } catch (err) {
-                alert('Gagal menghubungi AI. Periksa kembali validitas API Key Anda.');
+                alert('Gagal menghubungi AI. Periksa kembali API Key Anda.');
                 console.error(err);
                 throw err;
             }
