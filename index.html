@@ -26,7 +26,7 @@
             <div class="flex items-center justify-between border-b border-gray-800 pb-3">
                 <div>
                     <h1 class="text-lg font-bold bg-gradient-to-r from-indigo-400 to-pink-500 bg-clip-text text-transparent">Ebook Master Maker</h1>
-                    <p class="text-[10px] text-gray-400">v5.3 Pro Edition by Koh Ojiek</p>
+                    <p class="text-[10px] text-gray-400">v5.4 Engine Analyzer by Koh Ojiek</p>
                 </div>
                 <span id="statusBadge" class="text-[10px] bg-emerald-500/10 text-emerald-400 border border-emerald-500/20 px-2.5 py-1 rounded-full font-medium">
                     Mode PRO Aktif
@@ -35,9 +35,9 @@
 
             <!-- INPUT API KEY -->
             <div class="space-y-1.5">
-                <label class="text-xs text-gray-400 block font-medium">Gemini API Key (Mendukung Format AQ. & AIza)</label>
+                <label class="text-xs text-gray-400 block font-medium">Gemini API Key</label>
                 <div class="relative">
-                    <input type="password" id="apiKey" placeholder="Tempel kode AQ. atau AIza Anda di sini..." class="w-full bg-gray-900/50 border border-gray-800 rounded-xl pl-4 pr-10 py-2.5 text-xs focus:outline-none focus:border-indigo-500 text-white">
+                    <input type="password" id="apiKey" placeholder="Tempel kode AQ. Anda di sini..." class="w-full bg-gray-900/50 border border-gray-800 rounded-xl pl-4 pr-10 py-2.5 text-xs focus:outline-none focus:border-indigo-500 text-white">
                     <button type="button" onclick="toggleVisibility('apiKey')" class="absolute right-3 top-2.5 text-gray-500 hover:text-gray-300">
                         <i class="fa-solid fa-eye text-xs"></i>
                     </button>
@@ -48,17 +48,17 @@
             <div class="space-y-3">
                 <div class="space-y-1.5">
                     <label class="text-xs text-gray-400 block font-medium">Judul Ebook</label>
-                    <input type="text" id="bookTitle" placeholder="Contoh: Panduan Sukses PPPK Guru Honorer..." class="w-full bg-gray-900/50 border border-gray-800 rounded-xl px-4 py-2.5 text-xs focus:outline-none focus:border-indigo-500 text-white">
+                    <input type="text" id="bookTitle" placeholder="Contoh: Panduan Sukses..." class="w-full bg-gray-900/50 border border-gray-800 rounded-xl px-4 py-2.5 text-xs focus:outline-none focus:border-indigo-500 text-white">
                 </div>
 
                 <div class="grid grid-cols-2 gap-3">
                     <div class="space-y-1.5">
                         <label class="text-xs text-gray-400 block font-medium">Target Pembaca</label>
-                        <input type="text" id="targetAudience" placeholder="Contoh: Guru, Karyawan..." class="w-full bg-gray-900/50 border border-gray-800 rounded-xl px-3 py-2.5 text-xs focus:outline-none focus:border-indigo-500 text-white">
+                        <input type="text" id="targetAudience" placeholder="Contoh: Pemula..." class="w-full bg-gray-900/50 border border-gray-800 rounded-xl px-3 py-2.5 text-xs focus:outline-none focus:border-indigo-500 text-white">
                     </div>
                     <div class="space-y-1.5">
-                        <label class="text-xs text-gray-400 block font-medium">Target Halaman (Max 500)</label>
-                        <input type="number" id="targetPages" value="20" min="5" max="500" class="w-full bg-gray-900/50 border border-gray-800 rounded-xl px-3 py-2.5 text-xs focus:outline-none focus:border-indigo-500 text-center text-white">
+                        <label class="text-xs text-gray-400 block font-medium">Target Halaman</label>
+                        <input type="number" id="targetPages" value="5" min="5" max="500" class="w-full bg-gray-900/50 border border-gray-800 rounded-xl px-3 py-2.5 text-xs focus:outline-none focus:border-indigo-500 text-center text-white">
                     </div>
                 </div>
             </div>
@@ -83,17 +83,17 @@
                 </button>
             </div>
             <div id="workspaceOutput" class="flex-1 overflow-y-auto custom-scrollbar text-xs text-gray-400 bg-gray-950/40 border border-gray-900 rounded-xl p-4 font-mono space-y-2 leading-relaxed">
-                [Sistem v5.3 Siap] Masukkan Kunci API dan Judul Buku untuk memulai menulis naskah penuh otomatis...
+                [Sistem Analisis v5.4] Masukkan Kunci API AQ Anda lalu klik tombol di kiri untuk mendiagnosis jalur komunikasi Google AI...
             </div>
         </div>
     </main>
 
     <!-- FOOTER LICENSE -->
     <footer class="text-center text-[10px] text-gray-600 mt-8">
-        &copy; 2026 Ebook Master Maker PRO v5.3. Hak Cipta Dilindungi. Dikembangkan oleh Koh Ojiek Jambi.
+        &copy; 2026 Ebook Master Maker PRO v5.4. Hak Cipta Dilindungi. Dikembangkan oleh Koh Ojiek Jambi.
     </footer>
 
-    <!-- JAVASCRIPT SYSTEM CONTROLLER (UPDATED FOR AQ. FORMAT COMPATIBILITY) -->
+    <!-- JAVASCRIPT DETECTOR ERROR DARI GOOGLE -->
     <script>
         function toggleVisibility(id) {
             const input = document.getElementById(id);
@@ -107,99 +107,89 @@
             const audience = document.getElementById("targetAudience").value;
             const output = document.getElementById("workspaceOutput");
 
-            if (!apiKey) {
-                alert("Masukkan API Key Gemini Anda terlebih dahulu!");
-                return;
-            }
-            if (!title) {
-                alert("Judul Ebook tidak boleh kosong!");
-                return;
-            }
+            if (!apiKey) { alert("Masukkan API Key!"); return; }
+            if (!title) { alert("Judul wajib diisi!"); return; }
 
-            output.innerHTML = "<span class='text-indigo-400 animate-pulse'>[System] Sedang merumuskan struktur bab dan outline buku dengan AI... Mohon tunggu...</span>";
+            output.innerHTML = "<span class='text-indigo-400 animate-pulse'>[System] Sedang menembak data ke Google Studio...</span>";
 
             try {
-                // JALUR OPTIMASI BARU: Membawa API Key langsung pada Endpoint URL utama
-                const response = await fetch(`https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?key=${apiKey}`, {
+                // Menggunakan endpoint universal v1beta dengan key url parameter
+                const url = `https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?key=${apiKey}`;
+                
+                const response = await fetch(url, {
                     method: "POST",
-                    headers: { 
-                        "Content-Type": "application/json"
-                    },
+                    headers: { "Content-Type": "application/json" },
                     body: JSON.stringify({
-                        contents: [{ parts: [{ text: `Buatkan outline struktur bab buku yang sangat mendalam dan profesional untuk judul: "${title}" dengan target pembaca: "${audience}". Tulis dalam Bahasa Indonesia.` }] }]
+                        contents: [{ parts: [{ text: `Buatkan outline bab buku untuk judul: "${title}" dengan target pembaca: "${audience}". Tulis dalam Bahasa Indonesia.` }] }]
                     })
                 });
 
                 const data = await response.json();
+                
+                // JIKA ERROR, TAMPILKAN PESAN ASLI DARI GOOGLE
+                if (data.error) {
+                    output.innerHTML = `<span class='text-red-400'>[Respon Error Google]:<br>Code: ${data.error.code}<br>Status: ${data.error.status}<br>Pesan: ${data.error.message}</span>`;
+                    return;
+                }
+
                 if (data.candidates && data.candidates[0].content.parts[0].text) {
                     output.innerText = data.candidates[0].content.parts[0].text;
                 } else {
-                    output.innerText = "[Error] Autentikasi Kunci Gagal. Silakan buat ulang Kunci API Anda di Google AI Studio atau periksa koneksi internet.";
+                    output.innerText = "[Sistem Gagal Parsing] Respon Google tidak sesuai format standard. Silakan screenshot halaman ini.";
                 }
             } catch (err) {
-                output.innerText = "[Error Koneksi] Gagal terhubung ke server Google. Silakan coba kembali.";
+                output.innerText = "[Gagal Fetch] Terjadi hambatan koneksi browser ke server Google: " + err.message;
             }
         }
 
         async function generateFullBook() {
+            // Replikasi fungsi outline untuk tombol tulis penuh
             const apiKeyInput = document.getElementById("apiKey").value;
             const apiKey = apiKeyInput.trim(); 
             const title = document.getElementById("bookTitle").value;
-            const pages = document.getElementById("targetPages").value;
             const output = document.getElementById("workspaceOutput");
 
-            if (!apiKey) {
-                alert("API Key wajib diisi!");
-                return;
-            }
+            if (!apiKey) { alert("API Key wajib diisi!"); return; }
 
-            output.innerHTML = `<span class='text-emerald-400 animate-pulse'>[AI Writing] Memulai otomatis penulisan draf buku penuh untuk target ${pages} halaman... Naskah mendalam sedang dirakit...</span>`;
+            output.innerHTML = "<span class='text-emerald-400 animate-pulse'>[AI Writing] Meminta data teks massal ke Google...</span>";
 
             try {
-                // JALUR OPTIMASI BARU: Menggunakan model 1.5 Flash terbaru + URL Parameter Key agar Kunci AQ lolos
-                const response = await fetch(`https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?key=${apiKey}`, {
+                const url = `https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?key=${apiKey}`;
+                const response = await fetch(url, {
                     method: "POST",
-                    headers: { 
-                        "Content-Type": "application/json"
-                    },
+                    headers: { "Content-Type": "application/json" },
                     body: JSON.stringify({
-                        contents: [{ parts: [{ text: `Bertindaklah sebagai penulis buku profesional. Tuliskan naskah isi buku yang lengkap, detail, panjang, dan komprehensif tanpa terputus untuk judul "${title}". Hasilkan konten naratif penuh dari bab awal hingga kesimpulan. Tulis dalam Bahasa Indonesia.` }] }]
+                        contents: [{ parts: [{ text: `Tuliskan naskah lengkap bab buku untuk judul "${title}". Tulis dalam Bahasa Indonesia.` }] }]
                     })
                 });
 
                 const data = await response.json();
+                if (data.error) {
+                    output.innerHTML = `<span class='text-red-400'>[Respon Error Google]:<br>Code: ${data.error.code}<br>Status: ${data.error.status}<br>Pesan: ${data.error.message}</span>`;
+                    return;
+                }
                 if (data.candidates && data.candidates[0].content.parts[0].text) {
                     output.innerText = data.candidates[0].content.parts[0].text;
-                } else {
-                    output.innerText = "[Error] Server Google menolak permintaan penulisan massal halaman. Silakan periksa status Kunci API Anda.";
                 }
             } catch (err) {
-                output.innerText = "[Error] Gagal memproses draf draf buku penuh. Silakan coba beberapa saat lagi.";
+                output.innerText = "[Gagal Fetch]: " + err.message;
             }
         }
 
         function downloadAsPDF() {
             const outputText = document.getElementById("workspaceOutput").innerText;
             const title = document.getElementById("bookTitle").value || "Ebook_Draft";
-            
             const { jsPDF } = window.jspdf;
             const doc = new jsPDF();
-            
             doc.setFont("Helvetica", "normal");
             doc.setFontSize(11);
-            
             const splitText = doc.splitTextToSize(outputText, 180);
             let y = 20;
-            
             splitText.forEach(line => {
-                if (y > 280) {
-                    doc.addPage();
-                    y = 20;
-                }
+                if (y > 280) { doc.addPage(); y = 20; }
                 doc.text(line, 15, y);
                 y += 6;
             });
-            
             doc.save(`${title.replace(/\s+/g, '_')}.pdf`);
         }
     </script>
