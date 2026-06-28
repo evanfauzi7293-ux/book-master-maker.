@@ -26,7 +26,7 @@
             <div class="flex items-center justify-between border-b border-gray-800 pb-3">
                 <div>
                     <h1 class="text-lg font-bold bg-gradient-to-r from-indigo-400 to-pink-500 bg-clip-text text-transparent">Ebook Master Maker</h1>
-                    <p class="text-[10px] text-gray-400">v5.5 Pro Edition by Koh Ojiek</p>
+                    <p class="text-[10px] text-gray-400">v5.6 Engine Stable by Koh Ojiek</p>
                 </div>
                 <span id="statusBadge" class="text-[10px] bg-emerald-500/10 text-emerald-400 border border-emerald-500/20 px-2.5 py-1 rounded-full font-medium">
                     Mode PRO Aktif
@@ -83,17 +83,17 @@
                 </button>
             </div>
             <div id="workspaceOutput" class="flex-1 overflow-y-auto custom-scrollbar text-xs text-gray-400 bg-gray-950/40 border border-gray-900 rounded-xl p-4 font-mono space-y-2 leading-relaxed">
-                [Sistem Aktif v5.5] Masukkan Kunci API AQ Anda lalu klik tombol susun struktur untuk memulai...
+                [Sistem v5.6] Masukkan Kunci API AQ Anda lalu klik tombol untuk memulai naskah...
             </div>
         </div>
     </main>
 
     <!-- FOOTER LICENSE -->
     <footer class="text-center text-[10px] text-gray-600 mt-8">
-        &copy; 2026 Ebook Master Maker PRO v5.5. Hak Cipta Dilindungi. Dikembangkan oleh Koh Ojiek Jambi.
+        &copy; 2026 Ebook Master Maker PRO v5.6. Hak Cipta Dilindungi. Dikembangkan oleh Koh Ojiek Jambi.
     </footer>
 
-    <!-- JAVASCRIPT SYSTEM CONTROLLER FIX MODEL -->
+    <!-- JAVASCRIPT SYSTEM CONTROLLER STABLE V1 -->
     <script>
         function toggleVisibility(id) {
             const input = document.getElementById(id);
@@ -110,11 +110,11 @@
             if (!apiKey) { alert("Masukkan API Key!"); return; }
             if (!title) { alert("Judul wajib diisi!"); return; }
 
-            output.innerHTML = "<span class='text-indigo-400 animate-pulse'>[System] Sedang merumuskan outline bab buku dengan Google AI...</span>";
+            output.innerHTML = "<span class='text-indigo-400 animate-pulse'>[System] Sedang merumuskan outline bab buku dengan Google AI v1...</span>";
 
             try {
-                // MODEL DIKEMBALIKAN KE gemini-pro AGAR SESUAI DENGAN API VERSION v1beta
-                const url = `https://generativelanguage.googleapis.com/v1beta/models/gemini-pro:generateContent?key=${apiKey}`;
+                // UPDATE: Menggunakan Jalur Utama v1 dan Model gemini-1.5-pro-latest agar kompatibel dengan kunci AQ
+                const url = `https://generativelanguage.googleapis.com/v1/models/gemini-1.5-pro-latest:generateContent?key=${apiKey}`;
                 
                 const response = await fetch(url, {
                     method: "POST",
@@ -134,7 +134,7 @@
                 if (data.candidates && data.candidates[0].content.parts[0].text) {
                     output.innerText = data.candidates[0].content.parts[0].text;
                 } else {
-                    output.innerText = "[Error] Gagal membaca teks balasan dari Google.";
+                    output.innerText = "[Error] Gagal membaca data teks dari Google.";
                 }
             } catch (err) {
                 output.innerText = "[Error Koneksi]: " + err.message;
@@ -149,10 +149,10 @@
 
             if (!apiKey) { alert("API Key wajib diisi!"); return; }
 
-            output.innerHTML = "<span class='text-emerald-400 animate-pulse'>[AI Writing] AI sedang menulis naskah buku penuh secara mendalam... Mohon tunggu beberapa saat...</span>";
+            output.innerHTML = "<span class='text-emerald-400 animate-pulse'>[AI Writing] AI sedang menulis naskah buku penuh secara mendalam...</span>";
 
             try {
-                const url = `https://generativelanguage.googleapis.com/v1beta/models/gemini-pro:generateContent?key=${apiKey}`;
+                const url = `https://generativelanguage.googleapis.com/v1/models/gemini-1.5-pro-latest:generateContent?key=${apiKey}`;
                 const response = await fetch(url, {
                     method: "POST",
                     headers: { "Content-Type": "application/json" },
@@ -172,23 +172,6 @@
             } catch (err) {
                 output.innerText = "[Error Koneksi]: " + err.message;
             }
-        }
-
-        function downloadAsPDF() {
-            const outputText = document.getElementById("workspaceOutput").innerText;
-            const title = document.getElementById("bookTitle").value || "Ebook_Draft";
-            const { jsPDF } = window.jspdf;
-            const doc = new jsPDF();
-            doc.setFont("Helvetica", "normal");
-            doc.setFontSize(11);
-            const splitText = doc.splitTextToSize(outputText, 180);
-            let y = 20;
-            splitText.forEach(line => {
-                if (y > 280) { doc.addPage(); y = 20; }
-                doc.text(line, 15, y);
-                y += 6;
-            });
-            doc.save(`${title.replace(/\s+/g, '_')}.pdf`);
         }
     </script>
 </body>
