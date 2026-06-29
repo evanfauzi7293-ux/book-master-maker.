@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Kids Worksheet Generator PRO v2.0</title>
+    <title>Kids Worksheet Creator ULTRA ULTIMATE v3.0</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
@@ -12,121 +12,115 @@
         body { font-family: 'Plus Jakarta Sans', sans-serif; background-color: #0b0f19; color: #f3f4f6; }
         .pro-card { background: rgba(17, 24, 39, 0.7); backdrop-filter: blur(12px); border: 1px solid rgba(255, 255, 255, 0.08); }
         .font-trace { font-family: 'Courier New', Courier, monospace; letter-spacing: 6px; font-weight: bold; text-transform: uppercase; }
+        .custom-scrollbar::-webkit-scrollbar { width: 5px; }
+        .custom-scrollbar::-webkit-scrollbar-track { background: rgba(0, 0, 0, 0.05); }
+        .custom-scrollbar::-webkit-scrollbar-thumb { background: rgba(245, 158, 11, 0.2); border-radius: 4px; }
     </style>
 </head>
-<body class="min-h-screen p-4 md:p-8 flex flex-col justify-between">
+<body class="min-h-screen p-4 md:p-6 flex flex-col justify-between">
 
-    <!-- MAIN DASHBOARD -->
-    <main class="max-w-6xl w-full mx-auto grid grid-cols-1 lg:grid-cols-12 gap-6 items-start mt-4">
-        <!-- PANEL KONTROL KIRI (PRO CONFIG) -->
-        <div class="lg:col-span-5 pro-card p-6 rounded-2xl space-y-4">
+    <main class="max-w-6xl w-full mx-auto grid grid-cols-1 lg:grid-cols-12 gap-6 items-start mt-2">
+        <div class="lg:col-span-5 pro-card p-5 rounded-2xl space-y-4">
             <div class="flex items-center justify-between border-b border-gray-800 pb-3">
                 <div>
-                    <h1 class="text-lg font-bold bg-gradient-to-r from-amber-400 via-orange-500 to-pink-500 bg-clip-text text-transparent">Worksheet Generator PRO</h1>
-                    <p class="text-[10px] text-gray-400">v2.0 Pro Commercial by Koh Ojiek</p>
+                    <h1 class="text-md font-bold bg-gradient-to-r from-amber-400 via-emerald-400 to-indigo-500 bg-clip-text text-transparent uppercase tracking-wider">Worksheet Ultra Ultimate</h1>
+                    <p class="text-[10px] text-gray-400">v3.0 Multi-Activity Engine by Koh Ojiek</p>
                 </div>
-                <span class="text-[10px] bg-amber-500/10 text-amber-400 border border-amber-500/20 px-2.5 py-1 rounded-full font-medium shadow-sm">
-                    Premium Active
+                <span class="text-[9px] bg-gradient-to-r from-amber-500 to-orange-600 text-white px-2 py-0.5 rounded-full font-bold shadow-sm">
+                    MEGA BUNDLE
                 </span>
             </div>
 
-            <!-- KODE LISENSI -->
             <div class="space-y-1">
-                <label class="text-xs text-gray-400 block font-medium">Kode Akses Lisensi Pembeli</label>
-                <input type="password" id="licenseKey" placeholder="Masukkan kode akses premium..." class="w-full bg-gray-900/50 border border-gray-800 rounded-xl px-4 py-2 text-xs focus:outline-none focus:border-amber-500 text-white">
+                <label class="text-[11px] text-gray-400 block font-medium">Kode Akses Lisensi Pembeli</label>
+                <input type="password" id="licenseKey" placeholder="Masukkan kode lisensi produk digital..." class="w-full bg-gray-900/50 border border-gray-800 rounded-xl px-4 py-2 text-xs focus:outline-none focus:border-amber-500 text-white">
             </div>
 
-            <!-- PILIHAN AKTIVITAS -->
             <div class="space-y-1">
-                <label class="text-xs text-gray-400 block font-medium">Pilih Mode Aktivitas Belajar</label>
+                <label class="text-[11px] text-gray-400 block font-medium">Pilih Aktivitas Belajar Anak</label>
                 <select id="workMode" onchange="toggleInputs(); updateLivePreview();" class="w-full bg-gray-900 border border-gray-800 rounded-xl px-3 py-2 text-xs focus:outline-none focus:border-amber-500 text-white font-medium">
                     <option value="tracing">✍️ Mode 1: Menebalkan Huruf Nama Sendiri</option>
-                    <option value="math">🧮 Mode 2: Belajar Berhitung Berpola Gambar</option>
+                    <option value="math">🧮 Mode 2: Belajar Berhitung Visual (Gambar)</option>
+                    <option value="numbers">🔢 Mode 3: Menebalkan Angka Dasar (1 - 20)</option>
+                    <option value="addition">➕ Mode 4: Latihan Penjumlahan Matematika Kreatif</option>
                 </select>
             </div>
 
-            <!-- DATA INPUT DINAMIS -->
-            <div class="space-y-3 bg-gray-950/40 p-4 border border-gray-900 rounded-xl">
-                <!-- Input Khusus Tracing -->
-                <div id="inputTracingGroup" class="space-y-1.5">
-                    <label class="text-xs text-gray-400 block font-medium">Nama Anak (Maksal 12 Huruf)</label>
-                    <input type="text" id="childName" maxlength="12" placeholder="Contoh: EVAN, ALDO, RAYA..." class="w-full bg-gray-900 border border-gray-800 rounded-xl px-4 py-2 text-xs focus:outline-none focus:border-amber-500 text-white uppercase font-bold tracking-wider" oninput="updateLivePreview()">
+            <div class="space-y-3 bg-gray-950/40 p-3.5 border border-gray-900 rounded-xl">
+                <div id="inputTracingGroup" class="space-y-1">
+                    <label class="text-[11px] text-gray-400 block font-medium">Nama Anak (Maksal 12 Huruf)</label>
+                    <input type="text" id="childName" maxlength="12" placeholder="Contoh: EVAN, RAYA, CLARA..." class="w-full bg-gray-900 border border-gray-800 rounded-xl px-4 py-2 text-xs focus:outline-none focus:border-amber-500 text-white uppercase font-bold tracking-wider" oninput="updateLivePreview()">
                 </div>
 
-                <!-- Input Khusus Math -->
-                <div id="inputMathGroup" class="space-y-1.5 hidden">
-                    <label class="text-xs text-gray-400 block font-medium">Pilih Karakter Gambar Berhitung</label>
-                    <select id="mathIcon" onchange="updateLivePreview()" class="w-full bg-gray-900 border border-gray-800 rounded-xl px-3 py-2 text-xs focus:outline-none focus:border-amber-500 text-white">
-                        <option value="⭐">Bintang Lucu (⭐)</option>
-                        <option value="🍎">Apel Segar (🍎)</option>
+                <div id="inputMathGroup" class="space-y-1 hidden">
+                    <label class="text-[11px] text-gray-400 block font-medium">Pilih Karakter Gambar Edukatif</label>
+                    <select id="mathIcon" onchange="updateLivePreview()" class="w-full bg-gray-900 border border-gray-800 rounded-xl px-3 py-2 text-xs focus:outline-none focus:border-amber-500 text-white font-medium">
+                        <option value="⭐">Bintang Ceria (⭐)</option>
+                        <option value="🍎">Apel Merah (🍎)</option>
                         <option value="🍭">Permen Manis (🍭)</option>
                         <option value="🚗">Mobil Kecil (🚗)</option>
+                        <option value="🐱">Kucing Lucu (🐱)</option>
+                        <option value="🎈">Balon Warna (🎈)</option>
+                        <option value="🐼">Panda Gembrot (🐼)</option>
+                        <option value="👑">Mahkota Raja (👑)</option>
                     </select>
                 </div>
 
-                <div class="space-y-1.5">
-                    <label class="text-xs text-gray-400 block font-medium">Instruksi Lembar Kerja</label>
+                <div class="space-y-1">
+                    <label class="text-[11px] text-gray-400 block font-medium">Teks Instruksi / Perintah Soal</label>
                     <input type="text" id="instructionText" value="Yuk, belajar menebalkan namamu sendiri dengan rapi!" class="w-full bg-gray-900 border border-gray-800 rounded-xl px-4 py-2 text-xs focus:outline-none focus:border-amber-500 text-white" oninput="updateLivePreview()">
                 </div>
             </div>
 
-            <!-- PILIHAN TEMA WARNA -->
             <div class="space-y-1.5">
-                <label class="text-xs text-gray-400 block font-medium">Pilih Tema Warna Cetak PDF</label>
-                <div class="grid grid-cols-3 gap-2">
-                    <button type="button" onclick="setTheme('amber', '#f59e0b', '#d97706')" class="bg-amber-500/10 hover:bg-amber-500/20 text-amber-400 border border-amber-500/30 text-[11px] font-bold py-1.5 px-2 rounded-xl transition">💛 Amber Gold</button>
-                    <button type="button" onclick="setTheme('blue', '#3b82f6', '#1d4ed8')" class="bg-blue-500/10 hover:bg-blue-500/20 text-blue-400 border border-blue-500/30 text-[11px] font-bold py-1.5 px-2 rounded-xl transition">💙 Soft Blue</button>
-                    <button type="button" onclick="setTheme('pink', '#ec4899', '#be185d')" class="bg-pink-500/10 hover:bg-pink-500/20 text-pink-400 border border-pink-500/30 text-[11px] font-bold py-1.5 px-2 rounded-xl transition">💗 Cute Pink</button>
+                <label class="text-[11px] text-gray-400 block font-medium">Pilih Variasi Tema Warna Desain PDF</label>
+                <div class="grid grid-cols-2 gap-2">
+                    <button type="button" onclick="setTheme('amber', '#f59e0b', '#d97706')" class="bg-amber-500/10 hover:bg-amber-500/20 text-amber-400 border border-amber-500/30 text-[10px] font-bold py-1.5 px-2 rounded-xl transition">💛 Amber Gold</button>
+                    <button type="button" onclick="setTheme('blue', '#3b82f6', '#1d4ed8')" class="bg-blue-500/10 hover:bg-blue-500/20 text-blue-400 border border-blue-500/30 text-[10px] font-bold py-1.5 px-2 rounded-xl transition">💙 Soft Blue</button>
+                    <button type="button" onclick="setTheme('pink', '#ec4899', '#be185d')" class="bg-pink-500/10 hover:bg-pink-500/20 text-pink-400 border border-pink-500/30 text-[10px] font-bold py-1.5 px-2 rounded-xl transition">💗 Cute Pink</button>
+                    <button type="button" onclick="setTheme('green', '#10b981', '#047857')" class="bg-emerald-500/10 hover:bg-emerald-500/20 text-emerald-400 border border-emerald-500/30 text-[10px] font-bold py-1.5 px-2 rounded-xl transition">💚 Mint Green</button>
                 </div>
+                <button type="button" onclick="setTheme('purple', '#8b5cf6', '#6d28d9')" class="w-full bg-purple-500/10 hover:bg-purple-500/20 text-purple-400 border border-purple-500/30 text-[10px] font-bold py-1.5 px-2 rounded-xl transition">💜 Purple Galaxy</button>
             </div>
 
-            <!-- TOMBOL CETAK -->
             <div class="pt-2">
-                <button type="button" onclick="downloadProPDF()" class="w-full bg-gradient-to-r from-orange-500 to-pink-600 hover:from-orange-400 hover:to-pink-500 text-white font-bold py-3 px-4 rounded-xl text-xs transition shadow-lg shadow-pink-600/25 flex items-center justify-center gap-2 tracking-wide">
-                    <i class="fa-solid fa-print text-sm"></i> DOWNLOAD HIGH-RES PDF (A4)
+                <button type="button" onclick="downloadUltimatePDF()" class="w-full bg-gradient-to-r from-amber-500 via-orange-500 to-pink-600 hover:from-amber-400 hover:to-pink-500 text-white font-bold py-3 px-4 rounded-xl text-xs transition shadow-lg shadow-orange-600/25 flex items-center justify-center gap-2 tracking-wide uppercase">
+                    <i class="fa-solid fa-cloud-arrow-down text-sm"></i> Download File Siap Cetak (A4)
                 </button>
             </div>
         </div>
 
-        <!-- PANEL PREVIEW KERTAS (LIVE WORKSPACE) -->
-        <div class="lg:col-span-7 pro-card p-6 rounded-2xl flex flex-col h-[580px]">
-            <div class="flex items-center justify-between border-b border-gray-800 pb-3 mb-3">
-                <h3 class="text-sm font-semibold text-gray-300"><i class="fa-solid fa-wand-magic-sparkles text-amber-400 mr-2"></i>Live Layout Preview (A4)</h3>
-                <div id="themeIndicator" class="text-[10px] bg-amber-500/20 text-amber-300 px-2.5 py-0.5 rounded-md font-mono border border-amber-500/30">Tema: Amber Gold</div>
+        <div class="lg:col-span-7 pro-card p-5 rounded-2xl flex flex-col h-[580px]">
+            <div class="flex items-center justify-between border-b border-gray-800 pb-2 mb-3">
+                <h3 class="text-xs font-semibold text-gray-300"><i class="fa-solid fa-desktop text-amber-400 mr-2"></i>Live Preview Kertas A4</h3>
+                <div id="themeIndicator" class="text-[9px] bg-amber-500/20 text-amber-300 px-2 py-0.5 rounded font-mono border border-amber-500/30">Tema: AMBER</div>
             </div>
             
-            <!-- SIMULASI KERTAS FISIK A4 -->
-            <div class="flex-1 bg-white rounded-xl p-6 text-gray-900 overflow-y-auto border border-gray-300 space-y-4 shadow-inner custom-scrollbar">
-                <!-- Header Atas Lembar Kerja -->
-                <div id="headerBox" class="border-b-4 border-amber-400 pb-3 flex justify-between items-center transition-colors duration-300">
+            <div class="flex-1 bg-white rounded-xl p-5 text-gray-900 overflow-y-auto border border-gray-300 space-y-4 shadow-inner custom-scrollbar">
+                <div id="headerBox" class="border-b-4 border-amber-400 pb-2 flex justify-between items-center transition-all duration-200">
                     <div>
-                        <h2 id="previewTitle" class="text-lg font-black tracking-wide text-amber-600">LEMBAR LATIHAN MENULIS</h2>
-                        <p id="previewInstruction" class="text-[11px] text-gray-600 font-medium italic mt-0.5">Yuk, belajar menebalkan namamu sendiri dengan rapi!</p>
+                        <h2 id="previewTitle" class="text-md font-black tracking-wide text-amber-600">LEMBAR LATIHAN MENULIS</h2>
+                        <p id="previewInstruction" class="text-[10px] text-gray-500 font-medium italic mt-0.5">Yuk, belajar menebalkan namamu sendiri dengan rapi!</p>
                     </div>
-                    <div class="text-[9px] text-gray-400 border border-gray-200 p-1.5 rounded font-mono space-y-0.5 bg-gray-50/50">
-                        <div>Nama: ......................</div>
-                        <div>Nilai: ⭐⭐⭐⭐⭐</div>
+                    <div class="text-[9px] text-gray-400 border border-gray-200 p-1 rounded font-mono bg-gray-50/60 text-center">
+                        <div>Skor Maksimal</div>
+                        <div class="text-amber-500 font-bold">⭐⭐⭐⭐⭐</div>
                     </div>
                 </div>
 
-                <!-- Konten Utama Dinamis Lembar Kerja -->
-                <div class="space-y-4 pt-1" id="previewContainer">
-                    <p class="text-center text-gray-400 text-xs py-14 font-mono">[ Ketik parameter nama/pola untuk simulasi cetak premium ]</p>
-                </div>
+                <div class="space-y-3 pt-1" id="previewContainer">
+                    </div>
             </div>
         </div>
     </main>
 
-    <!-- FOOTER LICENSE -->
-    <footer class="text-center text-[10px] text-gray-600 mt-8">
-        &copy; 2026 Kids Worksheet Maker PRO v2.0. Developed by Koh Ojiek Jambi. All Rights Reserved.
+    <footer class="text-center text-[9px] text-gray-600 mt-4">
+        &copy; 2026 Kids Worksheet Generator Ultra Ultimate v3.0. Powered by Koh Ojiek Jambi.
     </footer>
 
-    <!-- INTERAKTIF ENGINE ENGINE PRO v2.0 -->
     <script>
         const DAFTAR_LISENSI_VALID = ["MASTERPRO2026", "CUANMAKSIMAL", "OJIEKCREATIVE"];
         
-        // State Konfigurasi Warna Default
         let activeThemeName = "amber";
         let activePrimaryColor = "#f59e0b";
         let activeSecondaryColor = "#d97706";
@@ -139,10 +133,18 @@
                 document.getElementById("inputTracingGroup").classList.remove("hidden");
                 document.getElementById("inputMathGroup").classList.add("hidden");
                 instInput.value = "Yuk, belajar menebalkan namamu sendiri dengan rapi!";
-            } else {
+            } else if (mode === "math") {
                 document.getElementById("inputTracingGroup").classList.add("hidden");
                 document.getElementById("inputMathGroup").classList.remove("hidden");
                 instInput.value = "Hitunglah berapa jumlah gambar di bawah ini dan tulis angkanya!";
+            } else if (mode === "numbers") {
+                document.getElementById("inputTracingGroup").classList.add("hidden");
+                document.getElementById("inputMathGroup").classList.add("hidden");
+                instInput.value = "Ayo belajar menebalkan angka dasar 1 sampai 10 di bawah ini!";
+            } else if (mode === "addition") {
+                document.getElementById("inputTracingGroup").classList.add("hidden");
+                document.getElementById("inputMathGroup").classList.add("hidden");
+                instInput.value = "Selesaikan soal penjumlahan di bawah ini dengan menghitung totalnya!";
             }
         }
 
@@ -151,7 +153,6 @@
             activePrimaryColor = hex1;
             activeSecondaryColor = hex2;
             
-            // Update Tampilan Preview Sementara
             const indicator = document.getElementById("themeIndicator");
             const headerBox = document.getElementById("headerBox");
             const titleText = document.getElementById("previewTitle");
@@ -171,41 +172,68 @@
             const container = document.getElementById("previewContainer");
             const titleText = document.getElementById("previewTitle");
             
-            document.getElementById("previewInstruction").innerText = instruction || "Selesaikan latihan berikut.";
+            document.getElementById("previewInstruction").innerText = instruction || "Kerjakan latihan berikut.";
 
             if (mode === "tracing") {
-                titleText.innerText = "LEMBAR LATIHAN MENULIS";
+                titleText.innerText = "LEMBAR LATIHAN MENULIS NAMA";
                 const childName = document.getElementById("childName").value.trim().toUpperCase();
                 
                 if (!childName) {
-                    container.innerHTML = `<p class="text-center text-gray-400 text-xs py-14 font-mono">[ Masukkan nama anak di panel kiri ]</p>`;
+                    container.innerHTML = `<p class="text-center text-gray-400 text-xs py-16 font-mono">[ Isi nama anak di panel pengaturan kiri ]</p>`;
                     return;
                 }
 
                 let html = "";
                 for (let i = 0; i < 5; i++) {
                     html += `
-                        <div class="border-b border-gray-200 pb-1 pt-2 flex items-center justify-between">
-                            <span class="text-[10px] text-gray-300 font-mono">${i + 1}</span>
-                            <div class="w-full text-center font-trace text-xl text-gray-400 border-b border-dashed border-gray-300 tracking-widest opacity-60">
+                        <div class="border-b border-gray-100 pb-1 pt-2 flex items-center justify-between">
+                            <span class="text-[9px] text-gray-300 font-mono">${i + 1}</span>
+                            <div class="w-full text-center font-trace text-lg text-gray-400 border-b border-dashed border-gray-200 tracking-widest opacity-60">
                                 ${childName}
                             </div>
                         </div>`;
                 }
                 container.innerHTML = html;
-            } else {
-                titleText.innerText = "LEMBAR BELAJAR BERHITUNG";
+
+            } else if (mode === "math") {
+                titleText.innerText = "LEMBAR LATIHAN BERHITUNG";
                 const icon = document.getElementById("mathIcon").value;
-                
-                let html = "<div class='space-y-4'>";
-                // Array Soal Math Berhitung Palsu tapi Menarik untuk Preview
-                const polaSoal = [3, 5, 2, 4];
-                polaSoal.forEach((jumlah, idx) => {
-                    let iconRepeater = String(icon + " ").repeat(jumlah);
+                let html = "<div class='space-y-2'>";
+                const staticCounts = [3, 5, 2, 6];
+                staticCounts.forEach((cnt) => {
                     html += `
                         <div class="flex items-center justify-between border border-gray-100 p-2 rounded-lg bg-gray-50/50">
-                            <div class="text-xl tracking-wider select-none">${iconRepeater}</div>
-                            <div class="w-10 h-10 border-2 border-dashed rounded-lg bg-white flex items-center justify-center font-bold text-gray-300 text-sm" style="border-color:${activePrimaryColor}">?</div>
+                            <div class="text-lg tracking-wider">${String(icon + " ").repeat(cnt)}</div>
+                            <div class="w-8 h-8 border-2 border-dashed rounded bg-white flex items-center justify-center font-bold text-gray-300 text-xs" style="border-color:${activePrimaryColor}">?</div>
+                        </div>`;
+                });
+                html += "</div>";
+                container.innerHTML = html;
+
+            } else if (mode === "numbers") {
+                titleText.innerText = "MALEBAKAN ANGKA DASAR";
+                let html = "<div class='grid grid-cols-2 gap-3'>";
+                for (let i = 1; i <= 6; i++) {
+                    html += `
+                        <div class="border border-gray-100 p-2 rounded-lg flex items-center justify-around bg-gray-50/40">
+                            <span class="text-sm font-black text-gray-400">${i}</span>
+                            <span class="font-trace text-lg text-gray-300 border-b border-dashed border-gray-200 px-4">${i} ${i} ${i}</span>
+                        </div>`;
+                }
+                html += "</div>";
+                container.innerHTML = html;
+
+            } else if (mode === "addition") {
+                titleText.innerText = "LATIHAN PENJUMLAHAN CILIK";
+                let html = "<div class='space-y-2'>";
+                const staticSums = [
+                    {a: 3, b: 2}, {a: 5, b: 4}, {a: 6, b: 1}, {a: 4, b: 4}
+                ];
+                staticSums.forEach((item) => {
+                    html += `
+                        <div class="flex items-center justify-between border border-gray-100 p-2 rounded-lg bg-gray-50/50 font-mono text-sm font-bold tracking-wide px-4">
+                            <div class="text-gray-700">${item.a}  +  ${item.b}  =  ......</div>
+                            <div class="w-8 h-8 border-2 border-dashed rounded bg-white" style="border-color:${activePrimaryColor}"></div>
                         </div>`;
                 });
                 html += "</div>";
@@ -213,59 +241,63 @@
             }
         }
 
-        function downloadProPDF() {
+        function downloadUltimatePDF() {
             const licenseInput = document.getElementById("licenseKey").value.trim();
             const mode = document.getElementById("workMode").value;
-            const instruction = document.getElementById("instructionText").value.trim() || "Selesaikan tugas berikut.";
+            const instruction = document.getElementById("instructionText").value.trim() || "Kerjakan latihan berikut.";
 
-            if (!licenseInput) { alert("Masukkan Kode Lisensi Akses Premium!"); return; }
+            // Validasi Proteksi Jualan
+            if (!licenseInput) { alert("Masukkan Kode Akses Lisensi!"); return; }
             if (!DAFTAR_LISENSI_VALID.includes(licenseInput)) {
-                alert("Lisensi Salah! Silakan hubungi Koh Ojiek Jambi.");
+                alert("Kode Lisensi Tidak Valid / Kedaluwarsa! Silakan hubungi Koh Ojiek.");
                 return;
             }
 
             const { jsPDF } = window.jspdf;
             const doc = new jsPDF({ orientation: "portrait", unit: "mm", format: "a4" });
 
-            // 🌟 GAMBAR DEKORASI HEADER STRIP TEMA
+            // MASTER TOP HEADER STRIP
             doc.setFillColor(activePrimaryColor);
             doc.rect(15, 15, 180, 2.5, "F");
 
-            // Judul PDF Dinamis
+            // Judul Dinamis
             doc.setFont("Helvetica", "bold");
             doc.setFontSize(18);
             doc.setTextColor(activeSecondaryColor);
-            const pdfTitle = mode === "tracing" ? "LEMBAR LATIHAN MENULIS ANAK" : "LEMBAR BELAJAR BERHITUNG BALITA";
-            doc.text(pdfTitle, 15, 25);
+            let titleText = "LEMBAR LATIHAN EDUKASI ANAK";
+            if (mode === "tracing") titleText = "LEMBAR LATIHAN MENULIS NAMA";
+            if (mode === "math") titleText = "LEMBAR LATIHAN BERHITUNG GAMBAR";
+            if (mode === "numbers") titleText = "LEMBAR MENEBALKAN ANGKA DASAR";
+            if (mode === "addition") titleText = "LEMBAR MATEMATIKA: PENJUMLAHAN";
+            doc.text(titleText, 15, 25);
 
             // Instruksi Sub-Header
             doc.setFont("Helvetica", "oblique");
-            doc.setFontSize(10);
+            doc.setFontSize(9);
             doc.setTextColor(80, 80, 80);
             doc.text(instruction, 15, 31);
 
-            // Kotak Skor Nilai Guru / Orang Tua (Estetik)
+            // Kotak Skor Nilai Guru
             doc.setDrawColor(activePrimaryColor);
             doc.setLineWidth(0.4);
-            doc.rect(145, 18, 50, 14);
+            doc.rect(145, 18, 50, 13);
             doc.setFont("Helvetica", "normal");
             doc.setFontSize(8);
-            doc.text("Nilai Orang Tua:", 148, 23);
-            doc.text("⭐ ⭐ ⭐ ⭐ ⭐", 148, 29);
+            doc.text("Nilai Apresiasi:", 148, 22);
+            doc.text("⭐ ⭐ ⭐ ⭐ ⭐", 148, 28);
 
-            // Garis pembatas header hiasan putus-putus
             doc.setDrawColor(210, 210, 210);
             doc.setLineDashPattern([2, 2], 0);
-            doc.line(15, 36, 195, 36);
+            doc.line(15, 35, 195, 35);
 
             // ----------------------------------------------------
-            // PROSES EKSEKUSI FORMAT HALAMAN SESUAI PILIHAN MODE
+            // CORE PROCESSING MODE AKTIVITAS
             // ----------------------------------------------------
             if (mode === "tracing") {
                 const childName = document.getElementById("childName").value.trim().toUpperCase();
-                if (!childName) { alert("Nama anak tidak boleh kosong!"); return; }
+                if (!childName) { alert("Masukkan nama anak terlebih dahulu!"); return; }
 
-                let currentY = 55;
+                let currentY = 54;
                 doc.setFont("Courier", "bold");
                 doc.setFontSize(26);
                 doc.setTextColor(180, 180, 180);
@@ -278,17 +310,14 @@
 
                     doc.text(spacedName, 22, currentY);
 
-                    // Garis bantu menulis putus-putus di tengah baris halus
                     doc.setDrawColor(230, 230, 230);
                     doc.setLineDashPattern([1, 1], 0);
                     doc.line(15, currentY + 1, 195, currentY + 1);
 
-                    // Garis bawah solid pembatas kertas garis tiga
                     doc.setDrawColor(200, 220, 245);
                     doc.setLineDashPattern([], 0);
                     doc.line(15, currentY + 4, 195, currentY + 4);
 
-                    // Ornamen kecil nomor panduan baris anak
                     doc.setFont("Helvetica", "normal");
                     doc.setFontSize(8);
                     doc.text((i + 1).toString(), 11, currentY - 1);
@@ -297,47 +326,108 @@
 
                     currentY += 24;
                 }
-            } else {
-                // LOGIKA GENERATE SOAL MATH BERHITUNG BERPOLA BERWARNA SECARA OTOMATIS
+
+            } else if (mode === "math") {
                 const iconSelected = document.getElementById("mathIcon").value;
-                const soalMathArr = [2, 4, 3, 6, 5, 1]; // Pola jumlah icon per soal baris matematika
-                let mathY = 55;
+                // Pola sebaran soal berhitung
+                const counts = [3, 5, 2, 7, 4, 6, 1, 5];
+                let mathY = 52;
 
                 doc.setFont("Helvetica", "bold");
                 doc.setFontSize(22);
 
-                soalMathArr.forEach((count, index) => {
-                    // Kotak Latihan Soal Berhitung List
-                    doc.setDrawColor(230, 230, 230);
+                counts.forEach((cnt, idx) => {
+                    doc.setDrawColor(235, 235, 235);
                     doc.setLineDashPattern([], 0);
-                    doc.setFillColor(252, 252, 252);
-                    doc.rect(15, mathY - 10, 180, 18, "F");
-                    doc.rect(15, mathY - 10, 180, 18, "D");
+                    doc.setFillColor(253, 253, 253);
+                    doc.rect(15, mathY - 9, 180, 17, "F");
+                    doc.rect(15, mathY - 9, 180, 17, "D");
 
-                    // Cetak barisan icon gambar emoji ke kertas PDF
-                    const emojiLine = String(iconSelected + " ").repeat(count);
+                    const emojiLine = String(iconSelected + " ").repeat(cnt);
                     doc.text(emojiLine, 22, mathY + 2);
 
-                    // Kotak tempat anak menuliskan jawaban angka di kanan halaman cetak
+                    // Kotak Jawaban Anak
                     doc.setDrawColor(activePrimaryColor);
-                    doc.setLineWidth(0.5);
-                    doc.rect(170, mathY - 7, 12, 12);
+                    doc.setLineWidth(0.4);
+                    doc.rect(172, mathY - 6, 11, 11);
 
-                    mathY += 25; // Jarak turun per item baris matematika
-                } );
+                    mathY += 23;
+                });
+
+            } else if (mode === "numbers") {
+                // GENERATE OTOMATIS ANGKA 1 SAMPAI 20 (TRACING NUMBER)
+                let numX = 20;
+                let numY = 52;
+                doc.setFont("Courier", "bold");
+                
+                for (let n = 1; n <= 20; n++) {
+                    // Kotak bingkai angka
+                    doc.setDrawColor(230, 230, 230);
+                    doc.setLineDashPattern([], 0);
+                    doc.rect(numX - 4, numY - 8, 80, 18);
+
+                    // Angka panduan solid kiri
+                    doc.setFont("Helvetica", "bold");
+                    doc.setFontSize(14);
+                    doc.setTextColor(120, 120, 120);
+                    doc.text(n.toString(), numX, numY + 3);
+
+                    // Garis bantu penulisan putus-putus
+                    doc.setFont("Courier", "bold");
+                    doc.setFontSize(20);
+                    doc.setTextColor(190, 190, 190);
+                    const traceNumStr = `${n}  ${n}  ${n}`;
+                    doc.text(traceNumStr, numX + 18, numY + 2);
+
+                    numX += 90;
+                    if (n % 2 === 0) {
+                        numX = 20;
+                        numY += 22;
+                    }
+                }
+
+            } else if (mode === "addition") {
+                // GENERATE SOAL PENJUMLAHAN DINAMIS SECARA ACAK TAPI TERTATA
+                const mathQuestions = [
+                    {a: 3, b: 2}, {a: 5, b: 3}, {a: 7, b: 2}, {a: 6, b: 4},
+                    {a: 8, b: 1}, {a: 4, b: 5}, {a: 9, b: 3}, {a: 2, b: 6},
+                    {a: 5, b: 5}, {a: 10, b: 4}
+                ];
+                let addY = 52;
+
+                doc.setFont("Helvetica", "bold");
+                doc.setFontSize(16);
+                doc.setTextColor(60, 60, 60);
+
+                mathQuestions.forEach((q, i) => {
+                    doc.setDrawColor(240, 240, 240);
+                    doc.setFillColor(254, 254, 254);
+                    doc.rect(15, addY - 8, 180, 15, "F");
+                    doc.rect(15, addY - 8, 180, 15, "D");
+
+                    // Teks Soal
+                    const questionStr = `Soal ${i + 1} :    ${q.a}   +   ${q.b}   =   ............`;
+                    doc.text(questionStr, 22, addY + 2);
+
+                    // Kotak Bidang Isian Jawaban
+                    doc.setDrawColor(activePrimaryColor);
+                    doc.rect(172, addY - 5, 10, 10);
+
+                    addY += 21;
+                });
             }
 
-            // Footer Branding Bisnis Kreatif Premium Milikmu
+            // BOTTOM FOOTER BRANDING
             doc.setFont("Helvetica", "normal");
             doc.setFontSize(7);
-            doc.setTextColor(160, 160, 160);
-            doc.text("Premium Engine & Layout Generated via Kids Worksheet Creator PRO v2.0 - Hak Cipta Koh Ojiek Jambi", 15, 286);
+            doc.setTextColor(150, 150, 150);
+            doc.setLineDashPattern([], 0);
+            doc.text(`Ultra Engine Generated Layout v3.0 - Hak Cipta Komersial Digital Koh Ojiek Jambi`, 15, 287);
 
-            const fileOutputName = mode === "tracing" ? `Worksheet_Tracing_PRO.pdf` : `Worksheet_Berhitung_PRO.pdf`;
-            doc.save(fileOutputName);
+            doc.save(`Worksheet_Bundle_v3_${mode.toUpperCase()}.pdf`);
         }
 
-        // Jalankan render preview default pada saat pertama kali dimuat browser
+        // Jalankan inisialisasi awal preview pada layar browser
         toggleInputs();
     </script>
 </body>
