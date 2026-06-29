@@ -3,112 +3,160 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Kids Worksheet & Planner Creator v7.0 (Edisi Master MRR)</title>
+    <title>Kids Worksheet & Planner Creator v7.5 (Cinematic Edition)</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
     <style>
-        @import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght=300;400;500;600;700&display=swap');
-        body { font-family: 'Plus Jakarta Sans', sans-serif; background-color: #0b0f19; color: #f3f4f6; }
-        .pro-card { background: rgba(17, 24, 39, 0.7); backdrop-filter: blur(12px); border: 1px solid rgba(255, 255, 255, 0.08); }
-        .font-trace { font-family: 'Courier New', Courier, monospace; letter-spacing: 6px; font-weight: bold; text-transform: uppercase; }
-        .custom-scrollbar::-webkit-scrollbar { width: 5px; }
-        .custom-scrollbar::-webkit-scrollbar-thumb { background: rgba(245, 158, 11, 0.3); border-radius: 4px; }
+        @import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap');
+        
+        body { 
+            font-family: 'Plus Jakarta Sans', sans-serif; 
+            background: radial-gradient(circle at top right, rgba(99, 102, 241, 0.15), transparent 40%),
+                        radial-gradient(circle at bottom left, rgba(236, 72, 153, 0.15), transparent 40%),
+                        #030712;
+            color: #f3f4f6;
+            overflow-x: hidden;
+        }
+
+        /* Efek Kaca Sinematik (Glassmorphism) */
+        .glass-panel {
+            background: rgba(17, 24, 39, 0.45);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border: 1px solid rgba(255, 255, 255, 0.06);
+            box-shadow: 0 20px 50px rgba(0, 0, 0, 0.3);
+        }
+
+        .glass-card {
+            background: rgba(255, 255, 255, 0.02);
+            border: 1px solid rgba(255, 255, 255, 0.04);
+        }
+
+        /* Simulasi Kertas Melayang Sinematik */
+        .floating-paper {
+            background: #ffffff;
+            box-shadow: 0 30px 60px rgba(0, 0, 0, 0.4), 
+                        0 0 40px rgba(99, 102, 241, 0.05);
+            transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+        .floating-paper:hover {
+            transform: translateY(-4px) scale(1.01);
+        }
+
+        .font-trace { 
+            font-family: 'Courier New', Courier, monospace; 
+            letter-spacing: 6px; 
+            font-weight: 800; 
+            text-transform: uppercase; 
+        }
+
+        /* Custom Scrollbar Premium */
+        .custom-scrollbar::-webkit-scrollbar { width: 6px; }
+        .custom-scrollbar::-webkit-scrollbar-track { background: transparent; }
+        .custom-scrollbar::-webkit-scrollbar-thumb { background: rgba(255, 255, 255, 0.1); border-radius: 10px; }
+        .custom-scrollbar::-webkit-scrollbar-thumb:hover { background: rgba(255, 255, 255, 0.25); }
     </style>
 </head>
-<body class="min-h-screen p-4 flex flex-col justify-between">
+<body class="min-h-screen p-4 md:p-6 flex flex-col justify-between">
 
-    <!-- MAIN DASHBOARD -->
-    <main class="max-w-6xl w-full mx-auto grid grid-cols-1 lg:grid-cols-12 gap-6 items-start mt-2">
-        <!-- PANEL KONTROL KIRI -->
-        <div class="lg:col-span-5 pro-card p-5 rounded-2xl space-y-4">
-            <div class="flex items-center justify-between border-b border-gray-800 pb-3">
+    <!-- AMBIENT NEBULA GLOW -->
+    <div class="absolute top-1/4 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[500px] h-[500px] bg-indigo-500/10 blur-[120px] rounded-full pointer-events-none z-0"></div>
+
+    <!-- MAIN DASHBOARD CONTAINER -->
+    <main class="max-w-6xl w-full mx-auto grid grid-cols-1 lg:grid-cols-12 gap-8 items-start mt-2 relative z-10">
+        
+        <!-- PANEL KONTROL KIRI (CINEMATIC CONTROLS) -->
+        <div class="lg:col-span-5 glass-panel p-6 rounded-3xl space-y-5">
+            
+            <!-- HEADER BRANDING -->
+            <div class="flex items-center justify-between border-b border-gray-800/60 pb-4">
                 <div>
-                    <h1 class="text-md font-bold bg-gradient-to-r from-amber-400 via-pink-500 to-emerald-400 bg-clip-text text-transparent uppercase tracking-wider">Worksheet Master v7.0</h1>
-                    <p class="text-[10px] text-gray-400">MRR Developer Edition by Koh Ojiek</p>
+                    <h1 class="text-xl font-extrabold tracking-tight bg-gradient-to-r from-indigo-400 via-pink-400 to-amber-300 bg-clip-text text-transparent uppercase">Worksheet Studio</h1>
+                    <p class="text-[11px] text-gray-400 font-medium tracking-wide mt-0.5">v7.5 Cinematic Interface by Koh Ojiek</p>
                 </div>
-                <div id="statusBadge" class="text-[9px] bg-amber-500/10 text-amber-400 border border-amber-500/20 px-2.5 py-0.5 rounded-full font-bold shadow-sm">
-                    MODE DEMO (TERBATAS)
+                <div id="statusBadge" class="text-[10px] bg-amber-500/10 text-amber-300 border border-amber-500/20 px-3 py-1 rounded-full font-bold tracking-wide shadow-lg shadow-amber-500/5 animate-pulse">
+                    DEMO MODE
                 </div>
             </div>
 
-            <!-- AKTIVASI LISENSI & FITUR MANAJEMEN MRR -->
-            <div class="bg-gray-950/60 p-3 rounded-xl border border-gray-800 space-y-2.5">
-                <div class="space-y-1">
-                    <div class="flex justify-between items-center">
-                        <label class="text-[11px] text-gray-400 font-medium">Masukkan Kode Akses Premium</label>
-                        <span class="text-[9px] text-gray-500">Ketik apa saja untuk Mode Demo</span>
+            <!-- SECURITY & LISENSI PANEL -->
+            <div class="glass-card p-4 rounded-2xl space-y-3">
+                <div class="space-y-1.5">
+                    <div class="flex justify-between items-center px-0.5">
+                        <label class="text-[11px] text-gray-300 font-semibold tracking-wide">Kode Akses Premium</label>
+                        <span class="text-[9px] text-gray-500 font-mono">Demo akses bebas klik</span>
                     </div>
                     <div class="flex gap-2">
-                        <input type="password" id="licenseKey" placeholder="Masukkan kode lisensi..." class="w-full bg-gray-900 border border-gray-800 rounded-xl px-3 py-1.5 text-xs text-white">
-                        <button type="button" onclick="verifikasiLisensi()" class="bg-indigo-600 hover:bg-indigo-500 text-white text-[11px] font-bold px-3 rounded-xl transition">Aktifkan</button>
+                        <input type="password" id="licenseKey" placeholder="Masukkan lisensi untuk fitur penuh..." class="w-full bg-gray-950/40 border border-gray-800 focus:border-indigo-500 rounded-xl px-4 py-2.5 text-xs text-white placeholder-gray-600 transition-all outline-none">
+                        <button type="button" onclick="verifikasiLisensi()" class="bg-indigo-600 hover:bg-indigo-500 text-white text-xs font-bold px-4 rounded-xl transition-all active:scale-95 shadow-lg shadow-indigo-600/20">Aktivasi</button>
                     </div>
                 </div>
 
-                <!-- MENU KHUSUS PEMBELI MRR (BISA GANTI KODE SESUKA HATI) -->
-                <div class="border-t border-gray-800/60 pt-2 space-y-1">
-                    <button type="button" onclick="toggleMRRPanel()" class="w-full text-left text-[10px] text-indigo-400 hover:text-indigo-300 font-semibold flex items-center justify-between">
-                        <span><i class="fa-solid fa-gear mr-1"></i> Pengaturan Kunci MRR (Untuk Pemilik Lisensi)</span>
-                        <i id="mrrChevron" class="fa-solid fa-chevron-down text-[8px]"></i>
+                <!-- PANEL PENGATURAN MRR -->
+                <div class="border-t border-gray-800/60 pt-2.5">
+                    <button type="button" onclick="toggleMRRPanel()" class="w-full text-left text-[10px] text-indigo-400 hover:text-indigo-300 font-bold flex items-center justify-between transition-colors">
+                        <span><i class="fa-solid fa-sliders mr-1.5"></i> MANAGEMENT SYSTEM (LISENSI MRR)</span>
+                        <i id="mrrChevron" class="fa-solid fa-chevron-down text-[8px] transition-transform"></i>
                     </button>
-                    <div id="mrrControlPanel" class="space-y-1.5 pt-1 hidden">
-                        <p class="text-[9px] text-gray-500">Ganti kata kunci lisensi default produk ini sesukamu:</p>
-                        <input type="text" id="customLicenseConfig" value="MASTERPRO2026" class="w-full bg-gray-900 border border-gray-800 rounded-xl px-3 py-1 text-xs text-emerald-400 font-mono font-bold">
-                        <button type="button" onclick="saveCustomLicense()" class="w-full bg-emerald-600/20 hover:bg-emerald-600/30 text-emerald-400 border border-emerald-600/30 text-[10px] font-bold py-1 rounded-lg transition">Simpan Kunci Lisensi Baru</button>
+                    <div id="mrrControlPanel" class="space-y-2 pt-2 hidden">
+                        <p class="text-[10px] text-gray-400 leading-relaxed">Ubah kata kunci lisensi produk bawaan ini sesuai keinginan tokomu:</p>
+                        <input type="text" id="customLicenseConfig" value="MASTERPRO2026" class="w-full bg-gray-950/80 border border-gray-800 rounded-xl px-4 py-2 text-xs text-emerald-400 font-mono font-bold tracking-wider outline-none">
+                        <button type="button" onclick="saveCustomLicense()" class="w-full bg-emerald-500/10 hover:bg-emerald-500/20 text-emerald-400 border border-emerald-500/20 text-[11px] font-bold py-2 rounded-xl transition-all active:scale-95">Update Kunci Lisensi Utama</button>
                     </div>
                 </div>
             </div>
 
-            <!-- MENU KATEGORI LENGKAP -->
-            <div class="space-y-1">
-                <label class="text-[11px] text-gray-400 block font-medium">Pilih Kategori Lembar Kerja & Aktivitas</label>
-                <select id="workMode" onchange="toggleInputs(); updateLivePreview();" class="w-full bg-gray-900 border border-gray-800 rounded-xl px-3 py-2 text-xs focus:outline-none focus:border-amber-500 text-white font-medium">
-                    <optgroup label="📋 Menu Standar">
+            <!-- SELEKSI KATEGORI LAYOUT -->
+            <div class="space-y-1.5">
+                <label class="text-[11px] text-gray-300 font-semibold tracking-wide px-0.5">Pilih Modul Aktivitas Belajar</label>
+                <select id="workMode" onchange="toggleInputs(); updateLivePreview();" class="w-full bg-gray-950/60 border border-gray-800 focus:border-indigo-500 rounded-xl px-3 py-2.5 text-xs text-gray-200 font-medium outline-none transition-all">
+                    <optgroup label="📋 Modul Esensial Lokal">
                         <option value="tracing">✍️ Tracing Nama Sendiri (Buku Garis Halus)</option>
-                        <option value="alfabet">🔤 Tracing Huruf A-Z & Kotak Mewarnai</option>
-                        <option value="bahasa">📝 Bahasa Indonesia: Melengkapi Kata Dasar</option>
-                        <option value="math">🧮 Matematika: Kuis Berhitung Gambar</option>
-                        <option value="islam">🕌 Agama Islam: Kuis Dasar Iman & Rukun Islam</option>
-                        <option value="kesenian">🎨 Kesenian: Lembar Menggambar Kotak Pola</option>
+                        <option value="alfabet">🔤 Tracing Huruf A-Z & Kotak Seni Mewarnai</option>
+                        <option value="bahasa">📝 Bahasa Indonesia: Melengkapi Kalimat Dasar</option>
+                        <option value="math">🧮 Matematika: Hitung Gambar & Angka Acak</option>
+                        <option value="islam">🕌 Agama Islam: Kuis Dasar Iman & Rukun</option>
+                        <option value="kesenian">🎨 Kesenian: Lembar Pola Menggambar Grid</option>
                     </optgroup>
-                    <optgroup label="🌟 Menu Tambahan Premium">
-                        <option value="tracing_baru">✍️ Menu 1: Personal Tracing & Buku Garis Halus Plus</option>
-                        <option value="math_baru">🧮 Menu 2: Matematika & Berhitung Visual Kompleks</option>
+                    <optgroup label="🌟 Bundel Premium Aktivitas Baru">
+                        <option value="tracing_baru">✍️ Menu 1: Personal Tracing & Garis Halus Plus</option>
+                        <option value="math_baru">🧮 Menu 2: Matematika & Berhitung Gambar Kompleks</option>
                         <option value="planner_baru">📅 Menu 3: Kids Planners & Belajar Mengatur Waktu</option>
                         <option value="indonesia_baru">📝 Menu 4: Kurikulum Indonesia & Cerita Anak</option>
                         <option value="english_baru">🇬🇧 Menu 5: English & Flashcard Generator</option>
-                        <option value="creative_baru">🎨 Menu 6: Kreativitas, Origami, Puzzle & Busy Book</option>
-                        <option value="dino_bonus">🦖 Menu 7: Dino Adventure Math Puzzle (Ide Bonus Gemini)</option>
+                        <option value="creative_baru">🎨 Menu 6: Kreativitas, Origami & Busy Book Pages</option>
+                        <option value="dino_bonus">Rex Menu 7: Dino Adventure Math Puzzle Bonus</option>
                     </optgroup>
                 </select>
             </div>
 
-            <!-- PANEL INPUT CONFIG DINAMIS -->
-            <div class="space-y-3 bg-gray-950/40 p-3.5 border border-gray-900 rounded-xl">
-                <div id="inputTracingGroup" class="space-y-1">
-                    <label class="text-[11px] text-gray-400 block font-medium">Nama / Teks Anak</label>
-                    <input type="text" id="childName" maxlength="12" value="EVAN" placeholder="Contoh: EVAN..." class="w-full bg-gray-900 border border-gray-800 rounded-xl px-4 py-2 text-xs focus:outline-none focus:border-amber-500 text-white uppercase font-bold" oninput="updateLivePreview()">
+            <!-- INPUT PARAMETER DATA -->
+            <div class="glass-card p-4 rounded-2xl space-y-3.5">
+                <div id="inputTracingGroup" class="space-y-1.5">
+                    <label class="text-[11px] text-gray-300 font-semibold tracking-wide">Nama / Teks Cetak Anak</label>
+                    <input type="text" id="childName" maxlength="12" value="EVAN" placeholder="Ketik nama anak..." class="w-full bg-gray-950/40 border border-gray-800 focus:border-indigo-500 rounded-xl px-4 py-2.5 text-xs text-white font-bold tracking-wider uppercase outline-none transition-all" oninput="updateLivePreview()">
                 </div>
 
-                <div id="customMatrixGroup" class="grid grid-cols-2 gap-2">
-                    <div class="space-y-1">
-                        <label class="text-[10px] text-gray-400 block font-medium">Jumlah Baris / Soal</label>
-                        <select id="totalQuestions" onchange="updateLivePreview()" class="w-full bg-gray-900 border border-gray-800 rounded-xl px-2 py-2 text-xs text-white">
-                            <option value="5">5 Item</option>
-                            <option value="8">8 Item</option>
-                            <option value="10" selected>10 Item Lengkap</option>
+                <div id="customMatrixGroup" class="grid grid-cols-2 gap-3">
+                    <div class="space-y-1.5">
+                        <label class="text-[10px] text-gray-400 font-medium">Jumlah Baris/Soal</label>
+                        <select id="totalQuestions" onchange="updateLivePreview()" class="w-full bg-gray-950/40 border border-gray-800 rounded-xl px-3 py-2 text-xs text-gray-200 outline-none">
+                            <option value="5">5 Baris</option>
+                            <option value="8">8 Baris</option>
+                            <option value="10" selected>10 Baris Lengkap</option>
                         </select>
                     </div>
-                    <div class="space-y-1">
-                        <label class="text-[10px] text-gray-400 block font-medium">Batas Angka Maks</label>
-                        <input type="number" id="maxMatrixNumber" value="20" min="10" max="100" class="w-full bg-gray-900 border border-gray-800 rounded-xl px-3 py-1.5 text-xs text-white font-bold" oninput="updateLivePreview()">
+                    <div class="space-y-1.5">
+                        <label class="text-[10px] text-gray-400 font-medium">Batas Angka Maks</label>
+                        <input type="number" id="maxMatrixNumber" value="20" min="10" max="100" class="w-full bg-gray-950/40 border border-gray-800 rounded-xl px-3 py-1.5 text-xs text-white font-bold outline-none font-mono">
                     </div>
                 </div>
 
-                <div class="grid grid-cols-2 gap-2">
-                    <div class="space-y-1">
-                        <label class="text-[10px] text-gray-400 block font-medium">Pilih Maskot Animasi</label>
-                        <select id="characterMaskot" onchange="updateLivePreview()" class="w-full bg-gray-900 border border-gray-800 rounded-xl px-2 py-2 text-xs text-white">
+                <div class="grid grid-cols-2 gap-3">
+                    <div class="space-y-1.5">
+                        <label class="text-[10px] text-gray-400 font-medium">Pilih Maskot Animasi</label>
+                        <select id="characterMaskot" onchange="updateLivePreview()" class="w-full bg-gray-950/40 border border-gray-800 rounded-xl px-3 py-2 text-xs text-gray-200 outline-none">
                             <option value="🐻">Teddy Bear (🐻)</option>
                             <option value="🐰">Kelinci Imut (🐰)</option>
                             <option value="🐱">Kucing Gemas (🐱)</option>
@@ -116,9 +164,9 @@
                             <option value="🦖">Dino Cilik (🦖)</option>
                         </select>
                     </div>
-                    <div class="space-y-1" id="mathIconContainer">
-                        <label class="text-[10px] text-gray-400 block font-medium">Ikon Berhitung</label>
-                        <select id="mathIcon" onchange="updateLivePreview()" class="w-full bg-gray-900 border border-gray-800 rounded-xl px-2 py-2 text-xs text-white">
+                    <div class="space-y-1.5" id="mathIconContainer">
+                        <label class="text-[10px] text-gray-400 font-medium">Ikon Hitung Gambar</label>
+                        <select id="mathIcon" onchange="updateLivePreview()" class="w-full bg-gray-950/40 border border-gray-800 rounded-xl px-3 py-2 text-xs text-gray-200 outline-none">
                             <option value="⭐">Bintang (⭐)</option>
                             <option value="🍎">Apel (🍎)</option>
                             <option value="🍭">Permen (🍭)</option>
@@ -127,44 +175,48 @@
                     </div>
                 </div>
 
-                <div class="space-y-1">
-                    <label class="text-[11px] text-gray-400 block font-medium">Teks Instruksi / Judul Atas</label>
-                    <input type="text" id="instructionText" value="Yuk, belajar menebalkan namamu sendiri dengan rapi!" class="w-full bg-gray-900 border border-gray-800 rounded-xl px-4 py-2 text-xs focus:outline-none focus:border-amber-500 text-white" oninput="updateLivePreview()">
+                <div class="space-y-1.5">
+                    <label class="text-[11px] text-gray-300 font-semibold tracking-wide">Teks Judul / Perintah Lembar Kerja</label>
+                    <input type="text" id="instructionText" value="Yuk, belajar menebalkan namamu sendiri dengan rapi!" class="w-full bg-gray-950/40 border border-gray-800 focus:border-indigo-500 rounded-xl px-4 py-2.5 text-xs text-gray-300 outline-none transition-all" oninput="updateLivePreview()">
                 </div>
             </div>
 
-            <!-- PILIHAN TEMA WARNA -->
-            <div class="space-y-1">
-                <label class="text-[11px] text-gray-400 block font-medium">Pilih Warna Lembar Kerja</label>
-                <div class="grid grid-cols-3 gap-2">
-                    <button type="button" onclick="setTheme('amber', '#f59e0b', '#d97706')" class="bg-amber-500/10 text-amber-400 border border-amber-500/20 text-[10px] font-bold py-1.5 rounded-lg">💛 Amber</button>
-                    <button type="button" onclick="setTheme('blue', '#3b82f6', '#1d4ed8')" class="bg-blue-500/10 text-blue-400 border border-blue-500/20 text-[10px] font-bold py-1.5 rounded-lg">💙 Blue</button>
-                    <button type="button" onclick="setTheme('pink', '#ec4899', '#be185d')" class="bg-pink-500/10 text-pink-400 border border-pink-500/20 text-[10px] font-bold py-1.5 rounded-lg">💗 Pink</button>
+            <!-- PALET WARNA SELEKTOR PREMIUM -->
+            <div class="space-y-2">
+                <label class="text-[11px] text-gray-300 font-semibold tracking-wide px-0.5">Pilih Estetika Warna Lembar Kerja</label>
+                <div class="grid grid-cols-3 gap-2.5">
+                    <button type="button" onclick="setTheme('amber', '#f59e0b', '#d97706')" class="bg-amber-500/5 hover:bg-amber-500/10 text-amber-400 border border-amber-500/10 text-xs font-bold py-2 rounded-xl transition-all">Amber</button>
+                    <button type="button" onclick="setTheme('blue', '#3b82f6', '#1d4ed8')" class="bg-blue-500/5 hover:bg-blue-500/10 text-blue-400 border border-blue-500/10 text-xs font-bold py-2 rounded-xl transition-all">Soft Blue</button>
+                    <button type="button" onclick="setTheme('pink', '#ec4899', '#be185d')" class="bg-pink-500/5 hover:bg-pink-500/10 text-pink-400 border border-pink-500/10 text-xs font-bold py-2 rounded-xl transition-all">Cute Pink</button>
                 </div>
             </div>
 
-            <button type="button" onclick="downloadMasterPDF()" class="w-full bg-gradient-to-r from-orange-500 via-pink-500 to-indigo-600 text-white font-bold py-3 px-4 rounded-xl text-xs shadow-lg uppercase tracking-wider">
-                <i class="fa-solid fa-print mr-1"></i> DOWNLOAD / CETAK PDF (A4)
-            </button>
+            <!-- TOMBOL DOWNLOAD UTAMA SINEMATIK -->
+            <div class="pt-2">
+                <button type="button" onclick="downloadMasterV75PDF()" class="w-full bg-gradient-to-r from-indigo-500 via-purple-500 to-pink-500 hover:from-indigo-400 hover:to-pink-400 text-white font-extrabold py-3.5 px-4 rounded-xl text-xs shadow-xl shadow-indigo-500/10 transition-all active:scale-[0.98] uppercase tracking-widest">
+                    <i class="fa-solid fa-sparkles mr-2 text-xs"></i> GENERATE HIGH-RES DOCUMENT
+                </button>
+            </div>
         </div>
 
-        <!-- PANEL PREVIEW LIVE -->
-        <div class="lg:col-span-7 pro-card p-5 rounded-2xl flex flex-col h-[580px]">
-            <div class="flex items-center justify-between border-b border-gray-800 pb-2 mb-3">
-                <h3 class="text-xs font-semibold text-gray-300">Live Workspace Preview (Kertas A4)</h3>
-                <div id="themeIndicator" class="text-[9px] border px-2 py-0.5 rounded text-amber-400 border-amber-500/30">Tema: AMBER</div>
+        <!-- PANEL PREVIEW RIGHT (CINEMATIC FLOATING WORKSPACE) -->
+        <div class="lg:col-span-7 glass-panel p-6 rounded-3xl flex flex-col h-[610px]">
+            <div class="flex items-center justify-between border-b border-gray-800/60 pb-3 mb-4">
+                <h3 class="text-xs font-bold uppercase tracking-widest text-gray-400"><i class="fa-solid fa-expand text-indigo-400 mr-2"></i> Live Digital Screen Proof (A4)</h3>
+                <div id="themeIndicator" class="text-[10px] border px-3 py-0.5 rounded-full text-amber-400 border-amber-500/20 font-mono bg-amber-500/5">TEMA: AMBER</div>
             </div>
             
-            <div class="flex-1 bg-white rounded-xl p-5 text-gray-900 overflow-y-auto border-2 border-gray-300 space-y-4 shadow-inner custom-scrollbar relative">
-                <div id="headerBox" class="border-b-4 border-amber-400 pb-2 flex justify-between items-center">
+            <!-- FLOATING KERTAS A4 DIGITAL -->
+            <div class="flex-1 floating-paper rounded-2xl p-6 text-gray-900 overflow-y-auto border border-gray-200 space-y-4 shadow-2xl custom-scrollbar relative">
+                <div id="headerBox" class="border-b-4 border-amber-400 pb-3 flex justify-between items-center transition-colors duration-300">
                     <div>
-                        <div class="flex items-center gap-2">
-                            <span id="previewMaskot" class="text-xl">🐻</span>
-                            <h2 id="previewTitle" class="text-sm font-black text-amber-600">MEGA BUNDLE GENERATOR</h2>
+                        <div class="flex items-center gap-2.5">
+                            <span id="previewMaskot" class="text-2xl">🐻</span>
+                            <h2 id="previewTitle" class="text-sm font-black tracking-wide text-amber-600">LEMBAR LATIHAN MENULIS NAMA</h2>
                         </div>
-                        <p id="previewInstruction" class="text-[10px] text-gray-500 font-medium italic mt-1">Yuk, belajar sejak dini dengan menyenangkan!</p>
+                        <p id="previewInstruction" class="text-[11px] text-gray-500 font-semibold italic mt-1.5 leading-relaxed">Yuk, belajar menebalkan namamu sendiri dengan rapi!</p>
                     </div>
-                    <div id="badgeAksesLayar" class="text-[9px] text-amber-600 border p-1 rounded font-mono font-bold bg-amber-50">AKSES: DEMO</div>
+                    <div id="badgeAksesLayar" class="text-[9px] text-amber-600 border px-2 py-1 rounded-md font-mono font-black bg-amber-50 border-amber-200">AKSES: DEMO</div>
                 </div>
 
                 <div class="space-y-3 pt-1" id="previewContainer"></div>
@@ -172,13 +224,7 @@
         </div>
     </main>
 
-    <footer class="text-center text-[9px] text-gray-600 mt-4">
-        &copy; 2026 Kids Worksheet v7.0 Developer Licence Ready. Distributed under MRR Terms.
-    </footer>
-
-    <!-- CORE REBRANDING & SECURITY DEMO SYSTEM -->
     <script>
-        // Membaca atau mengatur Kunci Lisensi Dinamis di Memori Browser (Sistem Inti MRR)
         if (!localStorage.getItem("MRR_KEY_CONFIG")) {
             localStorage.setItem("MRR_KEY_CONFIG", "MASTERPRO2026");
         }
@@ -187,35 +233,36 @@
         let activeThemeName = "amber", activePrimaryColor = "#f59e0b", activeSecondaryColor = "#d97706";
 
         const DB_BAHASA = ["Budi bermain (bola/buku) di lapangan sekolah.", "Ibu membeli sayur segar di (pasar/kamar).", "Sebelum makan kita harus mencuci (tangan/kaki)."];
+        const DB_ISLAM = ["Sebutkan jumlah Rukun Islam yang wajib kita tahu! (......)", "Nabi terakhir utusan Allah adalah Nabi? (......)", "Malaikat yang bertugas membagikan rezeki adalah? (......)"];
 
         function toggleMRRPanel() {
             const panel = document.getElementById("mrrControlPanel");
             const chevron = document.getElementById("mrrChevron");
             panel.classList.toggle("hidden");
-            chevron.classList.toggle("fa-chevron-up");
+            chevron.classList.toggle("rotate-180");
         }
 
         function saveCustomLicense() {
             const newKey = document.getElementById("customLicenseConfig").value.trim();
-            if(!newKey) { alert("Kunci lisensi baru tidak boleh kosong!"); return; }
+            if(!newKey) { alert("Lisensi baru tidak boleh kosong!"); return; }
             localStorage.setItem("MRR_KEY_CONFIG", newKey);
-            alert(`Sukses! Kunci lisensi produk digital MRR ini berhasil diubah menjadi: "${newKey}". Sekarang web ini hanya bisa diakses full jika pembeli memasukkan kunci tersebut.`);
+            alert(`Sukses Rebranding! Lisensi MRR diganti ke: "${newKey}".`);
             location.reload();
         }
 
         function verifikasiLisensi() {
-            const inputVal = document.getElementById("licenseKey").value.trim();
-            const validKey = localStorage.getItem("MRR_KEY_CONFIG");
+            const val = document.getElementById("licenseKey").value.trim();
+            const valid = localStorage.getItem("MRR_KEY_CONFIG");
 
-            if (inputVal === validKey) {
+            if (val === valid) {
                 isPremiumActive = true;
-                document.getElementById("statusBadge").innerText = "AKSES PREMIUM AKTIF";
-                document.getElementById("statusBadge").className = "text-[9px] bg-emerald-500/10 text-emerald-400 border border-emerald-500/20 px-2.5 py-0.5 rounded-full font-bold shadow-sm";
+                document.getElementById("statusBadge").innerText = "FULL PREMIUM";
+                document.getElementById("statusBadge").className = "text-[10px] bg-emerald-500/10 text-emerald-400 border border-emerald-500/20 px-3 py-1 rounded-full font-bold shadow-lg shadow-emerald-500/5";
                 document.getElementById("badgeAksesLayar").innerText = "AKSES: FULL PRO";
-                document.getElementById("badgeAksesLayar").className = "text-[9px] text-emerald-600 border p-1 rounded font-mono font-bold bg-emerald-50";
-                alert("Selamat! Lisensi premium berhasil diaktifkan. Anda sekarang dapat mengunduh dokumen A4 versi lengkap tanpa batas.");
+                document.getElementById("badgeAksesLayar").className = "text-[9px] text-emerald-600 border px-2 py-1 rounded-md font-mono font-black bg-emerald-50 border-emerald-200";
+                alert("Akses Penuh Terbuka! Terima kasih.");
             } else {
-                alert("Kode salah atau tidak valid! Aplikasi tetap berjalan dalam Mode Demo Terbatas.");
+                alert("Lisensi tidak valid! Sistem berjalan dalam Mode Demo.");
             }
         }
 
@@ -224,6 +271,7 @@
             const instInput = document.getElementById("instructionText");
             
             document.getElementById("inputTracingGroup").style.display = (mode === "tracing" || mode === "alfabet" || mode === "tracing_baru") ? "block" : "none";
+            document.getElementById("customMatrixGroup").style.display = (mode === "tracing" || mode === "alfabet" || mode === "kesenian" || mode === "creative_baru") ? "none" : "flex";
             document.getElementById("mathIconContainer").style.display = (mode === "math" || mode === "math_baru") ? "block" : "none";
 
             if (mode === "tracing") instInput.value = "Yuk, belajar menebalkan namamu sendiri dengan rapi!";
@@ -232,12 +280,18 @@
             else if (mode === "math") instInput.value = "Selesaikan kuis penjumlahan dan pengurangan matematika acak ini!";
             else if (mode === "islam") instInput.value = "Jawablah pertanyaan pendidikan agama islam berikut dengan teliti!";
             else if (mode === "kesenian") instInput.value = "Ikuti pola kotak-kotak di bawah ini untuk mengasah motorik visual anak!";
+            else if (mode === "tracing_baru") instInput.value = "✍️ [Menu 1] Personal Tracing & Buku Garis Halus Plus Nama, Alfabet, dan Angka 1-20.";
+            else if (mode === "math_baru") instInput.value = "🧮 [Menu 2] Matematika & Berhitung Visual Kompleks Berpola Gambar Acak.";
+            else if (mode === "planner_baru") instInput.value = "📅 [Menu 3] Kids Planners: Lembar Jadwal Harian & Atur Waktu Sejak Dini.";
+            else if (mode === "indonesia_baru") instInput.value = "📝 [Menu 4] Kurikulum Indonesia: Pelajaran Bahasa, Agama Islam & Sains.";
+            else if (mode === "english_baru") instInput.value = "🇬🇧 [Menu 5] English Flashcard: Kosakata Hewan, Buah, Sayur, Profesi & Benda.";
+            else if (mode === "creative_baru") instInput.value = "🎨 [Menu 6] Kreativitas & Motorik Halus: Halaman Busy Book, Mewarnai & Origami.";
             else if (mode === "dino_bonus") instInput.value = "Petualangan Dino Math: Baca ceritanya lalu selesaikan teka-teki hitung tulang rahasia!";
         }
 
         function setTheme(name, hex1, hex2) {
             activeThemeName = name; activePrimaryColor = hex1; activeSecondaryColor = hex2;
-            document.getElementById("themeIndicator").innerText = `Tema: ${name.toUpperCase()}`;
+            document.getElementById("themeIndicator").innerText = `TEMA: ${name.toUpperCase()}`;
             document.getElementById("headerBox").style.borderColor = hex1;
             document.getElementById("previewTitle").style.color = hex2;
             updateLivePreview();
@@ -250,20 +304,20 @@
             document.getElementById("previewMaskot").innerText = document.getElementById("characterMaskot").value;
 
             document.getElementById("previewTitle").innerText = `KATEGORI: ${mode.toUpperCase()}`;
-            container.innerHTML = `<div class='border border-dashed p-4 rounded-lg bg-gray-50 text-center text-xs text-gray-500 font-mono'>Workspace Cetak Siap Dieksekusi.</div>`;
+            container.innerHTML = `<div class='border border-dashed p-4 rounded-xl bg-gray-50/50 text-center text-xs text-gray-400 font-mono'>Visual Proofing Module Engine Ready.</div>`;
         }
 
-        function downloadMasterPDF() {
+        function downloadMasterV75PDF() {
             const mode = document.getElementById("workMode").value;
             const inst = document.getElementById("instructionText").value.trim();
             const childName = document.getElementById("childName").value.trim().toUpperCase() || "ANAK";
             const maskot = document.getElementById("characterMaskot").value;
-            const totalQ = isPremiumActive ? parseInt(document.getElementById("totalQuestions").value) : 3; // Pembatasan Mode Demo: Hanya 3 baris keluar
+            const totalQ = isPremiumActive ? parseInt(document.getElementById("totalQuestions").value) : 3;
 
             const { jsPDF } = window.jspdf;
             const doc = new jsPDF({ orientation: "portrait", unit: "mm", format: "a4" });
 
-            // FRAME BORDER
+            // HIASAN FRAME BORDER A4
             doc.setDrawColor(activePrimaryColor); doc.setLineWidth(0.4); doc.rect(8, 8, 194, 281);
             doc.setFillColor(activePrimaryColor); doc.rect(15, 15, 180, 2, "F");
             doc.setFont("Helvetica", "bold"); doc.setFontSize(20); doc.text(maskot, 16, 25);
@@ -274,19 +328,16 @@
             doc.text(inst, 15, 30);
             doc.setDrawColor(200, 200, 200); doc.setLineDashPattern([2, 2], 0); doc.line(15, 34, 195, 34);
 
-            // WATERMARK MODE DEMO JIKA BELUM BELI
             if (!isPremiumActive) {
-                doc.setFont("Helvetica", "bold"); doc.setFontSize(36); doc.setTextColor(240, 200, 200);
+                doc.setFont("Helvetica", "bold"); doc.setFontSize(36); doc.setTextColor(245, 210, 210);
                 doc.text("VERSI DEMO TERBATAS", 30, 150, { angle: 45 });
             }
 
             let y = 52; doc.setFont("Helvetica", "bold"); doc.setFontSize(11); doc.setTextColor(40, 40, 40);
 
-            // PROGRAM EXECUTION CORE
             if (mode === "tracing" || mode === "tracing_baru") {
                 let lineY = 55; doc.setFont("Courier", "bold"); doc.setFontSize(24); doc.setTextColor(180, 180, 180);
                 const sn = childName.split("").join("  ");
-                // Jika demo terbatas, looping dikunci hanya berputar 3 kali saja
                 let maxLoop = isPremiumActive ? 9 : 3; 
                 for (let i = 0; i < maxLoop; i++) {
                     doc.setDrawColor(180, 200, 240); doc.setLineDashPattern([], 0);
@@ -294,10 +345,9 @@
                     doc.text(sn, 22, lineY + 1.5); lineY += 24;
                 }
             } else if (mode === "dino_bonus") {
-                // BONUS MENU 7: DINO ADVENTURE PUZZLE MATH
                 doc.setFont("Helvetica", "bold"); doc.text("🦖 KISAH DINO CILIK & PETUALANGAN TULANG", 15, 44);
                 doc.setFont("Helvetica", "normal"); doc.setFontSize(9.5);
-                doc.text("Dino Rex kehilangan 5 tulang emas di dalam gua pasir purba kemarin malam.", 15, 52);
+                doc.text("Dino Rex kehilangan beberapa tulang emas di gua purba kemarin malam.", 15, 52);
                 doc.text("Ayo bantu Dino Rex menemukan total tulangnya kembali dengan berhitung!", 15, 57);
                 doc.setFont("Helvetica", "bold"); doc.setFontSize(11); doc.text("🧩 TEKA-TEKI MATEMATIKA DINO:", 15, 70);
                 for(let i=0; i < totalQ; i++) {
@@ -305,17 +355,15 @@
                     doc.text(`Tantangan ${i+1}: Hitung tulang Dino Rex ke-${i+1} :   12  +  ${i+4}  =  ......`, 20, y + 32); y += 16;
                 }
             } else {
-                // FALLBACK DEFAULT RENDER UNTUK MENU LAINNYA
                 for (let i = 0; i < totalQ; i++) {
                     doc.setDrawColor(240, 240, 240); doc.setLineDashPattern([], 0); doc.rect(15, y - 6, 180, 12, "D");
-                    doc.text(`Soal Baris Ujian Otomatis Nomor ${i + 1} [Silakan Aktifkan Lisensi Full PRO]`, 20, y + 2); y += 18;
+                    doc.text(`Soal Ujian Otomatis Baris Nomor ${i + 1} [Silakan Masukkan Lisensi Premium]`, 20, y + 2); y += 18;
                 }
             }
 
-            // BRANDING FOOTER
             doc.setFont("Helvetica", "normal"); doc.setFontSize(7); doc.setTextColor(150, 150, 150); doc.setLineDashPattern([], 0);
-            doc.text(`Master Resell Rights Platform v7.0 - Rebranding Config Enabled - Developed by Koh Ojiek`, 15, 286);
-            doc.save(`Worksheet_MRR_Package_${mode}.pdf`);
+            doc.text(`Kids UI Cyber Cinematic Engine v7.5 - Rebranding MRR Pack - Koh Ojiek`, 15, 286);
+            doc.save(`Worksheet_Cinematic_${mode}.pdf`);
         }
 
         document.getElementById("customLicenseConfig").value = localStorage.getItem("MRR_KEY_CONFIG");
