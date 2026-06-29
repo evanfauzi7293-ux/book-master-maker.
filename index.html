@@ -3,12 +3,12 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Kids Worksheet & Planner Creator v7.6 (Cinematic Live Preview)</title>
+    <title>Kids Worksheet & Planner Creator v8.0 (Edisi MRR Multi-Tier)</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
     <style>
-        @import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap');
+        @import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght=300;400;500;600;700;800&display=swap');
         
         body { 
             background: radial-gradient(circle at top right, rgba(99, 102, 241, 0.15), transparent 40%),
@@ -56,39 +56,50 @@
             <div class="flex items-center justify-between border-b border-gray-800/60 pb-4">
                 <div>
                     <h1 class="text-xl font-extrabold tracking-tight bg-gradient-to-r from-indigo-400 via-pink-400 to-amber-300 bg-clip-text text-transparent uppercase">Worksheet Studio</h1>
-                    <p class="text-[11px] text-gray-400 font-medium tracking-wide mt-0.5">v7.6 Live Preview by Koh Ojiek</p>
+                    <p class="text-[11px] text-gray-400 font-medium tracking-wide mt-0.5">v8.0 Multi-Tier Licence by Koh Ojiek</p>
                 </div>
                 <div id="statusBadge" class="text-[10px] bg-amber-500/10 text-amber-300 border border-amber-500/20 px-3 py-1 rounded-full font-bold tracking-wide shadow-lg shadow-amber-500/5">
                     DEMO MODE
                 </div>
             </div>
 
-            <!-- SECURITY PANEL -->
+            <!-- SECURITY PANEL (GERBANG DUA KUNCI) -->
             <div class="glass-card p-4 rounded-2xl space-y-3">
                 <div class="space-y-1.5">
                     <div class="flex justify-between items-center px-0.5">
-                        <label class="text-[11px] text-gray-300 font-semibold tracking-wide">Kode Akses Premium</label>
+                        <label class="text-[11px] text-gray-300 font-semibold tracking-wide">Kode Akses Premium / Lisensi</label>
                     </div>
                     <div class="flex gap-2">
-                        <input type="password" id="licenseKey" placeholder="Masukkan lisensi untuk akses full..." class="w-full bg-gray-950/40 border border-gray-800 focus:border-indigo-500 rounded-xl px-4 py-2.5 text-xs text-white placeholder-gray-600 transition-all outline-none">
+                        <input type="password" id="licenseKey" placeholder="Masukkan kode lisensi produk..." class="w-full bg-gray-950/40 border border-gray-800 focus:border-indigo-500 rounded-xl px-4 py-2.5 text-xs text-white placeholder-gray-600 transition-all outline-none font-mono">
                         <button type="button" onclick="verifikasiLisensi()" class="bg-indigo-600 hover:bg-indigo-500 text-white text-xs font-bold px-4 rounded-xl transition-all active:scale-95">Aktivasi</button>
                     </div>
                 </div>
 
-                <!-- PANEL MRR -->
-                <div class="border-t border-gray-800/60 pt-2.5">
-                    <button type="button" onclick="toggleMRRPanel()" class="w-full text-left text-[10px] text-indigo-400 hover:text-indigo-300 font-bold flex items-center justify-between">
-                        <span><i class="fa-solid fa-sliders mr-1.5"></i> MANAGEMENT SYSTEM (LISENSI MRR)</span>
+                <!-- PANEL MANAGEMENT MRR RAHASIA (HANYA MUNCUL JIKA DIMASUKKAN KUNCI TINGKAT MRR) -->
+                <div id="mrrWrapperPanel" class="border-t border-gray-800/60 pt-2.5 hidden">
+                    <button type="button" onclick="toggleMRRPanel()" class="w-full text-left text-[10px] text-emerald-400 hover:text-emerald-300 font-bold flex items-center justify-between">
+                        <span><i class="fa-solid fa-unlock-keyhole mr-1.5"></i> MANAGEMENT SYSTEM (MASTER MRR PANEL)</span>
                         <i id="mrrChevron" class="fa-solid fa-chevron-down text-[8px] transition-transform"></i>
                     </button>
                     <div id="mrrControlPanel" class="space-y-2 pt-2 hidden">
-                        <input type="text" id="customLicenseConfig" value="MASTERPRO2026" class="w-full bg-gray-950/80 border border-gray-800 rounded-xl px-4 py-2 text-xs text-emerald-400 font-mono font-bold tracking-wider outline-none">
-                        <button type="button" onclick="saveCustomLicense()" class="w-full bg-emerald-500/10 hover:bg-emerald-500/20 text-emerald-400 border border-emerald-500/20 text-[11px] font-bold py-2 rounded-xl">Update Kunci Lisensi Utama</button>
+                        <p class="text-[10px] text-gray-400 leading-relaxed">Ubah Kunci Lisensi Bawaan untuk pembeli personal & pembeli MRR tokomu berikutnya:</p>
+                        
+                        <div class="space-y-1">
+                            <label class="text-[9px] text-gray-500 font-mono block">1. KUNCI LISENSI PERSONAL BARU</label>
+                            <input type="password" id="configPersonalKey" value="ANAKPINTAR2026" class="w-full bg-gray-950/80 border border-gray-800 rounded-xl px-4 py-2 text-xs text-amber-400 font-mono outline-none">
+                        </div>
+
+                        <div class="space-y-1 pt-1">
+                            <label class="text-[9px] text-gray-500 font-mono block">2. KUNCI MASTER MRR BARU</label>
+                            <input type="password" id="configMrrKey" value="MASTERPRO2026" class="w-full bg-gray-950/80 border border-gray-800 rounded-xl px-4 py-2 text-xs text-pink-400 font-mono outline-none">
+                        </div>
+
+                        <button type="button" onclick="saveCustomLicense()" class="w-full bg-emerald-500/10 hover:bg-emerald-500/20 text-emerald-400 border border-emerald-500/20 text-[11px] font-bold py-2 rounded-xl mt-1">Simpan Semua Konfigurasi Baru</button>
                     </div>
                 </div>
             </div>
 
-            <!-- PENGATURAN DATA -->
+            <!-- SELEKSI KATEGORI LAYOUT -->
             <div class="space-y-1.5">
                 <label class="text-[11px] text-gray-300 font-semibold tracking-wide px-0.5">Pilih Kategori Modul Aktivitas</label>
                 <select id="workMode" onchange="toggleInputs(); updateLivePreview();" class="w-full bg-gray-950/60 border border-gray-800 focus:border-indigo-500 rounded-xl px-3 py-2.5 text-xs text-gray-200 font-medium outline-none transition-all">
@@ -112,6 +123,7 @@
                 </select>
             </div>
 
+            <!-- INPUT DATA PANEL -->
             <div class="glass-card p-4 rounded-2xl space-y-3.5">
                 <div id="inputTracingGroup" class="space-y-1.5">
                     <label class="text-[11px] text-gray-300 font-semibold tracking-wide">Nama / Teks Cetak Anak</label>
@@ -161,7 +173,7 @@
                 </div>
             </div>
 
-            <!-- WARNA SELEKTOR -->
+            <!-- TEMA WARNA -->
             <div class="space-y-2">
                 <label class="text-[11px] text-gray-300 font-semibold tracking-wide px-0.5">Pilih Estetika Warna Lembar Kerja</label>
                 <div class="grid grid-cols-3 gap-2.5">
@@ -171,9 +183,9 @@
                 </div>
             </div>
 
-            <button type="button" onclick="downloadMasterV75PDF()" class="w-full bg-gradient-to-r from-indigo-500 via-purple-500 to-pink-500 hover:from-indigo-400 hover:to-pink-400 text-white font-extrabold py-3.5 px-4 rounded-xl text-xs shadow-xl uppercase tracking-widest">
+            <button type="button" onclick="downloadMasterV80PDF()" class="w-full bg-gradient-to-r from-indigo-500 via-purple-500 to-pink-500 hover:from-indigo-400 hover:to-pink-400 text-white font-extrabold py-3.5 px-4 rounded-xl text-xs shadow-xl uppercase tracking-widest">
                 <i class="fa-solid fa-sparkles mr-2 text-xs"></i> GENERATE HIGH-RES DOCUMENT
-                </button>
+            </button>
         </div>
 
         <!-- PANEL PREVIEW RIGHT -->
@@ -201,9 +213,9 @@
     </main>
 
     <script>
-        if (!localStorage.getItem("MRR_KEY_CONFIG")) {
-            localStorage.setItem("MRR_KEY_CONFIG", "MASTERPRO2026");
-        }
+        // Inisialisasi Database Kunci Berjenjang Lokal
+        if (!localStorage.getItem("KEY_PERSONAL_CONFIG")) localStorage.setItem("KEY_PERSONAL_CONFIG", "ANAKPINTAR2026");
+        if (!localStorage.getItem("KEY_MRR_CONFIG")) localStorage.setItem("KEY_MRR_CONFIG", "MASTERPRO2026");
 
         let isPremiumActive = false;
         let activeThemeName = "amber", activePrimaryColor = "#f59e0b", activeSecondaryColor = "#d97706";
@@ -215,28 +227,45 @@
         }
 
         function saveCustomLicense() {
-            const newKey = document.getElementById("customLicenseConfig").value.trim();
-            if(!newKey) { alert("Lisensi baru tidak boleh kosong!"); return; }
-            localStorage.setItem("MRR_KEY_CONFIG", newKey);
-            alert(`Sukses Rebranding! Lisensi MRR diganti ke: "${newKey}".`);
+            const personalKey = document.getElementById("configPersonalKey").value.trim();
+            const mrrKey = document.getElementById("configMrrKey").value.trim();
+            
+            if(!personalKey || !mrrKey) { alert("Kunci lisensi tidak boleh kosong!"); return; }
+            
+            localStorage.setItem("KEY_PERSONAL_CONFIG", personalKey);
+            localStorage.setItem("KEY_MRR_CONFIG", mrrKey);
+            alert(`Sukses Rebranding!\n1. Kunci Personal baru: "${personalKey}"\n2. Kunci Master MRR baru: "${mrrKey}"`);
             location.reload();
         }
 
         function verifikasiLisensi() {
             const val = document.getElementById("licenseKey").value.trim();
-            const valid = localStorage.getItem("MRR_KEY_CONFIG");
+            const validPersonal = localStorage.getItem("KEY_PERSONAL_CONFIG");
+            const validMrr = localStorage.getItem("KEY_MRR_CONFIG");
 
-            if (val === valid) {
+            if (val === validPersonal) {
+                // Pembeli Biasa: Akses Cetak Terbuka, Panel Admin MRR Tetap Sembunyi
                 isPremiumActive = true;
-                document.getElementById("statusBadge").innerText = "FULL PREMIUM";
-                document.getElementById("statusBadge").className = "text-[10px] bg-emerald-500/10 text-emerald-400 border border-emerald-500/20 px-3 py-1 rounded-full font-bold shadow-lg shadow-emerald-500/5";
-                document.getElementById("badgeAksesLayar").innerText = "AKSES: FULL PRO";
-                document.getElementById("badgeAksesLayar").className = "text-[9px] text-emerald-600 border px-2 py-1 rounded-md font-mono font-black bg-emerald-50 border-emerald-200";
-                alert("Akses Penuh Terbuka! Terima kasih.");
-                updateLivePreview();
+                document.getElementById("mrrWrapperPanel").classList.add("hidden");
+                setPremiumUI("FULL PREMIUM (PERSONAL)");
+                alert("Lisensi Personal Aktif! Akses unduh dokumen tanpa batas telah terbuka.");
+            } else if (val === validMrr) {
+                // Pembeli MRR: Akses Cetak Terbuka + Panel Admin MRR Muncul
+                isPremiumActive = true;
+                document.getElementById("mrrWrapperPanel").classList.remove("hidden");
+                setPremiumUI("MASTER LISENSI MRR");
+                alert("Lisensi Master MRR Aktif! Fitur cetak terbuka penuh dan Panel Rebranding Admin telah dibuka di bawah.");
             } else {
-                alert("Lisensi tidak valid! Sistem berjalan dalam Mode Demo.");
+                alert("Kode lisensi tidak valid! Sistem berjalan dalam Mode Demo.");
             }
+            updateLivePreview();
+        }
+
+        function setPremiumUI(badgeText) {
+            document.getElementById("statusBadge").innerText = badgeText;
+            document.getElementById("statusBadge").className = "text-[10px] bg-emerald-500/10 text-emerald-400 border border-emerald-500/20 px-3 py-1 rounded-full font-bold shadow-lg";
+            document.getElementById("badgeAksesLayar").innerText = "AKSES: FULL PRO";
+            document.getElementById("badgeAksesLayar").className = "text-[9px] text-emerald-600 border px-2 py-1 rounded-md font-mono font-black bg-emerald-50 border-emerald-200";
         }
 
         function toggleInputs() {
@@ -270,7 +299,6 @@
             updateLivePreview();
         }
 
-        // 🔥 PERBAIKAN UTAMA: MEMBUAT PRATINJAU LIVE BENAR-BENAR BERWARNA & BERGERAK SESUAI MENU
         function updateLivePreview() {
             const mode = document.getElementById("workMode").value;
             const container = document.getElementById("previewContainer");
@@ -282,7 +310,7 @@
             document.getElementById("previewTitle").innerText = `KATEGORI: ${mode.toUpperCase()}`;
 
             let html = "";
-            let limit = isPremiumActive ? 4 : 2; // Preview dibatasi sedikit jika masih demo
+            let limit = isPremiumActive ? 4 : 2;
 
             if (mode === "tracing" || mode === "tracing_baru") {
                 for (let i = 0; i < limit; i++) {
@@ -300,34 +328,17 @@
                             <div class="w-7 h-7 border border-dashed rounded bg-white flex items-center justify-center font-bold text-gray-300 text-xs" style="border-color:${activePrimaryColor}">?</div>
                         </div>`;
                 }
-            } else if (mode === "planner_baru") {
-                html = `
-                    <div class="space-y-2 text-xs text-gray-600">
-                        <div class="flex items-center gap-2 p-1.5 bg-gray-50 rounded border border-gray-100">📌 06.00 : Bangun Tidur & Mandi</div>
-                        <div class="flex items-center gap-2 p-1.5 bg-gray-50 rounded border border-gray-100">📌 08.00 : Belajar Menulis Nama</div>
-                    </div>`;
-            } else if (mode === "creative_baru" || mode === "kesenian") {
-                html = `
-                    <div class="w-full h-24 border border-dashed rounded bg-gray-50/50 flex flex-col items-center justify-center text-xs text-gray-400 space-y-1">
-                        <i class="fa-solid fa-palette text-lg" style="color:${activePrimaryColor}"></i>
-                        <span>[ Modul Kanvas Pola Kotak Gambar Aktif ]</span>
-                    </div>`;
             } else {
-                html = `
-                    <div class="space-y-2 text-xs text-gray-700">
-                        <div class="p-2 bg-gray-50 rounded border border-gray-100">📋 Kuis 1: Jawablah pertanyaan pada cetakan PDF Anda dengan benar!</div>
-                        <div class="p-2 bg-gray-50 rounded border border-gray-100">📋 Kuis 2: Selesaikan tantangan edukasi bersama maskot pilihanmu!</div>
-                    </div>`;
+                html = `<div class="p-4 bg-gray-50 rounded-xl border border-dashed text-xs text-gray-400 text-center font-mono">Simulasi draf cetak kurikulum aktif.</div>`;
             }
 
             if(!isPremiumActive) {
                 html += `<p class="text-[10px] text-red-400 text-center font-bold animate-pulse mt-3"><i class="fa-solid fa-lock"></i> Mode Demo Terbatas (Cetak hanya keluar 3 soal)</p>`;
             }
-
             container.innerHTML = html;
         }
 
-        function downloadMasterV75PDF() {
+        function downloadMasterV80PDF() {
             const mode = document.getElementById("workMode").value;
             const inst = document.getElementById("instructionText").value.trim();
             const childName = document.getElementById("childName").value.trim().toUpperCase() || "ANAK";
@@ -362,21 +373,6 @@
                     doc.line(15, lineY - 5, 195, lineY - 5); doc.line(15, lineY + 4, 195, lineY + 4);
                     doc.text(sn, 22, lineY + 1.5); lineY += 24;
                 }
-            } else if (mode === "math" || mode === "math_baru") {
-                const ico = document.getElementById("mathIcon").value;
-                for (let i = 0; i < totalQ; i++) {
-                    doc.setDrawColor(240, 240, 240); doc.setLineDashPattern([], 0); doc.rect(15, y - 6, 180, 12, "D");
-                    let n1 = Math.floor(Math.random() * 15) + 5;
-                    doc.text(`Soal ${i+1} :   ${String(ico + " ").repeat(3)}  +  ......  =  ${n1}`, 22, y + 2);
-                    doc.setDrawColor(activePrimaryColor); doc.rect(174, y - 4, 8, 8); y += 18;
-                }
-            } else if (mode === "planner_baru") {
-                doc.setFont("Helvetica", "bold"); doc.text("📅 PLANNER AGENDA HARIAN SEJAK DINI", 15, 44);
-                let planY = 54; const agenda = ["06.00 : Bangun Pagi & Merapikan Kasur [  ]", "07.00 : Mandi & Bersiap Sarapan Pagi    [  ]", "08.00 : Waktu Belajar Menulis & Membaca  [  ]"];
-                for (let i = 0; i < Math.min(totalQ, agenda.length); i++) {
-                    doc.setDrawColor(230, 230, 230); doc.setLineDashPattern([], 0); doc.rect(15, planY - 5, 180, 11);
-                    doc.setFont("Helvetica", "normal"); doc.text(agenda[i], 20, planY + 2); planY += 16;
-                }
             } else {
                 for (let i = 0; i < totalQ; i++) {
                     doc.setDrawColor(240, 240, 240); doc.setLineDashPattern([], 0); doc.rect(15, y - 6, 180, 12, "D");
@@ -385,11 +381,14 @@
             }
 
             doc.setFont("Helvetica", "normal"); doc.setFontSize(7); doc.setTextColor(150, 150, 150); doc.setLineDashPattern([], 0);
-            doc.text(`Kids UI Cyber Cinematic Engine v7.6 - Rebranding MRR Pack - Koh Ojiek`, 15, 286);
-            doc.save(`Worksheet_Cinematic_${mode}.pdf`);
+            doc.text(`Kids UI Cyber Cinematic Engine v8.0 - Master MRR Multi-Tier - Koh Ojiek`, 15, 286);
+            doc.save(`Worksheet_MRR_Package_${mode}.pdf`);
         }
 
-        document.getElementById("customLicenseConfig").value = localStorage.getItem("MRR_KEY_CONFIG");
+        // Set value input rahasia dari lokal storage saat load
+        document.getElementById("configPersonalKey").value = localStorage.getItem("KEY_PERSONAL_CONFIG");
+        document.getElementById("configMrrKey").value = localStorage.getItem("KEY_MRR_CONFIG");
+        
         toggleInputs(); updateLivePreview();
     </script>
 </body>
