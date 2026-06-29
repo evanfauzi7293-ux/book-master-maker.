@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Kids Worksheet & Planner Creator v8.0 (Edisi MRR Multi-Tier)</title>
+    <title>Kids Worksheet & Planner Creator v8.5 (Cinematic Dual-Gate)</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
@@ -52,50 +52,55 @@
     <main class="max-w-6xl w-full mx-auto grid grid-cols-1 lg:grid-cols-12 gap-8 items-start mt-2 relative z-10">
         
         <!-- PANEL KONTROL KIRI -->
-        <div class="lg:col-span-5 glass-panel p-6 rounded-3xl space-y-5">
-            <div class="flex items-center justify-between border-b border-gray-800/60 pb-4">
+        <div class="lg:col-span-5 glass-panel p-6 rounded-3xl space-y-4">
+            <div class="flex items-center justify-between border-b border-gray-800/60 pb-3">
                 <div>
                     <h1 class="text-xl font-extrabold tracking-tight bg-gradient-to-r from-indigo-400 via-pink-400 to-amber-300 bg-clip-text text-transparent uppercase">Worksheet Studio</h1>
-                    <p class="text-[11px] text-gray-400 font-medium tracking-wide mt-0.5">v8.0 Multi-Tier Licence by Koh Ojiek</p>
+                    <p class="text-[11px] text-gray-400 font-medium tracking-wide mt-0.5">v8.5 Dual-Gate Interface by Koh Ojiek</p>
                 </div>
                 <div id="statusBadge" class="text-[10px] bg-amber-500/10 text-amber-300 border border-amber-500/20 px-3 py-1 rounded-full font-bold tracking-wide shadow-lg shadow-amber-500/5">
                     DEMO MODE
                 </div>
             </div>
 
-            <!-- SECURITY PANEL (GERBANG DUA KUNCI) -->
-            <div class="glass-card p-4 rounded-2xl space-y-3">
-                <div class="space-y-1.5">
-                    <div class="flex justify-between items-center px-0.5">
-                        <label class="text-[11px] text-gray-300 font-semibold tracking-wide">Kode Akses Premium / Lisensi</label>
-                    </div>
-                    <div class="flex gap-2">
-                        <input type="password" id="licenseKey" placeholder="Masukkan kode lisensi produk..." class="w-full bg-gray-950/40 border border-gray-800 focus:border-indigo-500 rounded-xl px-4 py-2.5 text-xs text-white placeholder-gray-600 transition-all outline-none font-mono">
-                        <button type="button" onclick="verifikasiLisensi()" class="bg-indigo-600 hover:bg-indigo-500 text-white text-xs font-bold px-4 rounded-xl transition-all active:scale-95">Aktivasi</button>
-                    </div>
+            <!-- 🚪 KOTAK GERBANG 1: KHUSUS PEMBELI PERSONAL -->
+            <div id="gatePersonalWrapper" class="glass-card p-4 rounded-2xl border-l-4 border-l-amber-500/60 space-y-2">
+                <div class="flex justify-between items-center px-0.5">
+                    <label class="text-[11px] text-amber-400 font-bold tracking-wide uppercase"><i class="fa-solid fa-user-lock mr-1.5"></i> 1. Jalur Aktivasi Personal</label>
+                    <span class="text-[9px] text-gray-500">Membuka Fitur Cetak</span>
+                </div>
+                <div class="flex gap-2">
+                    <input type="password" id="personalLicenseKey" placeholder="Masukkan kode lisensi personal..." class="w-full bg-gray-950/40 border border-gray-800 focus:border-amber-500 rounded-xl px-4 py-2 text-xs text-white placeholder-gray-600 outline-none font-mono">
+                    <button type="button" onclick="aktivasiPersonalGate()" class="bg-amber-600 hover:bg-amber-500 text-white text-xs font-bold px-4 rounded-xl transition-all active:scale-95 shadow-md shadow-amber-600/10">Verifikasi</button>
+                </div>
+            </div>
+
+            <!-- 🚪 KOTAK GERBANG 2: KHUSUS LISENSI MASTER MRR -->
+            <div id="gateMrrWrapper" class="glass-card p-4 rounded-2xl border-l-4 border-l-indigo-500/60 space-y-2">
+                <div class="flex justify-between items-center px-0.5">
+                    <label class="text-[11px] text-indigo-400 font-bold tracking-wide uppercase"><i class="fa-solid fa-keyhole mr-1.5"></i> 2. Jalur Aktivasi Master MRR</label>
+                    <span class="text-[9px] text-gray-500">Akses Reseller & Rebranding</span>
+                </div>
+                <div class="flex gap-2">
+                    <input type="password" id="mrrLicenseKey" placeholder="Masukkan kode master MRR..." class="w-full bg-gray-950/40 border border-gray-800 focus:border-indigo-500 rounded-xl px-4 py-2 text-xs text-white placeholder-gray-600 outline-none font-mono">
+                    <button type="button" onclick="aktivasiMrrGate()" class="bg-indigo-600 hover:bg-indigo-500 text-white text-xs font-bold px-4 rounded-xl transition-all active:scale-95 shadow-md shadow-indigo-600/10">Buka Panel</button>
                 </div>
 
-                <!-- PANEL MANAGEMENT MRR RAHASIA (HANYA MUNCUL JIKA DIMASUKKAN KUNCI TINGKAT MRR) -->
-                <div id="mrrWrapperPanel" class="border-t border-gray-800/60 pt-2.5 hidden">
-                    <button type="button" onclick="toggleMRRPanel()" class="w-full text-left text-[10px] text-emerald-400 hover:text-emerald-300 font-bold flex items-center justify-between">
-                        <span><i class="fa-solid fa-unlock-keyhole mr-1.5"></i> MANAGEMENT SYSTEM (MASTER MRR PANEL)</span>
-                        <i id="mrrChevron" class="fa-solid fa-chevron-down text-[8px] transition-transform"></i>
-                    </button>
-                    <div id="mrrControlPanel" class="space-y-2 pt-2 hidden">
-                        <p class="text-[10px] text-gray-400 leading-relaxed">Ubah Kunci Lisensi Bawaan untuk pembeli personal & pembeli MRR tokomu berikutnya:</p>
-                        
-                        <div class="space-y-1">
-                            <label class="text-[9px] text-gray-500 font-mono block">1. KUNCI LISENSI PERSONAL BARU</label>
-                            <input type="password" id="configPersonalKey" value="ANAKPINTAR2026" class="w-full bg-gray-950/80 border border-gray-800 rounded-xl px-4 py-2 text-xs text-amber-400 font-mono outline-none">
-                        </div>
-
-                        <div class="space-y-1 pt-1">
-                            <label class="text-[9px] text-gray-500 font-mono block">2. KUNCI MASTER MRR BARU</label>
-                            <input type="password" id="configMrrKey" value="MASTERPRO2026" class="w-full bg-gray-950/80 border border-gray-800 rounded-xl px-4 py-2 text-xs text-pink-400 font-mono outline-none">
-                        </div>
-
-                        <button type="button" onclick="saveCustomLicense()" class="w-full bg-emerald-500/10 hover:bg-emerald-500/20 text-emerald-400 border border-emerald-500/20 text-[11px] font-bold py-2 rounded-xl mt-1">Simpan Semua Konfigurasi Baru</button>
+                <!-- PANEL KONFIGURASI ADMIIN RAHASIA (MUNCUL DI DALAM GERBANG 2 JIKA KUNCI VALID) -->
+                <div id="mrrControlPanel" class="space-y-2 pt-3 border-t border-gray-800/60 mt-2 hidden">
+                    <p class="text-[10px] text-emerald-400 font-bold leading-relaxed"><i class="fa-solid fa-circle-check mr-1"></i> Sukses! Anda pemilik hak lisensi produk ini.</p>
+                    
+                    <div class="space-y-1">
+                        <label class="text-[9px] text-gray-500 font-mono block">SET KUNCI PERSONAL TOKOMU</label>
+                        <input type="password" id="configPersonalKey" class="w-full bg-gray-950/80 border border-gray-800 rounded-xl px-4 py-2 text-xs text-amber-400 font-mono outline-none">
                     </div>
+
+                    <div class="space-y-1 pt-1">
+                        <label class="text-[9px] text-gray-500 font-mono block">SET KUNCI MASTER MRR TOKOMU</label>
+                        <input type="password" id="configMrrKey" class="w-full bg-gray-950/80 border border-gray-800 rounded-xl px-4 py-2 text-xs text-indigo-400 font-mono outline-none">
+                    </div>
+
+                    <button type="button" onclick="saveCustomLicense()" class="w-full bg-emerald-500/10 hover:bg-emerald-500/20 text-emerald-400 border border-emerald-500/20 text-[11px] font-bold py-2 rounded-xl mt-1 transition-all">Simpan Perubahan Kunci Toko Anda</button>
                 </div>
             </div>
 
@@ -141,7 +146,7 @@
                     </div>
                     <div class="space-y-1.5">
                         <label class="text-[10px] text-gray-400 font-medium">Batas Angka Maks</label>
-                        <input type="number" id="maxMatrixNumber" value="20" min="10" max="100" class="w-full bg-gray-950/40 border border-gray-800 rounded-xl px-3 py-1.5 text-xs text-white font-bold outline-none" oninput="updateLivePreview()">
+                        <input type="number" id="maxMatrixNumber" value="20" min="10" max="100" class="w-full bg-gray-950/40 border border-gray-800 rounded-xl px-3 py-1.5 text-xs text-white font-bold outline-none font-mono" oninput="updateLivePreview()">
                     </div>
                 </div>
 
@@ -183,7 +188,7 @@
                 </div>
             </div>
 
-            <button type="button" onclick="downloadMasterV80PDF()" class="w-full bg-gradient-to-r from-indigo-500 via-purple-500 to-pink-500 hover:from-indigo-400 hover:to-pink-400 text-white font-extrabold py-3.5 px-4 rounded-xl text-xs shadow-xl uppercase tracking-widest">
+            <button type="button" onclick="downloadMasterV85PDF()" class="w-full bg-gradient-to-r from-indigo-500 via-purple-500 to-pink-500 hover:from-indigo-400 hover:to-pink-400 text-white font-extrabold py-3.5 px-4 rounded-xl text-xs shadow-xl uppercase tracking-widest">
                 <i class="fa-solid fa-sparkles mr-2 text-xs"></i> GENERATE HIGH-RES DOCUMENT
             </button>
         </div>
@@ -213,52 +218,55 @@
     </main>
 
     <script>
-        // Inisialisasi Database Kunci Berjenjang Lokal
+        // Set Database Awal jika memori kosong
         if (!localStorage.getItem("KEY_PERSONAL_CONFIG")) localStorage.setItem("KEY_PERSONAL_CONFIG", "ANAKPINTAR2026");
         if (!localStorage.getItem("KEY_MRR_CONFIG")) localStorage.setItem("KEY_MRR_CONFIG", "MASTERPRO2026");
 
         let isPremiumActive = false;
         let activeThemeName = "amber", activePrimaryColor = "#f59e0b", activeSecondaryColor = "#d97706";
 
-        function toggleMRRPanel() {
-            const panel = document.getElementById("mrrControlPanel");
-            panel.classList.toggle("hidden");
-            document.getElementById("mrrChevron").classList.toggle("rotate-180");
+        function aktivasiPersonalGate() {
+            const personalInput = document.getElementById("personalLicenseKey").value.trim();
+            const targetPersonalKey = localStorage.getItem("KEY_PERSONAL_CONFIG");
+
+            if (personalInput === targetPersonalKey) {
+                isPremiumActive = true;
+                // Sembunyikan panel admin MRR (karena dia pembeli biasa)
+                document.getElementById("mrrControlPanel").classList.add("hidden");
+                setPremiumUI("FULL PRO (PERSONAL ACCESS)");
+                alert("Selamat! Lisensi Personal Anda valid. Seluruh halaman PDF siap diunduh.");
+            } else {
+                alert("Kode Lisensi Personal Salah! Silakan periksa kembali pesan dari seller.");
+            }
+            updateLivePreview();
+        }
+
+        function aktivasiMrrGate() {
+            const mrrInput = document.getElementById("mrrLicenseKey").value.trim();
+            const targetMrrKey = localStorage.getItem("KEY_MRR_CONFIG");
+
+            if (mrrInput === targetMrrKey) {
+                isPremiumActive = true;
+                // Munculkan panel admin MRR tepat di bawah tombolnya
+                document.getElementById("mrrControlPanel").classList.remove("hidden");
+                setPremiumUI("MASTER DEVELOPER LISENSI MRR");
+                alert("Akses Master Developer Terbuka! Anda dapat mengatur ulang kunci lisensi bawaan melalui panel hijau di bawah.");
+            } else {
+                alert("Kode Kunci Master MRR Salah!");
+            }
+            updateLivePreview();
         }
 
         function saveCustomLicense() {
-            const personalKey = document.getElementById("configPersonalKey").value.trim();
-            const mrrKey = document.getElementById("configMrrKey").value.trim();
+            const newPersonal = document.getElementById("configPersonalKey").value.trim();
+            const newMrr = document.getElementById("configMrrKey").value.trim();
             
-            if(!personalKey || !mrrKey) { alert("Kunci lisensi tidak boleh kosong!"); return; }
+            if(!newPersonal || !newMrr) { alert("Konfigurasi kunci baru tidak boleh kosong!"); return; }
             
-            localStorage.setItem("KEY_PERSONAL_CONFIG", personalKey);
-            localStorage.setItem("KEY_MRR_CONFIG", mrrKey);
-            alert(`Sukses Rebranding!\n1. Kunci Personal baru: "${personalKey}"\n2. Kunci Master MRR baru: "${mrrKey}"`);
+            localStorage.setItem("KEY_PERSONAL_CONFIG", newPersonal);
+            localStorage.setItem("KEY_MRR_CONFIG", newMrr);
+            alert(`Sukses Rebranding Toko Digital Anda!\n\n1. Lisensi Personal Baru: ${newPersonal}\n2. Lisensi Master MRR Baru: ${newMrr}\n\nWeb akan merefresh otomatis.`);
             location.reload();
-        }
-
-        function verifikasiLisensi() {
-            const val = document.getElementById("licenseKey").value.trim();
-            const validPersonal = localStorage.getItem("KEY_PERSONAL_CONFIG");
-            const validMrr = localStorage.getItem("KEY_MRR_CONFIG");
-
-            if (val === validPersonal) {
-                // Pembeli Biasa: Akses Cetak Terbuka, Panel Admin MRR Tetap Sembunyi
-                isPremiumActive = true;
-                document.getElementById("mrrWrapperPanel").classList.add("hidden");
-                setPremiumUI("FULL PREMIUM (PERSONAL)");
-                alert("Lisensi Personal Aktif! Akses unduh dokumen tanpa batas telah terbuka.");
-            } else if (val === validMrr) {
-                // Pembeli MRR: Akses Cetak Terbuka + Panel Admin MRR Muncul
-                isPremiumActive = true;
-                document.getElementById("mrrWrapperPanel").classList.remove("hidden");
-                setPremiumUI("MASTER LISENSI MRR");
-                alert("Lisensi Master MRR Aktif! Fitur cetak terbuka penuh dan Panel Rebranding Admin telah dibuka di bawah.");
-            } else {
-                alert("Kode lisensi tidak valid! Sistem berjalan dalam Mode Demo.");
-            }
-            updateLivePreview();
         }
 
         function setPremiumUI(badgeText) {
@@ -329,7 +337,7 @@
                         </div>`;
                 }
             } else {
-                html = `<div class="p-4 bg-gray-50 rounded-xl border border-dashed text-xs text-gray-400 text-center font-mono">Simulasi draf cetak kurikulum aktif.</div>`;
+                html = `<div class="p-4 bg-gray-50 rounded-xl border border-dashed text-xs text-gray-400 text-center font-mono">Simulasi draf modul kurikulum aktif.</div>`;
             }
 
             if(!isPremiumActive) {
@@ -338,7 +346,7 @@
             container.innerHTML = html;
         }
 
-        function downloadMasterV80PDF() {
+        function downloadMasterV85PDF() {
             const mode = document.getElementById("workMode").value;
             const inst = document.getElementById("instructionText").value.trim();
             const childName = document.getElementById("childName").value.trim().toUpperCase() || "ANAK";
@@ -381,11 +389,11 @@
             }
 
             doc.setFont("Helvetica", "normal"); doc.setFontSize(7); doc.setTextColor(150, 150, 150); doc.setLineDashPattern([], 0);
-            doc.text(`Kids UI Cyber Cinematic Engine v8.0 - Master MRR Multi-Tier - Koh Ojiek`, 15, 286);
-            doc.save(`Worksheet_MRR_Package_${mode}.pdf`);
+            doc.text(`Kids UI Cyber Cinematic Engine v8.5 - Dual-Gate MRR System - Koh Ojiek`, 15, 286);
+            doc.save(`Worksheet_Cinematic_${mode}.pdf`);
         }
 
-        // Set value input rahasia dari lokal storage saat load
+        // Muat Kunci Berdasarkan Penyimpanan Lokal Browser
         document.getElementById("configPersonalKey").value = localStorage.getItem("KEY_PERSONAL_CONFIG");
         document.getElementById("configMrrKey").value = localStorage.getItem("KEY_MRR_CONFIG");
         
