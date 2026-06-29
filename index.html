@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Kids Worksheet & Planner Creator v8.5 (Cinematic Dual-Gate)</title>
+    <title>Kids Worksheet & Planner Creator v8.6 (Stable Edition)</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
@@ -56,7 +56,7 @@
             <div class="flex items-center justify-between border-b border-gray-800/60 pb-3">
                 <div>
                     <h1 class="text-xl font-extrabold tracking-tight bg-gradient-to-r from-indigo-400 via-pink-400 to-amber-300 bg-clip-text text-transparent uppercase">Worksheet Studio</h1>
-                    <p class="text-[11px] text-gray-400 font-medium tracking-wide mt-0.5">v8.5 Dual-Gate Interface by Koh Ojiek</p>
+                    <p class="text-[11px] text-gray-400 font-medium tracking-wide mt-0.5">v8.6 Dual-Gate Engine by Koh Ojiek</p>
                 </div>
                 <div id="statusBadge" class="text-[10px] bg-amber-500/10 text-amber-300 border border-amber-500/20 px-3 py-1 rounded-full font-bold tracking-wide shadow-lg shadow-amber-500/5">
                     DEMO MODE
@@ -86,9 +86,9 @@
                     <button type="button" onclick="aktivasiMrrGate()" class="bg-indigo-600 hover:bg-indigo-500 text-white text-xs font-bold px-4 rounded-xl transition-all active:scale-95 shadow-md shadow-indigo-600/10">Buka Panel</button>
                 </div>
 
-                <!-- PANEL KONFIGURASI ADMIIN RAHASIA (MUNCUL DI DALAM GERBANG 2 JIKA KUNCI VALID) -->
+                <!-- PANEL KONFIGURASI ADMIN RAHASIA (MUNCUL JIKA KUNCI VALID) -->
                 <div id="mrrControlPanel" class="space-y-2 pt-3 border-t border-gray-800/60 mt-2 hidden">
-                    <p class="text-[10px] text-emerald-400 font-bold leading-relaxed"><i class="fa-solid fa-circle-check mr-1"></i> Sukses! Anda pemilik hak lisensi produk ini.</p>
+                    <p class="text-[10px] text-emerald-400 font-bold leading-relaxed"><i class="fa-solid fa-circle-check mr-1"></i> Panel Rebranding Akun MRR Anda Aktif</p>
                     
                     <div class="space-y-1">
                         <label class="text-[9px] text-gray-500 font-mono block">SET KUNCI PERSONAL TOKOMU</label>
@@ -188,7 +188,7 @@
                 </div>
             </div>
 
-            <button type="button" onclick="downloadMasterV85PDF()" class="w-full bg-gradient-to-r from-indigo-500 via-purple-500 to-pink-500 hover:from-indigo-400 hover:to-pink-400 text-white font-extrabold py-3.5 px-4 rounded-xl text-xs shadow-xl uppercase tracking-widest">
+            <button type="button" onclick="downloadMasterV86PDF()" class="w-full bg-gradient-to-r from-indigo-500 via-purple-500 to-pink-500 hover:from-indigo-400 hover:to-pink-500 text-white font-extrabold py-3.5 px-4 rounded-xl text-xs shadow-lg uppercase tracking-widest">
                 <i class="fa-solid fa-sparkles mr-2 text-xs"></i> GENERATE HIGH-RES DOCUMENT
             </button>
         </div>
@@ -218,20 +218,24 @@
     </main>
 
     <script>
-        // Set Database Awal jika memori kosong
-        if (!localStorage.getItem("KEY_PERSONAL_CONFIG")) localStorage.setItem("KEY_PERSONAL_CONFIG", "ANAKPINTAR2026");
-        if (!localStorage.getItem("KEY_MRR_CONFIG")) localStorage.setItem("KEY_MRR_CONFIG", "MASTERPRO2026");
+        // 🔑 PROTEKSI CORES CADANGAN (HARDCODED BACKUP): JIKA LOCALSTORAGE KOSONG / TERHAPUS
+        const DEFAULT_PERSONAL_KEY = "ANAKPINTAR2026";
+        const DEFAULT_MRR_KEY = "MASTERPRO2026";
+
+        if (!localStorage.getItem("KEY_PERSONAL_CONFIG")) localStorage.setItem("KEY_PERSONAL_CONFIG", DEFAULT_PERSONAL_KEY);
+        if (!localStorage.getItem("KEY_MRR_CONFIG")) localStorage.setItem("KEY_MRR_CONFIG", DEFAULT_MRR_KEY);
 
         let isPremiumActive = false;
         let activeThemeName = "amber", activePrimaryColor = "#f59e0b", activeSecondaryColor = "#d97706";
 
+        // 🔥 PERBAIKAN TOTAL FUNGSI GERBANG PERSONAL (MENDUKUNG DUAL CEK)
         function aktivasiPersonalGate() {
             const personalInput = document.getElementById("personalLicenseKey").value.trim();
             const targetPersonalKey = localStorage.getItem("KEY_PERSONAL_CONFIG");
 
-            if (personalInput === targetPersonalKey) {
+            // Sistem mencocokkan ke memori dinamis ATAU kunci cadangan bawaan
+            if (personalInput === targetPersonalKey || personalInput === DEFAULT_PERSONAL_KEY) {
                 isPremiumActive = true;
-                // Sembunyikan panel admin MRR (karena dia pembeli biasa)
                 document.getElementById("mrrControlPanel").classList.add("hidden");
                 setPremiumUI("FULL PRO (PERSONAL ACCESS)");
                 alert("Selamat! Lisensi Personal Anda valid. Seluruh halaman PDF siap diunduh.");
@@ -241,13 +245,13 @@
             updateLivePreview();
         }
 
+        // 🔥 PERBAIKAN TOTAL FUNGSI GERBANG MRR
         function aktivasiMrrGate() {
             const mrrInput = document.getElementById("mrrLicenseKey").value.trim();
             const targetMrrKey = localStorage.getItem("KEY_MRR_CONFIG");
 
-            if (mrrInput === targetMrrKey) {
+            if (mrrInput === targetMrrKey || mrrInput === DEFAULT_MRR_KEY) {
                 isPremiumActive = true;
-                // Munculkan panel admin MRR tepat di bawah tombolnya
                 document.getElementById("mrrControlPanel").classList.remove("hidden");
                 setPremiumUI("MASTER DEVELOPER LISENSI MRR");
                 alert("Akses Master Developer Terbuka! Anda dapat mengatur ulang kunci lisensi bawaan melalui panel hijau di bawah.");
@@ -313,6 +317,7 @@
             const childName = document.getElementById("childName").value.trim().toUpperCase() || "ANAK";
             const icon = document.getElementById("mathIcon").value;
             
+            document.getElementById("instructionText").value = document.getElementById("instructionText").value;
             document.getElementById("previewInstruction").innerText = document.getElementById("instructionText").value;
             document.getElementById("previewMaskot").innerText = document.getElementById("characterMaskot").value;
             document.getElementById("previewTitle").innerText = `KATEGORI: ${mode.toUpperCase()}`;
@@ -337,7 +342,7 @@
                         </div>`;
                 }
             } else {
-                html = `<div class="p-4 bg-gray-50 rounded-xl border border-dashed text-xs text-gray-400 text-center font-mono">Simulasi draf modul kurikulum aktif.</div>`;
+                html = `<div class="p-4 bg-gray-50 rounded-xl border border-dashed text-xs text-gray-400 text-center font-mono">Simulasi draf kuis kurikulum sekolah aktif.</div>`;
             }
 
             if(!isPremiumActive) {
@@ -346,7 +351,7 @@
             container.innerHTML = html;
         }
 
-        function downloadMasterV85PDF() {
+        function downloadMasterV86PDF() {
             const mode = document.getElementById("workMode").value;
             const inst = document.getElementById("instructionText").value.trim();
             const childName = document.getElementById("childName").value.trim().toUpperCase() || "ANAK";
@@ -389,11 +394,11 @@
             }
 
             doc.setFont("Helvetica", "normal"); doc.setFontSize(7); doc.setTextColor(150, 150, 150); doc.setLineDashPattern([], 0);
-            doc.text(`Kids UI Cyber Cinematic Engine v8.5 - Dual-Gate MRR System - Koh Ojiek`, 15, 286);
+            doc.text(`Kids UI Cyber Cinematic Engine v8.6 - Stable Multi-Gate System - Koh Ojiek`, 15, 286);
             doc.save(`Worksheet_Cinematic_${mode}.pdf`);
         }
 
-        // Muat Kunci Berdasarkan Penyimpanan Lokal Browser
+        // Sinkronisasi data awal input administrasi
         document.getElementById("configPersonalKey").value = localStorage.getItem("KEY_PERSONAL_CONFIG");
         document.getElementById("configMrrKey").value = localStorage.getItem("KEY_MRR_CONFIG");
         
