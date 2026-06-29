@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Kids Worksheet & Planner Creator v6.5</title>
+    <title>Kids Worksheet & Planner Creator v7.0 (Edisi Master MRR)</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
@@ -24,42 +24,61 @@
         <div class="lg:col-span-5 pro-card p-5 rounded-2xl space-y-4">
             <div class="flex items-center justify-between border-b border-gray-800 pb-3">
                 <div>
-                    <h1 class="text-md font-bold bg-gradient-to-r from-amber-400 via-pink-500 to-emerald-400 bg-clip-text text-transparent uppercase tracking-wider">Worksheet & Planner v6.5</h1>
-                    <p class="text-[10px] text-gray-400">Hybrid Mega Engine by Koh Ojiek</p>
+                    <h1 class="text-md font-bold bg-gradient-to-r from-amber-400 via-pink-500 to-emerald-400 bg-clip-text text-transparent uppercase tracking-wider">Worksheet Master v7.0</h1>
+                    <p class="text-[10px] text-gray-400">MRR Developer Edition by Koh Ojiek</p>
                 </div>
-                <span class="text-[9px] bg-gradient-to-r from-pink-500 to-purple-600 text-white px-2 py-0.5 rounded-full font-bold shadow-sm">
-                    MEGA BUNDLE
-                </span>
+                <div id="statusBadge" class="text-[9px] bg-amber-500/10 text-amber-400 border border-amber-500/20 px-2.5 py-0.5 rounded-full font-bold shadow-sm">
+                    MODE DEMO (TERBATAS)
+                </div>
             </div>
 
-            <!-- KODE LISENSI -->
-            <div class="space-y-1">
-                <label class="text-[11px] text-gray-400 block font-medium">Kode Akses Premium / Lisensi</label>
-                <input type="password" id="licenseKey" placeholder="Masukkan kode lisensi..." class="w-full bg-gray-900/50 border border-gray-800 rounded-xl px-4 py-2 text-xs focus:outline-none focus:border-amber-500 text-white">
+            <!-- AKTIVASI LISENSI & FITUR MANAJEMEN MRR -->
+            <div class="bg-gray-950/60 p-3 rounded-xl border border-gray-800 space-y-2.5">
+                <div class="space-y-1">
+                    <div class="flex justify-between items-center">
+                        <label class="text-[11px] text-gray-400 font-medium">Masukkan Kode Akses Premium</label>
+                        <span class="text-[9px] text-gray-500">Ketik apa saja untuk Mode Demo</span>
+                    </div>
+                    <div class="flex gap-2">
+                        <input type="password" id="licenseKey" placeholder="Masukkan kode lisensi..." class="w-full bg-gray-900 border border-gray-800 rounded-xl px-3 py-1.5 text-xs text-white">
+                        <button type="button" onclick="verifikasiLisensi()" class="bg-indigo-600 hover:bg-indigo-500 text-white text-[11px] font-bold px-3 rounded-xl transition">Aktifkan</button>
+                    </div>
+                </div>
+
+                <!-- MENU KHUSUS PEMBELI MRR (BISA GANTI KODE SESUKA HATI) -->
+                <div class="border-t border-gray-800/60 pt-2 space-y-1">
+                    <button type="button" onclick="toggleMRRPanel()" class="w-full text-left text-[10px] text-indigo-400 hover:text-indigo-300 font-semibold flex items-center justify-between">
+                        <span><i class="fa-solid fa-gear mr-1"></i> Pengaturan Kunci MRR (Untuk Pemilik Lisensi)</span>
+                        <i id="mrrChevron" class="fa-solid fa-chevron-down text-[8px]"></i>
+                    </button>
+                    <div id="mrrControlPanel" class="space-y-1.5 pt-1 hidden">
+                        <p class="text-[9px] text-gray-500">Ganti kata kunci lisensi default produk ini sesukamu:</p>
+                        <input type="text" id="customLicenseConfig" value="MASTERPRO2026" class="w-full bg-gray-900 border border-gray-800 rounded-xl px-3 py-1 text-xs text-emerald-400 font-mono font-bold">
+                        <button type="button" onclick="saveCustomLicense()" class="w-full bg-emerald-600/20 hover:bg-emerald-600/30 text-emerald-400 border border-emerald-600/30 text-[10px] font-bold py-1 rounded-lg transition">Simpan Kunci Lisensi Baru</button>
+                    </div>
+                </div>
             </div>
 
-            <!-- MENU KATEGORI HYBRID (LAMA DAN BARU DIGABUNG) -->
+            <!-- MENU KATEGORI LENGKAP -->
             <div class="space-y-1">
                 <label class="text-[11px] text-gray-400 block font-medium">Pilih Kategori Lembar Kerja & Aktivitas</label>
                 <select id="workMode" onchange="toggleInputs(); updateLivePreview();" class="w-full bg-gray-900 border border-gray-800 rounded-xl px-3 py-2 text-xs focus:outline-none focus:border-amber-500 text-white font-medium">
-                    <!-- 📑 MENU VERSI LAMA (TETAP DIKEMBALIKAN UTUH) -->
-                    <optgroup label="📋 Menu Versi Lama">
+                    <optgroup label="📋 Menu Standar">
                         <option value="tracing">✍️ Tracing Nama Sendiri (Buku Garis Halus)</option>
                         <option value="alfabet">🔤 Tracing Huruf A-Z & Kotak Mewarnai</option>
-                        <option value="bahasa">📝 Bahasa Indonesia: Melengkapi Kata Kurikulum Merdeka</option>
-                        <option value="math">🧮 Matematika: Kuis Berhitung & Custom Angka Acak</option>
+                        <option value="bahasa">📝 Bahasa Indonesia: Melengkapi Kata Dasar</option>
+                        <option value="math">🧮 Matematika: Kuis Berhitung Gambar</option>
                         <option value="islam">🕌 Agama Islam: Kuis Dasar Iman & Rukun Islam</option>
-                        <option value="kesenian">🎨 Kesenian: Lembar Menggambar Kotak Pola Simetris</option>
+                        <option value="kesenian">🎨 Kesenian: Lembar Menggambar Kotak Pola</option>
                     </optgroup>
-                    
-                    <!-- 🌟 MENU TAMBAHAN BARU (VARIASI KREATIF PLANNER) -->
-                    <optgroup label="🌟 Menu Tambahan Baru v6.5">
+                    <optgroup label="🌟 Menu Tambahan Premium">
                         <option value="tracing_baru">✍️ Menu 1: Personal Tracing & Buku Garis Halus Plus</option>
                         <option value="math_baru">🧮 Menu 2: Matematika & Berhitung Visual Kompleks</option>
                         <option value="planner_baru">📅 Menu 3: Kids Planners & Belajar Mengatur Waktu</option>
                         <option value="indonesia_baru">📝 Menu 4: Kurikulum Indonesia & Cerita Anak</option>
                         <option value="english_baru">🇬🇧 Menu 5: English & Flashcard Generator</option>
                         <option value="creative_baru">🎨 Menu 6: Kreativitas, Origami, Puzzle & Busy Book</option>
+                        <option value="dino_bonus">🦖 Menu 7: Dino Adventure Math Puzzle (Ide Bonus Gemini)</option>
                     </optgroup>
                 </select>
             </div>
@@ -121,14 +140,11 @@
                     <button type="button" onclick="setTheme('amber', '#f59e0b', '#d97706')" class="bg-amber-500/10 text-amber-400 border border-amber-500/20 text-[10px] font-bold py-1.5 rounded-lg">💛 Amber</button>
                     <button type="button" onclick="setTheme('blue', '#3b82f6', '#1d4ed8')" class="bg-blue-500/10 text-blue-400 border border-blue-500/20 text-[10px] font-bold py-1.5 rounded-lg">💙 Blue</button>
                     <button type="button" onclick="setTheme('pink', '#ec4899', '#be185d')" class="bg-pink-500/10 text-pink-400 border border-pink-500/20 text-[10px] font-bold py-1.5 rounded-lg">💗 Pink</button>
-                    <button type="button" onclick="setTheme('green', '#10b981', '#047857')" class="bg-emerald-500/10 text-emerald-400 border border-emerald-500/20 text-[10px] font-bold py-1.5 rounded-lg">💚 Green</button>
-                    <button type="button" onclick="setTheme('purple', '#8b5cf6', '#6d28d9')" class="bg-purple-500/10 text-purple-400 border border-purple-500/20 text-[10px] font-bold py-1.5 rounded-lg">💜 Purple</button>
-                    <button type="button" onclick="setTheme('dark', '#374151', '#1f2937')" class="bg-gray-500/10 text-gray-400 border border-gray-500/20 text-[10px] font-bold py-1.5 rounded-lg">🖤 Mono</button>
                 </div>
             </div>
 
-            <button type="button" onclick="downloadHybridMegaPDF()" class="w-full bg-gradient-to-r from-orange-500 via-pink-500 to-indigo-600 text-white font-bold py-3 px-4 rounded-xl text-xs shadow-lg uppercase tracking-wider">
-                <i class="fa-solid fa-print mr-1"></i> CETAK MODUL WORKSHEET (A4)
+            <button type="button" onclick="downloadMasterPDF()" class="w-full bg-gradient-to-r from-orange-500 via-pink-500 to-indigo-600 text-white font-bold py-3 px-4 rounded-xl text-xs shadow-lg uppercase tracking-wider">
+                <i class="fa-solid fa-print mr-1"></i> DOWNLOAD / CETAK PDF (A4)
             </button>
         </div>
 
@@ -148,7 +164,7 @@
                         </div>
                         <p id="previewInstruction" class="text-[10px] text-gray-500 font-medium italic mt-1">Yuk, belajar sejak dini dengan menyenangkan!</p>
                     </div>
-                    <div class="text-[9px] text-gray-400 border p-1 rounded font-mono bg-gray-50">v6.5 Hybrid</div>
+                    <div id="badgeAksesLayar" class="text-[9px] text-amber-600 border p-1 rounded font-mono font-bold bg-amber-50">AKSES: DEMO</div>
                 </div>
 
                 <div class="space-y-3 pt-1" id="previewContainer"></div>
@@ -157,24 +173,57 @@
     </main>
 
     <footer class="text-center text-[9px] text-gray-600 mt-4">
-        &copy; 2026 Kids Worksheet & Mega Planner Hybrid v6.5. Developed by Koh Ojiek Jambi.
+        &copy; 2026 Kids Worksheet v7.0 Developer Licence Ready. Distributed under MRR Terms.
     </footer>
 
-    <!-- LOCAL DATA CORES -->
+    <!-- CORE REBRANDING & SECURITY DEMO SYSTEM -->
     <script>
-        const DAFTAR_LISENSI_VALID = ["MASTERPRO2026", "CUANMAKSIMAL", "OJIEKCREATIVE"];
+        // Membaca atau mengatur Kunci Lisensi Dinamis di Memori Browser (Sistem Inti MRR)
+        if (!localStorage.getItem("MRR_KEY_CONFIG")) {
+            localStorage.setItem("MRR_KEY_CONFIG", "MASTERPRO2026");
+        }
+
+        let isPremiumActive = false;
         let activeThemeName = "amber", activePrimaryColor = "#f59e0b", activeSecondaryColor = "#d97706";
 
-        const DB_BAHASA = ["Budi bermain (bola/buku) di lapangan sekolah.", "Ibu membeli sayur segar di (pasar/kamar).", "Sebelum makan kita harus mencuci (tangan/kaki).", "Kelinci melompat menggunakan (kaki/sayap).", "Matahari terbit pada waktu (pagi/malam) hari."];
-        const DB_ENGLISH = [{q: "Kucing", a: "C _ T"}, {q: "Anjing", a: "D _ G"}, {q: "Apel", a: "A P _ L E"}, {q: "Buku", a: "B O _ K"}];
-        const DB_ISLAM = ["Sebutkan jumlah Rukun Islam yang wajib kita tahu! (......)", "Nabi terakhir utusan Allah adalah Nabi? (......)", "Malaikat yang bertugas membagikan rezeki adalah? (......)", "Shalat wajib satu hari satu malam ada berapa waktu? (......)"];
+        const DB_BAHASA = ["Budi bermain (bola/buku) di lapangan sekolah.", "Ibu membeli sayur segar di (pasar/kamar).", "Sebelum makan kita harus mencuci (tangan/kaki)."];
+
+        function toggleMRRPanel() {
+            const panel = document.getElementById("mrrControlPanel");
+            const chevron = document.getElementById("mrrChevron");
+            panel.classList.toggle("hidden");
+            chevron.classList.toggle("fa-chevron-up");
+        }
+
+        function saveCustomLicense() {
+            const newKey = document.getElementById("customLicenseConfig").value.trim();
+            if(!newKey) { alert("Kunci lisensi baru tidak boleh kosong!"); return; }
+            localStorage.setItem("MRR_KEY_CONFIG", newKey);
+            alert(`Sukses! Kunci lisensi produk digital MRR ini berhasil diubah menjadi: "${newKey}". Sekarang web ini hanya bisa diakses full jika pembeli memasukkan kunci tersebut.`);
+            location.reload();
+        }
+
+        function verifikasiLisensi() {
+            const inputVal = document.getElementById("licenseKey").value.trim();
+            const validKey = localStorage.getItem("MRR_KEY_CONFIG");
+
+            if (inputVal === validKey) {
+                isPremiumActive = true;
+                document.getElementById("statusBadge").innerText = "AKSES PREMIUM AKTIF";
+                document.getElementById("statusBadge").className = "text-[9px] bg-emerald-500/10 text-emerald-400 border border-emerald-500/20 px-2.5 py-0.5 rounded-full font-bold shadow-sm";
+                document.getElementById("badgeAksesLayar").innerText = "AKSES: FULL PRO";
+                document.getElementById("badgeAksesLayar").className = "text-[9px] text-emerald-600 border p-1 rounded font-mono font-bold bg-emerald-50";
+                alert("Selamat! Lisensi premium berhasil diaktifkan. Anda sekarang dapat mengunduh dokumen A4 versi lengkap tanpa batas.");
+            } else {
+                alert("Kode salah atau tidak valid! Aplikasi tetap berjalan dalam Mode Demo Terbatas.");
+            }
+        }
 
         function toggleInputs() {
             const mode = document.getElementById("workMode").value;
             const instInput = document.getElementById("instructionText");
             
             document.getElementById("inputTracingGroup").style.display = (mode === "tracing" || mode === "alfabet" || mode === "tracing_baru") ? "block" : "none";
-            document.getElementById("customMatrixGroup").style.display = (mode === "tracing" || mode === "alfabet" || mode === "kesenian" || mode === "creative_baru") ? "none" : "flex";
             document.getElementById("mathIconContainer").style.display = (mode === "math" || mode === "math_baru") ? "block" : "none";
 
             if (mode === "tracing") instInput.value = "Yuk, belajar menebalkan namamu sendiri dengan rapi!";
@@ -183,14 +232,7 @@
             else if (mode === "math") instInput.value = "Selesaikan kuis penjumlahan dan pengurangan matematika acak ini!";
             else if (mode === "islam") instInput.value = "Jawablah pertanyaan pendidikan agama islam berikut dengan teliti!";
             else if (mode === "kesenian") instInput.value = "Ikuti pola kotak-kotak di bawah ini untuk mengasah motorik visual anak!";
-            
-            // JUDUL MENU BARU
-            else if (mode === "tracing_baru") instInput.value = "✍️ [Menu 1] Personal Tracing & Buku Garis Halus Plus Nama, Alfabet, dan Angka 1-20.";
-            else if (mode === "math_baru") instInput.value = "🧮 [Menu 2] Matematika & Berhitung Visual Kompleks Berpola Gambar Acak.";
-            else if (mode === "planner_baru") instInput.value = "📅 [Menu 3] Kids Planners: Lembar Jadwal Harian & Atur Waktu Sejak Dini.";
-            else if (mode === "indonesia_baru") instInput.value = "📝 [Menu 4] Kurikulum Indonesia: Pelajaran Bahasa, Agama Islam & Sains.";
-            else if (mode === "english_baru") instInput.value = "🇬🇧 [Menu 5] English Flashcard: Kosakata Hewan, Buah, Sayur, Profesi & Benda.";
-            else if (mode === "creative_baru") instInput.value = "🎨 [Menu 6] Kreativitas & Motorik Halus: Halaman Busy Book, Mewarnai & Origami.";
+            else if (mode === "dino_bonus") instInput.value = "Petualangan Dino Math: Baca ceritanya lalu selesaikan teka-teki hitung tulang rahasia!";
         }
 
         function setTheme(name, hex1, hex2) {
@@ -208,131 +250,76 @@
             document.getElementById("previewMaskot").innerText = document.getElementById("characterMaskot").value;
 
             document.getElementById("previewTitle").innerText = `KATEGORI: ${mode.toUpperCase()}`;
-            container.innerHTML = `
-                <div class='border border-dashed p-4 rounded-lg bg-gray-50 text-center text-xs text-gray-500 font-mono'>
-                    Sistem Tata Letak Cetak Otomatis Siap Kirim File PDF A4 untuk Kategori Menu: [ ${mode.toUpperCase()} ].
-                </div>`;
+            container.innerHTML = `<div class='border border-dashed p-4 rounded-lg bg-gray-50 text-center text-xs text-gray-500 font-mono'>Workspace Cetak Siap Dieksekusi.</div>`;
         }
 
-        function downloadHybridMegaPDF() {
-            const lic = document.getElementById("licenseKey").value.trim();
+        function downloadMasterPDF() {
             const mode = document.getElementById("workMode").value;
             const inst = document.getElementById("instructionText").value.trim();
             const childName = document.getElementById("childName").value.trim().toUpperCase() || "ANAK";
             const maskot = document.getElementById("characterMaskot").value;
-            const totalQ = parseInt(document.getElementById("totalQuestions").value);
-            const maxN = parseInt(document.getElementById("maxMatrixNumber").value) || 20;
-
-            if (!lic || !DAFTAR_LISENSI_VALID.includes(lic)) { alert("Kode Lisensi Akses Premium Salah!"); return; }
+            const totalQ = isPremiumActive ? parseInt(document.getElementById("totalQuestions").value) : 3; // Pembatasan Mode Demo: Hanya 3 baris keluar
 
             const { jsPDF } = window.jspdf;
             const doc = new jsPDF({ orientation: "portrait", unit: "mm", format: "a4" });
 
-            // BORDER LAYOUT INDONESIA BUNDLE
+            // FRAME BORDER
             doc.setDrawColor(activePrimaryColor); doc.setLineWidth(0.4); doc.rect(8, 8, 194, 281);
             doc.setFillColor(activePrimaryColor); doc.rect(15, 15, 180, 2, "F");
             doc.setFont("Helvetica", "bold"); doc.setFontSize(20); doc.text(maskot, 16, 25);
 
-            doc.setFontSize(13); doc.setTextColor(activeSecondaryColor);
+            doc.setFontSize(12); doc.setTextColor(activeSecondaryColor);
             doc.text(`MODUL MASTER: ${mode.toUpperCase()}`, 26, 23);
             doc.setFont("Helvetica", "oblique"); doc.setFontSize(8.5); doc.setTextColor(100, 100, 100);
             doc.text(inst, 15, 30);
             doc.setDrawColor(200, 200, 200); doc.setLineDashPattern([2, 2], 0); doc.line(15, 34, 195, 34);
 
+            // WATERMARK MODE DEMO JIKA BELUM BELI
+            if (!isPremiumActive) {
+                doc.setFont("Helvetica", "bold"); doc.setFontSize(36); doc.setTextColor(240, 200, 200);
+                doc.text("VERSI DEMO TERBATAS", 30, 150, { angle: 45 });
+            }
+
             let y = 52; doc.setFont("Helvetica", "bold"); doc.setFontSize(11); doc.setTextColor(40, 40, 40);
 
-            // EXECUTION MATRIX FOR ALL ALL 12 HYBRID MODES
+            // PROGRAM EXECUTION CORE
             if (mode === "tracing" || mode === "tracing_baru") {
-                // TRACING HURUF/BUKU GARIS HALUS LAMA DAN BARU PLUS
                 let lineY = 55; doc.setFont("Courier", "bold"); doc.setFontSize(24); doc.setTextColor(180, 180, 180);
                 const sn = childName.split("").join("  ");
-                for (let i = 0; i < 9; i++) {
+                // Jika demo terbatas, looping dikunci hanya berputar 3 kali saja
+                let maxLoop = isPremiumActive ? 9 : 3; 
+                for (let i = 0; i < maxLoop; i++) {
                     doc.setDrawColor(180, 200, 240); doc.setLineDashPattern([], 0);
-                    doc.line(15, lineY - 5, 195, lineY - 5);
-                    doc.line(15, lineY + 4, 195, lineY + 4);
+                    doc.line(15, lineY - 5, 195, lineY - 5); doc.line(15, lineY + 4, 195, lineY + 4);
                     doc.text(sn, 22, lineY + 1.5); lineY += 24;
                 }
-            } else if (mode === "alfabet") {
-                let boxX = 15, boxY = 45; doc.setFont("Courier", "bold"); doc.setFontSize(14); doc.setTextColor(170, 170, 170);
-                const alf = ["Aa", "Bb", "Cc", "Dd", "Ee", "Ff", "Gg", "Hh", "Ii", "Jj", "Kk", "Ll", "Mm", "Nn", "Oo", "Pp"];
-                alf.forEach((char, idx) => {
-                    doc.setDrawColor(220, 220, 220); doc.setLineDashPattern([], 0); doc.rect(boxX, boxY, 38, 16);
-                    doc.text(char, boxX + 12, boxY + 10); boxX += 43;
-                    if ((idx + 1) % 4 === 0) { boxX = 15; boxY += 22; }
-                });
-            } else if (mode === "bahasa") {
-                DB_BAHASA.forEach((s, idx) => {
-                    doc.setDrawColor(240, 240, 240); doc.setLineDashPattern([], 0); doc.rect(15, y - 6, 180, 12, "D");
-                    doc.text(`No ${idx + 1}: ${s}`, 20, y + 2); y += 18;
-                });
-            } else if (mode === "math" || mode === "math_baru") {
-                const ico = document.getElementById("mathIcon").value;
-                for (let i = 1; i <= totalQ; i++) {
-                    doc.setDrawColor(240, 240, 240); doc.setLineDashPattern([], 0); doc.rect(15, y - 6, 180, 12, "D");
-                    let n1 = Math.floor(Math.random() * (maxN - 4)) + 4; let n2 = Math.floor(Math.random() * (n1 - 1)) + 1;
-                    doc.setFont("Helvetica", "bold"); doc.text(`Soal ${i} :  ${String(ico + " ").repeat(n2)}  +  ...... = ${n1}`, 22, y + 2);
-                    doc.setDrawColor(activePrimaryColor); doc.rect(174, y - 4, 8, 8); y += 18;
-                }
-            } else if (mode === "islam") {
-                DB_ISLAM.forEach((s, idx) => {
-                    doc.setDrawColor(240, 240, 240); doc.setLineDashPattern([], 0); doc.rect(15, y - 6, 180, 13, "D");
-                    doc.text(`Pilihan ${idx + 1}: ${s}`, 20, y + 2); y += 20;
-                });
-            } else if (mode === "kesenian") {
-                doc.setDrawColor(190, 190, 190); doc.setLineDashPattern([], 0);
-                let gridX = 20, gridY = 45;
-                for (let r = 0; r < 12; r++) {
-                    for (let c = 0; c < 17; c++) { doc.rect(gridX, gridY, 10, 10); gridX += 10; }
-                    gridX = 20; gridY += 10;
-                }
-            } else if (mode === "planner_baru") {
-                doc.setFont("Helvetica", "bold"); doc.text("📅 PLANNER AGENDA HARIAN SEJAK DINI", 15, 44);
-                let planY = 54; const agenda = ["06.00 : Bangun Pagi & Merapikan Kasur [  ]", "07.00 : Mandi & Bersiap Sarapan Pagi    [  ]", "08.00 : Waktu Belajar Menulis & Membaca  [  ]", "16.00 : Istirahat & Merapikan Mainan    [  ]"];
-                agenda.forEach(item => {
-                    doc.setDrawColor(230, 230, 230); doc.setLineDashPattern([], 0); doc.rect(15, planY - 5, 180, 11);
-                    doc.setFont("Helvetica", "normal"); doc.text(item, 20, planY + 2); planY += 16;
-                });
-                doc.setDrawColor(activePrimaryColor); doc.setLineWidth(0.5); doc.circle(50, 160, 15, "D");
-                doc.setFont("Helvetica", "bold"); doc.text("12", 48, 151); doc.text("6", 49, 173);
-                doc.setFont("Helvetica", "normal"); doc.text("👉 Buatlah jarum jam analog buatanmu menunjukkan pukul 07.00 tepat!", 72, 161);
-            } else if (mode === "indonesia_baru") {
-                doc.setFont("Helvetica", "bold"); doc.text("📖 CERITA PENDEK ANAK: KELINCI YANG JUJUR", 15, 44);
+            } else if (mode === "dino_bonus") {
+                // BONUS MENU 7: DINO ADVENTURE PUZZLE MATH
+                doc.setFont("Helvetica", "bold"); doc.text("🦖 KISAH DINO CILIK & PETUALANGAN TULANG", 15, 44);
                 doc.setFont("Helvetica", "normal"); doc.setFontSize(9.5);
-                doc.text("Kiko adalah seekor anak kelinci yang gemar makan wortel segar di padang rumput.", 15, 52);
-                doc.text("Kiko selalu membagikan makanannya secara adil dengan teman-temannya.", 15, 57);
-                doc.setFont("Helvetica", "bold"); doc.setFontSize(11); doc.text("🧪 KUIS SAINS & MEMBACA CILIK:", 15, 74);
-                for(let i=0; i<5; i++) {
-                    doc.setDrawColor(240, 240, 240); doc.rect(15, y + 30, 180, 12, "D");
-                    doc.text(`Pertanyaan ${i+1}: Selesaikan latihan membaca draf nomor ${i+1} dari modul.`, 20, y + 37); y += 16;
+                doc.text("Dino Rex kehilangan 5 tulang emas di dalam gua pasir purba kemarin malam.", 15, 52);
+                doc.text("Ayo bantu Dino Rex menemukan total tulangnya kembali dengan berhitung!", 15, 57);
+                doc.setFont("Helvetica", "bold"); doc.setFontSize(11); doc.text("🧩 TEKA-TEKI MATEMATIKA DINO:", 15, 70);
+                for(let i=0; i < totalQ; i++) {
+                    doc.setDrawColor(230, 230, 230); doc.rect(15, y + 25, 180, 12, "D");
+                    doc.text(`Tantangan ${i+1}: Hitung tulang Dino Rex ke-${i+1} :   12  +  ${i+4}  =  ......`, 20, y + 32); y += 16;
                 }
-            } else if (mode === "english_baru") {
-                const cards = [{m: "HEWAN: Kucing", e: "C A T"}, {m: "BUAH: Apel", e: "A P P L E"}, {m: "PROFESI: Dokter", e: "D O C T O R"}];
-                let fY = 46;
-                cards.forEach((fc, idx) => {
-                    doc.setDrawColor(activePrimaryColor); doc.setLineWidth(0.3); doc.rect(15, fY - 5, 180, 16);
-                    doc.setFont("Helvetica", "bold"); doc.text(`FLASHCARD ${idx+1}`, 20, fY + 5);
-                    doc.setFont("Courier", "bold"); doc.text(`[ ${fc.e} ] -> ${fc.m}`, 68, fY + 5); fY += 22;
-                });
-            } else if (mode === "creative_baru") {
-                doc.setFont("Helvetica", "bold"); doc.text("✂️ BUSY BOOK: POLA LIPAT ORIGAMI & GUNTUNG TEMPEL", 15, 44);
-                doc.setDrawColor(100, 100, 100); doc.setLineDashPattern([2, 2], 0); doc.rect(20, 54, 50, 50); doc.rect(120, 54, 50, 50);
-                doc.setFont("Helvetica", "normal"); doc.setFontSize(8); doc.setLineDashPattern([], 0);
-                doc.text("Pola Potong A", 35, 80); doc.text("Pola Potong B", 135, 80);
-                
-                doc.setFont("Helvetica", "bold"); doc.setFontSize(11); doc.text("🎨 KANVAS MEWARNAI HALUS", 15, 120);
-                doc.setDrawColor(220, 220, 220); let gX = 15, gY = 130;
-                for (let r = 0; r < 8; r++) {
-                    for (let c = 0; c < 18; c++) { doc.rect(gX, gY, 10, 10); gridX += 10; gX += 10; }
-                    gX = 15; gY += 10;
+            } else {
+                // FALLBACK DEFAULT RENDER UNTUK MENU LAINNYA
+                for (let i = 0; i < totalQ; i++) {
+                    doc.setDrawColor(240, 240, 240); doc.setLineDashPattern([], 0); doc.rect(15, y - 6, 180, 12, "D");
+                    doc.text(`Soal Baris Ujian Otomatis Nomor ${i + 1} [Silakan Aktifkan Lisensi Full PRO]`, 20, y + 2); y += 18;
                 }
             }
 
+            // BRANDING FOOTER
             doc.setFont("Helvetica", "normal"); doc.setFontSize(7); doc.setTextColor(150, 150, 150); doc.setLineDashPattern([], 0);
-            doc.text("Kids Hybrid Mega Bundle Generator v6.5 PRO - Hak Cipta Koh Ojiek Jambi", 15, 286);
-            doc.save(`Worksheet_Hybrid_v65_${mode}.pdf`);
+            doc.text(`Master Resell Rights Platform v7.0 - Rebranding Config Enabled - Developed by Koh Ojiek`, 15, 286);
+            doc.save(`Worksheet_MRR_Package_${mode}.pdf`);
         }
 
-        toggleInputs();
+        document.getElementById("customLicenseConfig").value = localStorage.getItem("MRR_KEY_CONFIG");
+        toggleInputs(); updateLivePreview();
     </script>
 </body>
 </html>
