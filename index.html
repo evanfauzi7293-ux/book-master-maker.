@@ -3,211 +3,234 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Ebook Master Maker 5.0 - Edisi Pro & Lisensi</title>
+    <title>Digital Worksheet Maker v1.0 - Edisi Edukasi Anak</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Pustaka PDF Generator Lokal (Tanpa Internet Setelah Dimuat) -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700&display=swap');
         body { font-family: 'Plus Jakarta Sans', sans-serif; background-color: #0b0f19; color: #f3f4f6; }
         .pro-card { background: rgba(17, 24, 39, 0.7); backdrop-filter: blur(12px); border: 1px solid rgba(255, 255, 255, 0.08); }
-        .custom-scrollbar::-webkit-scrollbar { width: 6px; }
-        .custom-scrollbar::-webkit-scrollbar-track { background: rgba(0, 0, 0, 0.1); }
-        .custom-scrollbar::-webkit-scrollbar-thumb { background: rgba(99, 102, 241, 0.3); border-radius: 4px; }
-        .custom-scrollbar::-webkit-scrollbar-thumb:hover { background: rgba(99, 102, 241, 0.5); }
+        
+        /* Font khusus simulasi titik-titik untuk tracing di preview layar */
+        .font-trace {
+            font-family: 'Courier New', Courier, monospace;
+            letter-spacing: 6px;
+            font-weight: bold;
+            text-transform: uppercase;
+        }
     </style>
 </head>
 <body class="min-h-screen p-4 md:p-8 flex flex-col justify-between">
 
+    <!-- MAIN DASHBOARD -->
     <main class="max-w-5xl w-full mx-auto grid grid-cols-1 lg:grid-cols-12 gap-6 items-start mt-4">
+        <!-- PANEL KONTROL KIRI -->
         <div class="lg:col-span-5 pro-card p-6 rounded-2xl space-y-5">
             <div class="flex items-center justify-between border-b border-gray-800 pb-3">
                 <div>
-                    <h1 class="text-lg font-bold bg-gradient-to-r from-indigo-400 to-pink-500 bg-clip-text text-transparent">Ebook Master Maker</h1>
-                    <p class="text-[10px] text-gray-400">v8.2 Auto-Proxy Premium by Koh Ojiek</p>
+                    <h1 class="text-lg font-bold bg-gradient-to-r from-amber-400 to-orange-500 bg-clip-text text-transparent">Kids Worksheet Maker</h1>
+                    <p class="text-[10px] text-gray-400">v1.0 Standalone Engine by Koh Ojiek</p>
                 </div>
-                <span id="statusBadge" class="text-[10px] bg-emerald-500/10 text-emerald-400 border border-emerald-500/20 px-2.5 py-1 rounded-full font-medium">
-                    Lisensi Aktif
+                <span class="text-[10px] bg-amber-500/10 text-amber-400 border border-amber-500/20 px-2.5 py-1 rounded-full font-medium">
+                    Edisi Komersial
                 </span>
             </div>
 
+            <!-- KODE LISENSI JUALAN -->
             <div class="space-y-1.5">
-                <label class="text-xs text-gray-400 block font-medium">Kode Akses Premium / Lisensi</label>
-                <div class="relative">
-                    <input type="password" id="licenseKey" placeholder="Masukkan kode lisensi produk Anda..." class="w-full bg-gray-900/50 border border-gray-800 rounded-xl pl-4 pr-10 py-2.5 text-xs focus:outline-none focus:border-indigo-500 text-white">
-                    <button type="button" onclick="toggleVisibility('licenseKey')" class="absolute right-3 top-2.5 text-gray-500 hover:text-gray-300">
-                        <i class="fa-solid fa-eye text-xs"></i>
-                    </button>
-                </div>
+                <label class="text-xs text-gray-400 block font-medium">Kode Akses Lisensi Pembeli</label>
+                <input type="password" id="licenseKey" placeholder="Masukkan kode lisensi..." class="w-full bg-gray-900/50 border border-gray-800 rounded-xl px-4 py-2.5 text-xs focus:outline-none focus:border-amber-500 text-white">
             </div>
 
+            <!-- DATA LEMBAR KERJA -->
             <div class="space-y-3">
                 <div class="space-y-1.5">
-                    <label class="text-xs text-gray-400 block font-medium">Judul Ebook</label>
-                    <input type="text" id="bookTitle" placeholder="Contoh: Panduan Sukses Jualan Online..." class="w-full bg-gray-900/50 border border-gray-800 rounded-xl px-4 py-2.5 text-xs focus:outline-none focus:border-indigo-500 text-white">
+                    <label class="text-xs text-gray-400 block font-medium">Nama Anak (Maksal 12 Karakter)</label>
+                    <input type="text" id="childName" maxlength="12" placeholder="Contoh: EVAN, ALDO, RAYA..." class="w-full bg-gray-900/50 border border-gray-800 rounded-xl px-4 py-2.5 text-xs focus:outline-none focus:border-amber-500 text-white uppercase" oninput="updateLivePreview()">
                 </div>
 
-                <div class="grid grid-cols-2 gap-3">
-                    <div class="space-y-1.5">
-                        <label class="text-xs text-gray-400 block font-medium">Target Pembaca</label>
-                        <input type="text" id="targetAudience" placeholder="Contoh: Pemula, IRT..." class="w-full bg-gray-900/50 border border-gray-800 rounded-xl px-3 py-2.5 text-xs focus:outline-none focus:border-indigo-500 text-white">
-                    </div>
-                    <div class="space-y-1.5">
-                        <label class="text-xs text-gray-400 block font-medium">Target Halaman</label>
-                        <input type="number" id="targetPages" value="5" min="5" max="500" class="w-full bg-gray-900/50 border border-gray-800 rounded-xl px-3 py-2.5 text-xs focus:outline-none focus:border-indigo-500 text-center text-white">
-                    </div>
+                <div class="space-y-1.5">
+                    <label class="text-xs text-gray-400 block font-medium">Sub-Judul Instruksi</label>
+                    <input type="text" id="instructionText" value="Yuk, belajar menebalkan namamu sendiri dengan rapi!" class="w-full bg-gray-900/50 border border-gray-800 rounded-xl px-4 py-2.5 text-xs focus:outline-none focus:border-amber-500 text-white">
                 </div>
             </div>
 
-            <div class="pt-2 space-y-2">
-                <button type="button" onclick="generateOutline()" class="w-full bg-gray-800 hover:bg-gray-750 text-indigo-400 border border-indigo-500/20 font-medium py-2.5 px-4 rounded-xl text-xs transition flex items-center justify-center gap-2">
-                    <i class="fa-solid fa-sitemap"></i> 1. Susun Struktur & Outline
-                </button>
-                <button type="button" onclick="generateFullBook()" class="w-full bg-gradient-to-r from-emerald-600 to-teal-600 hover:from-emerald-500 hover:to-teal-500 text-white font-bold py-3 px-4 rounded-xl text-xs transition shadow-lg shadow-emerald-600/25 flex items-center justify-center gap-2">
-                    <i class="fa-solid fa-wand-magic-sparkles"></i> 2. Tulis & Generate Seluruh Isi Ebook
+            <!-- TOMBOL AKSI UTAMA -->
+            <div class="pt-2">
+                <button type="button" onclick="downloadWorksheetPDF()" class="w-full bg-gradient-to-r from-amber-500 to-orange-600 hover:from-amber-400 hover:to-orange-500 text-white font-bold py-3 px-4 rounded-xl text-xs transition shadow-lg shadow-orange-600/25 flex items-center justify-center gap-2">
+                    <i class="fa-solid fa-cloud-arrow-down"></i> Download & Cetak PDF (A4)
                 </button>
             </div>
         </div>
 
-        <div class="lg:col-span-7 pro-card p-6 rounded-2xl flex flex-col h-[520px]">
+        <!-- PANEL PREVIEW LIVE WORKSPACE -->
+        <div class="lg:col-span-7 pro-card p-6 rounded-2xl flex flex-col h-[540px]">
             <div class="flex items-center justify-between border-b border-gray-800 pb-3 mb-4">
-                <h3 class="text-sm font-semibold tracking-wide text-gray-300">Live Workspace Output</h3>
-                <button type="button" onclick="downloadAsPDF()" class="bg-gray-800 hover:bg-gray-700 border border-gray-700 text-gray-300 text-[11px] font-medium px-3 py-1.5 rounded-lg flex items-center gap-1.5 transition">
-                    <i class="fa-solid fa-file-pdf text-red-400"></i> Download PDF
-                </button>
+                <h3 class="text-sm font-semibold tracking-wide text-gray-300"><i class="fa-solid fa-eye text-amber-400 mr-1.5"></i> Live Preview Lembar Kerja</h3>
+                <span class="text-[11px] text-gray-500 font-mono">Ukuran Kertas: A4 Portrait</span>
             </div>
-            <div id="workspaceOutput" class="flex-1 overflow-y-auto custom-scrollbar text-xs text-gray-400 bg-gray-950/40 border border-gray-900 rounded-xl p-4 font-mono space-y-2 leading-relaxed">
-                [Sistem Premium v8.2] Masukkan Kode Lisensi Anda, isi judul buku, lalu klik Susun Struktur...
+            
+            <!-- Simulasi Kertas A4 Edukatif di Layar -->
+            <div class="flex-1 bg-white rounded-xl p-6 text-gray-900 overflow-y-auto border border-gray-300 space-y-4 shadow-inner">
+                <!-- Header Lembar Kerja -->
+                <div class="border-b-4 border-dashed border-amber-400 pb-3 flex justify-between items-center">
+                    <div>
+                        <h2 class="text-lg font-extrabold tracking-wide text-amber-600">LEMBAR LATIHAN MENULIS</h2>
+                        <p id="previewInstruction" class="text-[11px] text-gray-600 font-medium italic mt-0.5">Yuk, belajar menebalkan namamu sendiri dengan rapi!</p>
+                    </div>
+                    <div class="text-[10px] text-gray-500 border border-gray-300 p-1.5 rounded font-mono space-y-0.5 bg-gray-50">
+                        <div>Nama: ......................</div>
+                        <div>Tanggal: ..................</div>
+                    </div>
+                </div>
+
+                <!-- Konten Tracing Garis -->
+                <div class="space-y-4 pt-2" id="previewLinesContainer">
+                    <!-- Garis bantu menulis akan muncul otomatis lewat JavaScript di sini -->
+                    <p class="text-center text-gray-400 text-xs py-10 font-mono">[ Ketik nama anak di panel kiri untuk melihat simulasi cetak ]</p>
+                </div>
             </div>
         </div>
     </main>
 
+    <!-- FOOTER LICENSE -->
     <footer class="text-center text-[10px] text-gray-600 mt-8">
-        &copy; 2026 Ebook Master Maker PRO v8.2. Hak Cipta Dilindungi. Dikembangkan oleh Koh Ojiek Jambi.
+        &copy; 2026 Kids Worksheet Generator Pro v1.0. Hak Cipta Dilindungi. Dikembangkan oleh Koh Ojiek Jambi.
     </footer>
 
+    <!-- LOGIKA JAVASCRIPT LOKAL (ANTI-ERROR & TANPA INTERNET) -->
     <script>
-        function toggleVisibility(id) {
-            const input = document.getElementById(id);
-            input.type = input.type === "password" ? "text" : "password";
-        }
-
         const DAFTAR_LISENSI_VALID = ["MASTERPRO2026", "CUANMAKSIMAL", "OJIEKCREATIVE"];
 
-        // Fungsi bypass CORS otomatis menggunakan jembatan AllOrigins
-        async function kirimPermintaanAI(promptMsg) {
-            const t1 = "AQ.Ab8RN6K9v29O7G2D";
-            const t2 = "InIqxZWJ7n93UVnH";
-            const t3 = "h7Fgccx";
-            const TOKEN_EVAN = t1 + t2 + t3;
-
-            const targetUrl = "https://generativelanguage.googleapis.com/v1/models/gemini-1.5-flash:generateContent";
+        // Fungsi memperbarui tampilan kertas secara realtime saat orang tua mengetik
+        function updateLivePreview() {
+            const childName = document.getElementById("childName").value.trim().toUpperCase();
+            const instruction = document.getElementById("instructionText").value.trim();
+            const container = document.getElementById("previewLinesContainer");
+            const previewInst = document.getElementById("previewInstruction");
             
-            // Jembatan AllOrigins otomatis bypass tanpa perlu aktivasi manual
-            const proxyUrl = `https://api.allorigins.win/get?url=${encodeURIComponent(targetUrl)}`;
+            previewInst.innerText = instruction || "Belajar menulis nama dengan rapi.";
 
-            const response = await fetch(proxyUrl, {
-                method: 'POST',
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({
-                    // Mengirim instruksi terstruktur ke AllOrigins agar diteruskan ke Google
-                    token: TOKEN_EVAN,
-                    bodyData: {
-                        contents: [{ parts: [{ text: promptMsg }] }]
-                    }
-                })
-            });
-
-            // Logika alternatif jika proxy merespon dengan data mentah
-            const container = await response.json();
-            
-            // Mengirim ulang secara langsung menggunakan modifikasi header default
-            const directResponse = await fetch(targetUrl, {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                    'Authorization': `Bearer ${TOKEN_EVAN}`
-                },
-                body: JSON.stringify({
-                    contents: [{ parts: [{ text: promptMsg }] }]
-                })
-            });
-
-            const finalData = await directResponse.json();
-
-            if (finalData.error) {
-                throw new Error(finalData.error.message);
-            }
-
-            if (finalData.candidates && finalData.candidates[0].content.parts[0].text) {
-                return finalData.candidates[0].content.parts[0].text;
-            } else {
-                throw new Error("Gagal memproses struktur naskah.");
-            }
-        }
-
-        async function generateOutline() {
-            const licenseInput = document.getElementById("licenseKey").value.trim();
-            const title = document.getElementById("bookTitle").value.trim();
-            const audience = document.getElementById("targetAudience").value.trim();
-            const output = document.getElementById("workspaceOutput");
-
-            if (!licenseInput) { alert("Masukkan Kode Lisensi!"); return; }
-            if (!DAFTAR_LISENSI_VALID.includes(licenseInput)) {
-                alert("Kode Lisensi Anda Tidak Valid!");
+            if (!childName) {
+                container.innerHTML = `<p class="text-center text-gray-400 text-xs py-10 font-mono">[ Ketik nama anak di panel kiri untuk melihat simulasi cetak ]</p>`;
                 return;
             }
-            if (!title) { alert("Judul wajib diisi!"); return; }
 
-            output.innerHTML = "<span class='text-indigo-400 animate-pulse'>[Sistem v8.2] Menghubungkan ke gerbang data Google AI...</span>";
-
-            try {
-                const promptMsg = `Buatkan outline struktur bab buku yang sangat mendalam dan profesional untuk judul: "${title}" dengan target pembaca: "${audience}". Tulis dalam Bahasa Indonesia.`;
-                const hasilTeks = await kirimPermintaanAI(promptMsg);
-                output.innerText = hasilTeks;
-            } catch (err) {
-                output.innerHTML = `<span class='text-red-400'>[Respon Error Google]:<br>${err.message}</span>`;
+            // Generate 6 baris tiruan latihan garis titik-titik di workspace preview layar
+            let htmlContent = "";
+            for (let i = 0; i < 6; i++) {
+                htmlContent += `
+                    <div class="border-b-2 border-indigo-200 pb-1 pt-3 relative flex items-center justify-between">
+                        <span class="text-xs text-gray-300 font-mono select-none">${i + 1}</span>
+                        <div class="w-full text-center font-trace text-2xl text-gray-400 border-b border-dashed border-gray-300 tracking-widest select-none opacity-60">
+                            ${childName}
+                        </div>
+                    </div>
+                `;
             }
+            container.innerHTML = htmlContent;
         }
 
-        async function generateFullBook() {
+        // Fungsi penyusunan PDF beresolusi tinggi ukuran A4 untuk dicetak fisik printer
+        function downloadWorksheetPDF() {
             const licenseInput = document.getElementById("licenseKey").value.trim();
-            const title = document.getElementById("bookTitle").value.trim();
-            const output = document.getElementById("workspaceOutput");
+            const childName = document.getElementById("childName").value.trim().toUpperCase();
+            const instruction = document.getElementById("instructionText").value.trim() || "Belajar menulis nama.";
 
-            if (!licenseInput) { alert("Masukkan Kode Lisensi!"); return; }
+            // Validasi Keamanan Gerbang Jualan
+            if (!licenseInput) { alert("Masukkan Kode Lisensi Akses!"); return; }
             if (!DAFTAR_LISENSI_VALID.includes(licenseInput)) {
-                alert("Kode Lisensi Anda Tidak Valid!");
+                alert("Kode Lisensi Salah atau Kedaluwarsa! Hubungi Koh Ojiek.");
                 return;
             }
-            if (!title) { alert("Judul Ebook wajib diisi!"); return; }
+            if (!childName) { alert("Masukkan nama anak terlebih dahulu!"); return; }
 
-            output.innerHTML = "<span class='text-emerald-400 animate-pulse'>[AI Writing] AI sedang menyusun draf buku penuh... Mohon tunggu...</span>";
-
-            try {
-                const promptMsg = `Bertindaklah sebagai penulis buku profesional. Tuliskan naskah isi buku yang lengkap, detail, panjang, dan komprehensif tanpa terputus untuk judul "${title}". Hasilkan konten naratif penuh dari bab awal hingga kesimpulan. Tulis dalam Bahasa Indonesia.`;
-                const hasilTeks = await kirimPermintaanAI(promptMsg);
-                output.innerText = hasilTeks;
-            } catch (err) {
-                output.innerHTML = `<span class='text-red-400'>[Respon Error]:<br>${err.message}</span>`;
-            }
-        }
-
-        function downloadAsPDF() {
-            const outputText = document.getElementById("workspaceOutput").innerText;
-            const title = document.getElementById("bookTitle").value || "Ebook_Draft";
             const { jsPDF } = window.jspdf;
-            const doc = new jsPDF();
-            doc.setFont("Helvetica", "normal");
-            doc.setFontSize(11);
-            const splitText = doc.splitTextToSize(outputText, 180);
-            let y = 20;
-            splitText.forEach(line => {
-                if (y > 280) { doc.addPage(); y = 20; }
-                doc.text(line, 15, y);
-                y += 6;
+            const doc = new jsPDF({
+                orientation: "portrait",
+                unit: "mm",
+                format: "a4"
             });
-            doc.save(`${title.replace(/\s+/g, '_')}.pdf`);
+
+            // 🎨 DESAIN MASTER PDF AREA CETAK (A4 = 210mm x 297mm)
+            // Header Judul Utama
+            doc.setFillColor(245, 158, 11); // Warna Amber dasar ceria anak-anak
+            doc.rect(15, 15, 180, 2, "F");
+            
+            doc.setFont("Helvetica", "bold");
+            doc.setFontSize(18);
+            doc.setTextColor(217, 119, 6);
+            doc.text("LEMBAR LATIHAN MENULIS ANAK", 15, 25);
+
+            // Sub Instruksi Belajar
+            doc.setFont("Helvetica", "oblique");
+            doc.setFontSize(10);
+            doc.setTextColor(85, 85, 85);
+            doc.text(instruction, 15, 31);
+
+            // Kotak Isian Identitas Fisik Manual
+            doc.setDrawColor(200, 200, 200);
+            doc.rect(140, 18, 55, 15);
+            doc.setFont("Courier", "normal");
+            doc.setFontSize(9);
+            doc.setTextColor(100, 100, 100);
+            doc.text("Nama    : .............", 142, 23);
+            doc.text("Tanggal : .............", 142, 29);
+
+            // Garis pembatas putus-putus header
+            doc.setLineDashPattern([2, 2], 0);
+            doc.line(15, 36, 195, 36);
+
+            // ✏️ LOGIKA GENERATE BARIS DOTS/DASHES UNTUK TRACING (10 BARIS CETAK)
+            let currentY = 55;
+            doc.setFont("Courier", "bold");
+            doc.setFontSize(26);
+            doc.setTextColor(180, 180, 180); // Warna abu-abu pudar agar mudah ditimpa pensil anak
+
+            // Mengonversi karakter nama menjadi bentuk putus-putus berjarak lebar (Tracing Formula)
+            const spacedName = childName.split("").join("  ");
+
+            for (let i = 0; i < 9; i++) {
+                // Garis solid batas atas penulisan (Warna biru muda khas buku halus)
+                doc.setDrawColor(190, 210, 240);
+                doc.setLineDashPattern([], 0);
+                doc.line(15, currentY - 8, 195, currentY - 8);
+
+                // Menuliskan teks nama pudar di tengah bidang baris halaman
+                doc.text(spacedName, 20, currentY, { align: "left" });
+
+                // Garis bantu tengah putus-putus tipis tepat di bawah huruf
+                doc.setDrawColor(220, 220, 220);
+                doc.setLineDashPattern([1, 1], 0);
+                doc.line(15, currentY + 1, 195, currentY + 1);
+
+                // Garis batas bawah baris halus
+                doc.setDrawColor(190, 210, 240);
+                doc.setLineDashPattern([], 0);
+                doc.line(15, currentY + 4, 195, currentY + 4);
+
+                // Nomor petunjuk baris samping kiri kecil
+                doc.setFont("Helvetica", "normal");
+                doc.setFontSize(8);
+                doc.setTextColor(200, 200, 200);
+                doc.text((i + 1).toString(), 11, currentY - 1);
+                doc.setFont("Courier", "bold");
+                doc.setFontSize(26);
+                doc.setTextColor(180, 180, 180);
+
+                currentY += 24; // Jarak lompatan antar baris latihan menulis (24mm)
+            }
+
+            // Footer Penanda Cetak Bisnis Kreatif Kamu
+            doc.setFont("Helvetica", "normal");
+            doc.setFontSize(7);
+            doc.setTextColor(150, 150, 150);
+            doc.text("Dicetak otomatis via Kids Worksheet Generator Pro - Hak Cipta Premium Koh Ojiek Jambi", 15, 285);
+
+            // Eksekusi penyimpanan file instan ke memori perangkat browser
+            doc.save(`Worksheet_Menulis_${childName}.pdf`);
         }
     </script>
 </body>
