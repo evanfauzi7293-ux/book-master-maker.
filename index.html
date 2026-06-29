@@ -3,12 +3,12 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Kids Worksheet Creator MEGA KURIKULUM v4.0</title>
+    <title>Kids Worksheet Creator ANIMASI PRO v4.5</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
     <style>
-        @import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght=300;400;500;600;700&display=swap');
+        @import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700&display=swap');
         body { font-family: 'Plus Jakarta Sans', sans-serif; background-color: #0b0f19; color: #f3f4f6; }
         .pro-card { background: rgba(17, 24, 39, 0.7); backdrop-filter: blur(12px); border: 1px solid rgba(255, 255, 255, 0.08); }
         .font-trace { font-family: 'Courier New', Courier, monospace; letter-spacing: 6px; font-weight: bold; text-transform: uppercase; }
@@ -24,11 +24,11 @@
         <div class="lg:col-span-5 pro-card p-5 rounded-2xl space-y-4">
             <div class="flex items-center justify-between border-b border-gray-800 pb-3">
                 <div>
-                    <h1 class="text-md font-bold bg-gradient-to-r from-amber-400 via-emerald-400 to-pink-500 bg-clip-text text-transparent uppercase tracking-wider">Worksheet Indonesia v4.0</h1>
-                    <p class="text-[10px] text-gray-400">Mega Kurikulum Engine by Koh Ojiek</p>
+                    <h1 class="text-md font-bold bg-gradient-to-r from-amber-400 via-pink-500 to-emerald-400 bg-clip-text text-transparent uppercase tracking-wider">Worksheet Animasi v4.5</h1>
+                    <p class="text-[10px] text-gray-400">Character & Matrix Engine by Koh Ojiek</p>
                 </div>
-                <span class="text-[9px] bg-amber-500/10 text-amber-400 border border-amber-500/20 px-2.5 py-0.5 rounded-full font-bold">
-                    ALL-IN-ONE MASTER
+                <span class="text-[9px] bg-gradient-to-r from-amber-500 to-orange-500 text-white px-2 py-0.5 rounded-full font-bold">
+                    PREMIUM V4.5
                 </span>
             </div>
 
@@ -38,24 +38,53 @@
                 <input type="password" id="licenseKey" placeholder="Masukkan kode lisensi..." class="w-full bg-gray-900/50 border border-gray-800 rounded-xl px-4 py-2 text-xs focus:outline-none focus:border-amber-500 text-white">
             </div>
 
-            <!-- PILIHAN MATA PELAJARAN (DIEXPAND TOTAL) -->
+            <!-- PILIHAN MATA PELAJARAN -->
             <div class="space-y-1">
                 <label class="text-[11px] text-gray-400 block font-medium">Pilih Kategori Mata Pelajaran</label>
                 <select id="workMode" onchange="toggleInputs(); updateLivePreview();" class="w-full bg-gray-900 border border-gray-800 rounded-xl px-3 py-2 text-xs focus:outline-none focus:border-amber-500 text-white font-medium">
-                    <option value="tracing">✍️ Belajar Menulis Nama Sendiri (Bahasa Dasar)</option>
-                    <option value="bahasa">📝 Bahasa Indonesia: Melengkapi Kata & Kalimat</option>
-                    <option value="english">🇬🇧 Bahasa Inggris: Kuis Kosakata Dasar (Vocabulary)</option>
+                    <option value="tracing">✍️ Belajar Menulis Nama Sendiri (Personal Tracing)</option>
+                    <option value="bahasa">📝 Bahasa Indonesia: Melengkapi Kata Kurikulum Merdeka</option>
+                    <option value="english">🇬🇧 Bahasa Inggris: Kuis Kosakata Dasar Bergambar</option>
                     <option value="islam">🕌 Agama Islam: Kuis Dasar Iman & Rukun Islam</option>
                     <option value="kesenian">🎨 Kesenian: Lembar Menggambar Kotak Pola Simetris</option>
-                    <option value="math">🧮 Matematika: Berhitung Visual & Custom Angka Acak</option>
+                    <option value="math">🧮 Matematika: Kuis Berhitung & Custom Angka Acak</option>
                 </select>
             </div>
 
-            <!-- PANEL INPUT DATA -->
+            <!-- DATA CONFIG INPUT UTAMA -->
             <div class="space-y-3 bg-gray-950/40 p-3.5 border border-gray-900 rounded-xl">
                 <div id="inputTracingGroup" class="space-y-1">
-                    <label class="text-[11px] text-gray-400 block font-medium">Nama Anak</label>
+                    <label class="text-[11px] text-gray-400 block font-medium">Nama Anak (Maksal 12 Karakter)</label>
                     <input type="text" id="childName" maxlength="12" placeholder="Contoh: EVAN..." class="w-full bg-gray-900 border border-gray-800 rounded-xl px-4 py-2 text-xs focus:outline-none focus:border-amber-500 text-white uppercase font-bold" oninput="updateLivePreview()">
+                </div>
+
+                <!-- PENGATURAN CUSTOM MATRIKS SOAL (KEMBALI DIHADIRKAN) -->
+                <div id="customMatrixGroup" class="grid grid-cols-2 gap-2">
+                    <div class="space-y-1">
+                        <label class="text-[10px] text-gray-400 block font-medium">Jumlah Soal Cetak</label>
+                        <select id="totalQuestions" onchange="updateLivePreview()" class="w-full bg-gray-900 border border-gray-800 rounded-xl px-2 py-2 text-xs text-white">
+                            <option value="5">5 Soal Praktis</option>
+                            <option value="8">8 Soal Sedang</option>
+                            <option value="10" selected>10 Soal Lengkap</option>
+                            <option value="12">12 Soal Ujian</option>
+                        </select>
+                    </div>
+                    <div class="space-y-1">
+                        <label class="text-[10px] text-gray-400 block font-medium">Batas Angka Maks</label>
+                        <input type="number" id="maxMatrixNumber" value="30" min="10" max="100" class="w-full bg-gray-900 border border-gray-800 rounded-xl px-3 py-1.5 text-xs text-white font-bold" oninput="updateLivePreview()">
+                    </div>
+                </div>
+
+                <!-- PILIHAN MASKOT KARAKTER ANIMASI -->
+                <div class="space-y-1">
+                    <label class="text-[11px] text-gray-400 block font-medium">Pilih Karakter Maskot Animasi Anak</label>
+                    <select id="characterMaskot" onchange="updateLivePreview()" class="w-full bg-gray-900 border border-gray-800 rounded-xl px-3 py-2 text-xs focus:outline-none focus:border-amber-500 text-white font-medium">
+                        <option value="🐻">Teddy Bear Lucu (🐻)</option>
+                        <option value="🐰">Kelinci Imut (🐰)</option>
+                        <option value="🐱">Kucing Gemas (🐱)</option>
+                        <option value="🐼">Panda Gembrot (🐼)</option>
+                        <option value="🦖">Dino Cilik (🦖)</option>
+                    </select>
                 </div>
 
                 <div class="space-y-1">
@@ -66,7 +95,7 @@
 
             <!-- TEMA WARNA -->
             <div class="space-y-1">
-                <label class="text-[11px] text-gray-400 block font-medium">Pilih Warna Lembar Kerja</label>
+                <label class="text-[11px] text-gray-400 block font-medium">Pilih Palet Warna Lembar Kerja</label>
                 <div class="grid grid-cols-3 gap-2">
                     <button type="button" onclick="setTheme('amber', '#f59e0b', '#d97706')" class="bg-amber-500/10 text-amber-400 border border-amber-500/20 text-[10px] font-bold py-1.5 rounded-lg">💛 Amber</button>
                     <button type="button" onclick="setTheme('blue', '#3b82f6', '#1d4ed8')" class="bg-blue-500/10 text-blue-400 border border-blue-500/20 text-[10px] font-bold py-1.5 rounded-lg">💙 Blue</button>
@@ -77,57 +106,65 @@
                 </div>
             </div>
 
-            <button type="button" onclick="downloadKurikulumPDF()" class="w-full bg-gradient-to-r from-emerald-500 via-teal-500 to-indigo-600 text-white font-bold py-3 px-4 rounded-xl text-xs shadow-lg uppercase tracking-wider">
-                <i class="fa-solid fa-cloud-arrow-down mr-1"></i> CETAK MODUL PELAJARAN (A4)
+            <button type="button" onclick="downloadAnimasiPDF()" class="w-full bg-gradient-to-r from-pink-500 via-orange-500 to-amber-500 text-white font-bold py-3 px-4 rounded-xl text-xs shadow-lg uppercase tracking-wider">
+                <i class="fa-solid fa-print mr-1"></i> CETAK MODUL BERANIMASI (A4)
             </button>
         </div>
 
         <!-- PANEL PREVIEW LIVE -->
         <div class="lg:col-span-7 pro-card p-5 rounded-2xl flex flex-col h-[580px]">
             <div class="flex items-center justify-between border-b border-gray-800 pb-2 mb-3">
-                <h3 class="text-xs font-semibold text-gray-300">Live Preview Modul Sekolah (Kertas A4)</h3>
+                <h3 class="text-xs font-semibold text-gray-300">Live Workspace Preview Animasi (A4)</h3>
                 <div id="themeIndicator" class="text-[9px] border px-2 py-0.5 rounded text-amber-400 border-amber-500/30">Tema: AMBER</div>
             </div>
             
-            <div class="flex-1 bg-white rounded-xl p-5 text-gray-900 overflow-y-auto border border-gray-300 space-y-4 shadow-inner custom-scrollbar">
+            <div class="flex-1 bg-white rounded-xl p-5 text-gray-900 overflow-y-auto border-2 border-gray-300 space-y-4 shadow-inner custom-scrollbar relative">
+                <!-- Simulasi Bingkai Kertas Lucu -->
                 <div id="headerBox" class="border-b-4 border-amber-400 pb-2 flex justify-between items-center">
                     <div>
-                        <h2 id="previewTitle" class="text-sm font-black text-amber-600">LEMBAR LATIHAN MENULIS</h2>
-                        <p id="previewInstruction" class="text-[10px] text-gray-500 font-medium italic mt-0.5">Yuk, belajar menebalkan namamu sendiri dengan rapi!</p>
+                        <div class="flex items-center gap-2">
+                            <span id="previewMaskot" class="text-2xl">🐻</span>
+                            <h2 id="previewTitle" class="text-sm font-black text-amber-600">LEMBAR LATIHAN MENULIS</h2>
+                        </div>
+                        <p id="previewInstruction" class="text-[10px] text-gray-500 font-medium italic mt-1">Yuk, belajar menebalkan namamu sendiri dengan rapi!</p>
                     </div>
-                    <div class="text-[9px] text-gray-400 border p-1 rounded font-mono bg-gray-50">Score: ⭐⭐⭐⭐⭐</div>
+                    <div class="text-[9px] text-gray-400 border p-1 rounded font-mono bg-gray-50 text-center">
+                        <div>Apresiasi Nilai</div>
+                        <div class="text-amber-500 font-bold">⭐⭐⭐⭐⭐</div>
+                    </div>
                 </div>
 
-                <div class="space-y-3 pt-1" id="previewContainer"></div>
+                <div class="space-y-2.5 pt-1" id="previewContainer"></div>
             </div>
         </div>
     </main>
 
     <footer class="text-center text-[9px] text-gray-600 mt-4">
-        &copy; 2026 Kids Worksheet Mega Kurikulum v4.0. Developed by Koh Ojiek Jambi.
+        &copy; 2026 Kids Worksheet Generator v4.5 Animasi Pro. Developed by Koh Ojiek Jambi.
     </footer>
 
-    <!-- LOCAL DATABASE SYSTEM EMBEDDED -->
+    <!-- BANK DATA LOKAL INDONESIA MATRIX -->
     <script>
         const DAFTAR_LISENSI_VALID = ["MASTERPRO2026", "CUANMAKSIMAL", "OJIEKCREATIVE"];
         let activeThemeName = "amber", activePrimaryColor = "#f59e0b", activeSecondaryColor = "#d97706";
 
-        // Bank data lokal Kurikulum SD Indonesia
-        const DB_BAHASA = ["Budi bermain (bola/buku) di lapangan.", "Ibu memasak nasi di (dapur/kamar).", "Adik mencuci (tangan/kaki) sebelum makan.", "Gajah adalah hewan yang sangat (besar/kecil).", "Padi diolah petani menjadi (beras/jagung)."];
-        const DB_ENGLISH = [{q: "Kucing", a: "C _ T"}, {q: "Anjing", a: "D _ G"}, {q: "Apel", a: "A P _ L E"}, {q: "Buku", a: "B O _ K"}, {q: "Matahari", a: "S _ N"}];
-        const DB_ISLAM = ["Sebutkan jumlah Rukun Islam yang wajib diketahui! (......)", "Nabi terakhir yang menjadi utusan Allah adalah Nabi? (......)", "Malaikat yang bertugas menyampaikan wahyu adalah? (......)", "Shalat wajib dalam satu hari satu malam ada berapa waktu? (......)", "Kitab suci umat Islam yang menjadi pedoman adalah? (......)"];
+        const DB_BAHASA = ["Budi bermain (bola/buku) di lapangan sekolah.", "Ibu membeli sayur segar di (pasar/kamar).", "Sebelum makan kita harus mencuci (tangan/kaki).", "Kelinci melompat menggunakan (kaki/sayap).", "Matahari terbit pada waktu (pagi/malam) hari.", "Burung bisa terbang tinggi karena punya (sayap/sirip).", "Garam dapur rasanya sangat (asin/manis).", "Cabai rawit warnanya merah dan rasanya (pedas/pahit).", "Ikan berenang di air menggunakan (sirip/kaki).", "Kita mendengarkan musik menggunakan (telinga/mata).", "Adik menangis karena mainannya (rusak/baru).", "Roda sepeda motor berbentuk (bulat/kotak)."];
+        const DB_ENGLISH = [{q: "Kucing", a: "C _ T"}, {q: "Anjing", a: "D _ G"}, {q: "Apel", a: "A P _ L E"}, {q: "Buku", a: "B O _ K"}, {q: "Matahari", a: "S _ N"}, {q: "Mobil", a: "C _ R"}, {q: "Susu", a: "M _ L K"}, {q: "Bola", a: "B _ L L"}, {q: "Ikan", a: "F _ S H"}, {q: "Pohon", a: "T R _ E"}, {q: "Topi", a: "H _ T"}, {q: "Telur", a: "E _ G G"}];
+        const DB_ISLAM = ["Sebutkan jumlah Rukun Islam yang wajib kita tahu! (......)", "Nabi terakhir utusan Allah adalah Nabi? (......)", "Malaikat yang bertugas membagikan rezeki adalah? (......)", "Shalat wajib satu hari satu malam ada berapa waktu? (......)", "Kitab suci umat Islam sebagai pedoman hidup adalah? (......)", "Sebelum makan, sebagai muslim kita membaca? (......)", "Masjid adalah tempat beribadah untuk umat? (......)", "Rukun Iman yang pertama adalah Iman kepada? (......)", "Nabi yang diselamatkan dari kobaran api besar adalah Nabi? (......)", "Hukum melaksanakan shalat fardhu lima waktu adalah? (......)"];
 
         function toggleInputs() {
             const mode = document.getElementById("workMode").value;
             const instInput = document.getElementById("instructionText");
+            
             document.getElementById("inputTracingGroup").style.display = (mode === "tracing") ? "block" : "none";
+            document.getElementById("customMatrixGroup").style.display = (mode === "tracing" || mode === "kesenian") ? "none" : "flex";
 
             if (mode === "tracing") instInput.value = "Yuk, belajar menebalkan namamu sendiri dengan rapi!";
             else if (mode === "bahasa") instInput.value = "Pilihlah kata di dalam kurung yang paling tepat untuk melengkapi kalimat!";
             else if (mode === "english") instInput.value = "Fill in the missing letter to complete the English words!";
-            else if (mode === "islam") instInput.value = "Jawablah pertanyaan pendidikan agama islam berikut dengan benar!";
-            else if (mode === "kesenian") instInput.value = "Ikuti pola kotak-kotak di bawah ini untuk melatih keterampilan menggambarmu!";
-            else if (mode === "math") instInput.value = "Selesaikan soal penjumlahan dan berhitung matematika dasar ini!";
+            else if (mode === "islam") instInput.value = "Jawablah pertanyaan pendidikan agama islam berikut dengan teliti!";
+            else if (mode === "kesenian") instInput.value = "Ikuti pola kotak-kotak di bawah ini untuk mengasah motorik visual anak!";
+            else if (mode === "math") instInput.value = "Selesaikan kuis penjumlahan dan pengurangan matematika acak ini!";
         }
 
         function setTheme(name, hex1, hex2) {
@@ -140,63 +177,70 @@
 
         function updateLivePreview() {
             const mode = document.getElementById("workMode").value;
+            const maskot = document.getElementById("characterMaskot").value;
             const container = document.getElementById("previewContainer");
             const titleText = document.getElementById("previewTitle");
+            const totalQ = parseInt(document.getElementById("totalQuestions").value);
+            
             document.getElementById("previewInstruction").innerText = document.getElementById("instructionText").value;
+            document.getElementById("previewMaskot").innerText = maskot;
 
             if (mode === "tracing") {
                 titleText.innerText = "BELAJAR MENULIS NAMA";
-                const name = document.getElementById("childName").value.trim().toUpperCase() || "NAMA ANAK";
-                container.innerHTML = `<div class='border-b pb-1 font-trace text-md text-gray-400 text-center tracking-widest'>${name}</div>`;
-            } else if (mode === "bahasa") {
-                titleText.innerText = "BAHASA INDONESIA (KELAS 1)";
-                container.innerHTML = `<div class='text-xs text-gray-600 bg-gray-50 p-2 border rounded'>1. ${DB_BAHASA[0]}</div>`;
-            } else if (mode === "english") {
-                titleText.innerText = "ENGLISH ADVENTURE WORKsheet";
-                container.innerHTML = `<div class='text-xs text-gray-600 bg-gray-50 p-2 border rounded'>What is '${DB_ENGLISH[0].q}' in English? -> ${DB_ENGLISH[0].a}</div>`;
-            } else if (mode === "islam") {
-                titleText.innerText = "PENDIDIKAN AGAMA ISLAM (PAI)";
-                container.innerHTML = `<div class='text-xs text-gray-600 bg-gray-50 p-2 border rounded'>1. ${DB_ISLAM[0]}</div>`;
-            } else if (mode === "kesenian") {
-                titleText.innerText = "SENI BUDAYA & KREATIVITAS";
-                container.innerHTML = "<div class='w-full h-12 border-2 border-dashed rounded bg-gray-50 flex items-center justify-center text-xs text-gray-400 font-mono'>[ Grid Kanvas Menggambar Pola Kreatif A4 ]</div>";
-            } else if (mode === "math") {
-                titleText.innerText = "MATEMATIKA PINTAR DASAR";
-                container.innerHTML = "<div class='text-xs font-bold font-mono text-gray-600'>15  +  7  =  ......</div>";
+                const name = document.getElementById("childName").value.trim().toUpperCase() || "EVAN";
+                container.innerHTML = `<div class='border-b pb-1 font-trace text-sm text-gray-400 text-center tracking-widest'>${name}</div>`;
+            } else {
+                titleText.innerText = `MODUL LATIHAN ${mode.toUpperCase()}`;
+                container.innerHTML = `<div class='text-xs text-gray-500 bg-gray-50 p-2.5 border rounded border-dashed'>Konfigurasi Aktif: ${totalQ} baris soal otomatis siap dieksekusi ke cetakan PDF.</div>`;
             }
         }
 
-        function downloadKurikulumPDF() {
+        function downloadAnimasiPDF() {
             const lic = document.getElementById("licenseKey").value.trim();
             const mode = document.getElementById("workMode").value;
             const inst = document.getElementById("instructionText").value.trim();
+            const maskot = document.getElementById("characterMaskot").value;
+            const totalQ = parseInt(document.getElementById("totalQuestions").value);
+            const maxN = parseInt(document.getElementById("maxMatrixNumber").value) || 30;
 
             if (!lic || !DAFTAR_LISENSI_VALID.includes(lic)) { alert("Kode Lisensi Akses Premium Salah!"); return; }
 
             const { jsPDF } = window.jspdf;
             const doc = new jsPDF({ orientation: "portrait", unit: "mm", format: "a4" });
 
+            // 🎨 ORNAMEN BINGKAI TEPI ELEGAN (BORDER ANTI-POLOS)
+            doc.setDrawColor(activePrimaryColor); doc.setLineWidth(0.3);
+            doc.rect(10, 10, 190, 277); // Bingkai luar halaman
+
+            // TOP HEADER STRIP
             doc.setFillColor(activePrimaryColor); doc.rect(15, 15, 180, 2, "F");
-            doc.setFont("Helvetica", "bold"); doc.setFontSize(15); doc.setTextColor(activeSecondaryColor);
             
-            let pTitle = "LEMBAR KERJA KURIKULUM INDONESIA";
-            if (mode === "tracing") pTitle = "PENDIDIKAN DASAR: LATIHAN MENULIS";
-            if (mode === "bahasa") pTitle = "MATA PELAJARAN: BAHASA INDONESIA";
-            if (mode === "english") pTitle = "KURSUS KECIL: BAHASA INGGRIS (ELEMENTARY)";
+            // Render Karakter Maskot Animasi Teks ke PDF Beresolusi Tinggi
+            doc.setFont("Helvetica", "bold"); doc.setFontSize(22);
+            doc.text(maskot, 16, 26);
+
+            // Judul Dinamis Lembar Kerja
+            doc.setFontSize(14); doc.setTextColor(activeSecondaryColor);
+            let pTitle = "LEMBAR KERJA ANAK INDONESIA";
+            if (mode === "tracing") pTitle = "BELAJAR MENULIS NAMA SENDIRI";
+            if (mode === "bahasa") pTitle = "BAHASA INDONESIA (KURIKULUM MERDEKA)";
+            if (mode === "english") pTitle = "FUN ENGLISH WORKBOOK: VOCABULARY";
             if (mode === "islam") pTitle = "PENDIDIKAN AGAMA ISLAM & BUDI PEKERTI";
-            if (mode === "kesenian") pTitle = "SENI RUPA & MELATIH MOTORIK ANAK";
-            if (mode === "math") pTitle = "MATEMATIKA BERHITUNG ACAK MULTI-LEVEL";
-            
-            doc.text(pTitle, 15, 24);
+            if (mode === "kesenian") pTitle = "SENI BUDAYA: LATIHAN MENGGAMBAR POLA";
+            if (mode === "math") pTitle = "MATEMATIKA: PENJUMLAHAN & PENGURANGAN";
+            doc.text(pTitle, 28, 24);
+
+            // Teks Instruksi Soal
             doc.setFont("Helvetica", "oblique"); doc.setFontSize(9); doc.setTextColor(100, 100, 100);
-            doc.text(inst, 15, 30);
-            doc.setDrawColor(210, 210, 210); doc.setLineDashPattern([2, 2], 0); doc.line(15, 34, 195, 34);
+            doc.text(inst, 15, 31);
+            doc.setDrawColor(210, 210, 210); doc.setLineDashPattern([2, 2], 0); doc.line(15, 35, 195, 35);
 
-            let y = 52; doc.setFont("Helvetica", "bold"); doc.setFontSize(12); doc.setTextColor(40, 40, 40);
+            let y = 52; doc.setFont("Helvetica", "bold"); doc.setFontSize(11); doc.setTextColor(40, 40, 40);
 
+            // INDIVIDU MODE ROUTING
             if (mode === "tracing") {
                 const name = document.getElementById("childName").value.trim().toUpperCase();
-                if (!name) { alert("Nama kosong!"); return; }
+                if (!name) { alert("Nama anak kosong!"); return; }
                 y = 54; doc.setFont("Courier", "bold"); doc.setFontSize(26); doc.setTextColor(180, 180, 180);
                 const sn = name.split("").join("  ");
                 for (let i = 0; i < 9; i++) {
@@ -204,43 +248,49 @@
                     doc.text(sn, 22, y); doc.line(15, y + 4, 195, y + 4); y += 24;
                 }
             } else if (mode === "bahasa") {
-                DB_BAHASA.forEach((soal, idx) => {
+                for (let i = 0; i < totalQ; i++) {
+                    let sText = DB_BAHASA[i % DB_BAHASA.length];
                     doc.setDrawColor(240, 240, 240); doc.setLineDashPattern([], 0); doc.rect(15, y - 6, 180, 12, "D");
-                    doc.text(`Soal ${idx + 1}:  ${soal}`, 20, y + 2); y += 18;
-                });
+                    doc.text(`Soal ${i + 1}:  ${sText}`, 20, y + 1.5); y += 17;
+                }
             } else if (mode === "english") {
-                DB_ENGLISH.forEach((item, idx) => {
-                    doc.setDrawColor(240, 240, 240); doc.setLineDashPattern([], 0); doc.rect(15, y - 6, 180, 14, "D");
-                    doc.text(`Soal ${idx + 1}: Arti kata '${item.q}' -> Lengkapi kata:  ${item.a}`, 20, y + 2);
-                    doc.setDrawColor(activePrimaryColor); doc.rect(176, y - 3, 8, 8); y += 20;
-                });
+                for (let i = 0; i < totalQ; i++) {
+                    let item = DB_ENGLISH[i % DB_ENGLISH.length];
+                    doc.setDrawColor(240, 240, 240); doc.setLineDashPattern([], 0); doc.rect(15, y - 6, 180, 13, "D");
+                    doc.text(`Soal ${i + 1}: Apa bahasa inggris dari '${item.q}'? ->  ${item.a}`, 20, y + 2);
+                    doc.setDrawColor(activePrimaryColor); doc.rect(176, y - 3, 7, 7); y += 18;
+                }
             } else if (mode === "islam") {
-                DB_ISLAM.forEach((soal, idx) => {
-                    doc.setDrawColor(245, 245, 245); doc.setLineDashPattern([], 0); doc.rect(15, y - 6, 180, 14, "D");
-                    doc.setFontSize(10); doc.text(`Pertanyaan ${idx + 1}: ${soal}`, 20, y + 2); doc.setFontSize(12); y += 20;
-                });
+                for (let i = 0; i < totalQ; i++) {
+                    let sText = DB_ISLAM[i % DB_ISLAM.length];
+                    doc.setDrawColor(245, 245, 245); doc.setLineDashPattern([], 0); doc.rect(15, y - 6, 180, 13, "D");
+                    doc.setFontSize(9.5); doc.text(`Kuis ${i + 1}: ${sText}`, 20, y + 1.5); doc.setFontSize(11); y += 18;
+                }
             } else if (mode === "kesenian") {
-                // GENERATE MATRIKS GRID UNTUK MEWARNAI / MENGGAMBAR BEBAS
-                doc.setDrawColor(180, 180, 180); doc.setLineDashPattern([], 0);
+                doc.setDrawColor(190, 190, 190); doc.setLineDashPattern([], 0);
                 let gridX = 20, gridY = 45;
-                for (let row = 0; row < 12; row++) {
+                for (let row = 0; row < 13; row++) {
                     for (let col = 0; col < 17; col++) {
                         doc.rect(gridX, gridY, 10, 10); gridX += 10;
                     }
                     gridX = 20; gridY += 10;
                 }
             } else if (mode === "math") {
-                for (let i = 1; i <= 10; i++) {
+                for (let i = 1; i <= totalQ; i++) {
                     doc.setDrawColor(240, 240, 240); doc.setLineDashPattern([], 0); doc.rect(15, y - 6, 180, 12, "D");
-                    let n1 = Math.floor(Math.random() * 30) + 10; let n2 = Math.floor(Math.random() * 9) + 1;
-                    doc.text(`Soal ${i} :    ${n1}   +   ${n2}   =   ............`, 22, y + 2);
-                    doc.setDrawColor(activePrimaryColor); doc.rect(174, y - 4, 8, 8); y += 19;
+                    let n1 = Math.floor(Math.random() * (maxN - 5)) + 5; 
+                    let n2 = Math.floor(Math.random() * (n1 - 1)) + 1;
+                    let isPlus = Math.random() > 0.5;
+                    let qStr = isPlus ? `Soal ${i} :    ${n1}   +   ${n2}   =   ............` : `Soal ${i} :    ${n1}   -   ${n2}   =   ............`;
+                    doc.text(qStr, 22, y + 1.5);
+                    doc.setDrawColor(activePrimaryColor); doc.rect(174, y - 3, 7, 7); y += 18;
                 }
             }
 
+            // BOTTOM FOOTER
             doc.setFont("Helvetica", "normal"); doc.setFontSize(7); doc.setTextColor(150, 150, 150); doc.setLineDashPattern([], 0);
-            doc.text("Kids Modul Worksheet Master v4.0 PRO - Kurikulum Merdeka Terintegrasi - By Koh Ojiek", 15, 286);
-            doc.save(`Modul_Kurikulum_v4_${mode}.pdf`);
+            doc.text(`Kids Worksheet Animasi Engine v4.5 PRO - Premium Jualan Koh Ojiek Jambi`, 15, 286);
+            doc.save(`Worksheet_Animasi_v45_${mode}.pdf`);
         }
 
         toggleInputs();
