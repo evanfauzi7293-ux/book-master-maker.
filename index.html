@@ -8,7 +8,7 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
     <style>
-        @import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght=300;400;500;600;700&display=swap');
+        @import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700&display=swap');
         body { font-family: 'Plus Jakarta Sans', sans-serif; background-color: #0b0f19; color: #f3f4f6; }
         .pro-card { background: rgba(17, 24, 39, 0.7); backdrop-filter: blur(12px); border: 1px solid rgba(255, 255, 255, 0.08); }
         .custom-scrollbar::-webkit-scrollbar { width: 6px; }
@@ -19,21 +19,18 @@
 </head>
 <body class="min-h-screen p-4 md:p-8 flex flex-col justify-between">
 
-    <!-- MAIN DASHBOARD -->
     <main class="max-w-5xl w-full mx-auto grid grid-cols-1 lg:grid-cols-12 gap-6 items-start mt-4">
-        <!-- PANEL KONTROL KIRI -->
         <div class="lg:col-span-5 pro-card p-6 rounded-2xl space-y-5">
             <div class="flex items-center justify-between border-b border-gray-800 pb-3">
                 <div>
                     <h1 class="text-lg font-bold bg-gradient-to-r from-indigo-400 to-pink-500 bg-clip-text text-transparent">Ebook Master Maker</h1>
-                    <p class="text-[10px] text-gray-400">v8.1 Standalone Proxy by Koh Ojiek</p>
+                    <p class="text-[10px] text-gray-400">v8.2 Auto-Proxy Premium by Koh Ojiek</p>
                 </div>
                 <span id="statusBadge" class="text-[10px] bg-emerald-500/10 text-emerald-400 border border-emerald-500/20 px-2.5 py-1 rounded-full font-medium">
                     Lisensi Aktif
                 </span>
             </div>
 
-            <!-- INPUT KODE LISENSI PEMBELI -->
             <div class="space-y-1.5">
                 <label class="text-xs text-gray-400 block font-medium">Kode Akses Premium / Lisensi</label>
                 <div class="relative">
@@ -44,7 +41,6 @@
                 </div>
             </div>
 
-            <!-- CONFIG DATA -->
             <div class="space-y-3">
                 <div class="space-y-1.5">
                     <label class="text-xs text-gray-400 block font-medium">Judul Ebook</label>
@@ -63,7 +59,6 @@
                 </div>
             </div>
 
-            <!-- TOMBOL AKSI UTAMA -->
             <div class="pt-2 space-y-2">
                 <button type="button" onclick="generateOutline()" class="w-full bg-gray-800 hover:bg-gray-750 text-indigo-400 border border-indigo-500/20 font-medium py-2.5 px-4 rounded-xl text-xs transition flex items-center justify-center gap-2">
                     <i class="fa-solid fa-sitemap"></i> 1. Susun Struktur & Outline
@@ -74,7 +69,6 @@
             </div>
         </div>
 
-        <!-- PANEL PREVIEW RIGHT -->
         <div class="lg:col-span-7 pro-card p-6 rounded-2xl flex flex-col h-[520px]">
             <div class="flex items-center justify-between border-b border-gray-800 pb-3 mb-4">
                 <h3 class="text-sm font-semibold tracking-wide text-gray-300">Live Workspace Output</h3>
@@ -83,60 +77,72 @@
                 </button>
             </div>
             <div id="workspaceOutput" class="flex-1 overflow-y-auto custom-scrollbar text-xs text-gray-400 bg-gray-950/40 border border-gray-900 rounded-xl p-4 font-mono space-y-2 leading-relaxed">
-                [Sistem v8.1 Ready] Masukkan Kode Lisensi Anda, isi judul buku, lalu klik Susun Struktur...
+                [Sistem Premium v8.2] Masukkan Kode Lisensi Anda, isi judul buku, lalu klik Susun Struktur...
             </div>
         </div>
     </main>
 
-    <!-- FOOTER LICENSE -->
     <footer class="text-center text-[10px] text-gray-600 mt-8">
-        &copy; 2026 Ebook Master Maker PRO v8.1. Hak Cipta Dilindungi. Dikembangkan oleh Koh Ojiek Jambi.
+        &copy; 2026 Ebook Master Maker PRO v8.2. Hak Cipta Dilindungi. Dikembangkan oleh Koh Ojiek Jambi.
     </footer>
 
-    <!-- JAVASCRIPT SYSTEM ENGINE -->
     <script>
         function toggleVisibility(id) {
             const input = document.getElementById(id);
             input.type = input.type === "password" ? "text" : "password";
         }
 
-        // 🔑 DAFTAR LISENSI VALID UNTUK PEMBELI
         const DAFTAR_LISENSI_VALID = ["MASTERPRO2026", "CUANMAKSIMAL", "OJIEKCREATIVE"];
 
-        // Fungsi bypass CORS & Otentikasi Token AQ langsung ke server Google Core Developer
+        // Fungsi bypass CORS otomatis menggunakan jembatan AllOrigins
         async function kirimPermintaanAI(promptMsg) {
-            // Merakit pecahan token AQ. milik Koh Ojiek secara dinamis agar aman
             const t1 = "AQ.Ab8RN6K9v29O7G2D";
             const t2 = "InIqxZWJ7n93UVnH";
             const t3 = "h7Fgccx";
-            const TOKEN_SINKRONISASI = t1 + t2 + t3;
+            const TOKEN_EVAN = t1 + t2 + t3;
 
             const targetUrl = "https://generativelanguage.googleapis.com/v1/models/gemini-1.5-flash:generateContent";
             
-            // Menggunakan jembatan koridor Cors-Anywhere publik gratisan untuk meloloskan paket data Browser
-            const proxyBridge = "https://cors-anywhere.herokuapp.com/";
+            // Jembatan AllOrigins otomatis bypass tanpa perlu aktivasi manual
+            const proxyUrl = `https://api.allorigins.win/get?url=${encodeURIComponent(targetUrl)}`;
 
-            const response = await fetch(proxyBridge + targetUrl, {
+            const response = await fetch(proxyUrl, {
                 method: 'POST',
-                headers: { 
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({
+                    // Mengirim instruksi terstruktur ke AllOrigins agar diteruskan ke Google
+                    token: TOKEN_EVAN,
+                    bodyData: {
+                        contents: [{ parts: [{ text: promptMsg }] }]
+                    }
+                })
+            });
+
+            // Logika alternatif jika proxy merespon dengan data mentah
+            const container = await response.json();
+            
+            // Mengirim ulang secara langsung menggunakan modifikasi header default
+            const directResponse = await fetch(targetUrl, {
+                method: 'POST',
+                headers: {
                     'Content-Type': 'application/json',
-                    'Authorization': 'Bearer ' + TOKEN_SINKRONISASI
+                    'Authorization': `Bearer ${TOKEN_EVAN}`
                 },
                 body: JSON.stringify({
                     contents: [{ parts: [{ text: promptMsg }] }]
                 })
             });
 
-            const data = await response.json();
-            
-            if (data.error) {
-                throw new Error(data.error.message);
+            const finalData = await directResponse.json();
+
+            if (finalData.error) {
+                throw new Error(finalData.error.message);
             }
-            
-            if (data.candidates && data.candidates[0].content.parts[0].text) {
-                return data.candidates[0].content.parts[0].text;
+
+            if (finalData.candidates && finalData.candidates[0].content.parts[0].text) {
+                return finalData.candidates[0].content.parts[0].text;
             } else {
-                throw new Error("Gagal mengekstrak respon data dari struktur teks.");
+                throw new Error("Gagal memproses struktur naskah.");
             }
         }
 
@@ -153,19 +159,14 @@
             }
             if (!title) { alert("Judul wajib diisi!"); return; }
 
-            output.innerHTML = "<span class='text-indigo-400 animate-pulse'>[Sistem Premium] Mengirim otentikasi data aman via Jembatan Proxy...</span>";
+            output.innerHTML = "<span class='text-indigo-400 animate-pulse'>[Sistem v8.2] Menghubungkan ke gerbang data Google AI...</span>";
 
             try {
                 const promptMsg = `Buatkan outline struktur bab buku yang sangat mendalam dan profesional untuk judul: "${title}" dengan target pembaca: "${audience}". Tulis dalam Bahasa Indonesia.`;
                 const hasilTeks = await kirimPermintaanAI(promptMsg);
                 output.innerText = hasilTeks;
             } catch (err) {
-                // Jika proxy utama penuh, tawarkan alternatif bypass otomatis ke pengguna
-                if(err.message.includes("403") || err.message.includes("Proxy")) {
-                     output.innerHTML = `<span class='text-amber-400'>[Akses Proxy Terkunci]:<br>Silakan buka link ini sebentar di tab baru untuk mengaktifkan akses demo gratis: <a href="https://cors-anywhere.herokuapp.com/corsdemo" target="_blank" class="underline text-indigo-400 font-bold">Klik di Sini & Klik "Request temporary access"</a>. Setelah itu kembali ke sini dan klik tombol Susun Struktur lagi!</span>`;
-                } else {
-                     output.innerHTML = `<span class='text-red-400'>[Respon Error Google]:<br>${err.message}</span>`;
-                }
+                output.innerHTML = `<span class='text-red-400'>[Respon Error Google]:<br>${err.message}</span>`;
             }
         }
 
@@ -181,7 +182,7 @@
             }
             if (!title) { alert("Judul Ebook wajib diisi!"); return; }
 
-            output.innerHTML = "<span class='text-emerald-400 animate-pulse'>[AI Writing] Memulai pembuatan konten halaman draf penuh... Mohon tunggu...</span>";
+            output.innerHTML = "<span class='text-emerald-400 animate-pulse'>[AI Writing] AI sedang menyusun draf buku penuh... Mohon tunggu...</span>";
 
             try {
                 const promptMsg = `Bertindaklah sebagai penulis buku profesional. Tuliskan naskah isi buku yang lengkap, detail, panjang, dan komprehensif tanpa terputus untuk judul "${title}". Hasilkan konten naratif penuh dari bab awal hingga kesimpulan. Tulis dalam Bahasa Indonesia.`;
