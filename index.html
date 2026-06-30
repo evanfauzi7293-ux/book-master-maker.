@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Kids Worksheet & Planner Creator v10.3 (Dynamic Branding)</title>
+    <title>Kids Worksheet & Planner Creator v10.4 (Final Fixed Engine)</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
@@ -29,6 +29,7 @@
 
     <main class="max-w-7xl w-full mx-auto grid grid-cols-1 lg:grid-cols-12 gap-6 items-start mt-2 relative z-10">
         
+        <!-- PANEL KONTROL KIRI -->
         <div class="lg:col-span-5 glass-panel p-5 rounded-3xl space-y-4 max-h-[88vh] overflow-y-auto custom-scrollbar">
             <div class="flex items-center justify-between border-b border-gray-800/60 pb-3">
                 <div>
@@ -38,6 +39,7 @@
                 <div id="statusBadge" class="text-[10px] bg-amber-500/10 text-amber-400 border border-amber-500/20 px-3 py-1 rounded-full font-bold tracking-wide">DEMO MODE ACTIVE</div>
             </div>
 
+            <!-- SELEKTOR LISENSI SECURE -->
             <div class="glass-card p-3.5 rounded-2xl border-l-4 border-l-indigo-500/60 space-y-3">
                 <label class="text-[11px] text-indigo-400 font-bold uppercase block"><i class="fa-solid fa-keyhole mr-1"></i> Mode Aktivasi Lisensi</label>
                 <div class="grid grid-cols-3 gap-1.5 text-[10px] font-bold">
@@ -46,6 +48,7 @@
                     <button type="button" id="btnModeMrr" onclick="switchLicenseMode('mrr')" class="bg-gray-800 text-gray-400 py-2 rounded-xl transition-all">MRR Master</button>
                 </div>
 
+                <!-- INPUT VERIFIKASI KUNCI UNTUK USER -->
                 <div id="keyInputContainer" class="hidden space-y-2 pt-1 border-t border-gray-800/60">
                     <label id="keyInputLabel" class="text-[10px] text-gray-400 block">Masukkan Kunci Lisensi:</label>
                     <div class="flex gap-2">
@@ -54,6 +57,7 @@
                     </div>
                 </div>
 
+                <!-- PANEL RAHASIA KHUSUS PEMILIK TOKO -->
                 <div class="border-t border-gray-800/60 pt-3 space-y-2.5 bg-gray-950/20 p-2.5 rounded-xl">
                     <label class="text-[10px] text-amber-400 font-bold uppercase block"><i class="fa-solid fa-sliders mr-1"></i> Admin Master Control (Kunci & Branding)</label>
                     
@@ -91,6 +95,7 @@
                 </div>
             </div>
 
+            <!-- SELEKSI KATEGORI LAYOUT MODUL -->
             <div class="space-y-1.5">
                 <label class="text-[11px] text-gray-300 font-semibold px-0.5">Pilih Kategori Modul Aktivitas Anak</label>
                 <select id="workMode" onchange="toggleInputs(); updateLivePreview();" class="w-full bg-gray-950/60 border border-gray-800 focus:border-indigo-500 rounded-xl px-3 py-2 text-xs text-gray-200 outline-none font-medium">
@@ -118,6 +123,7 @@
                 </select>
             </div>
 
+            <!-- PENGATURAN KERTAS & TOTAL LEMBAR -->
             <div class="glass-card p-3.5 rounded-2xl space-y-3">
                 <div class="grid grid-cols-2 gap-3">
                     <div class="space-y-1">
@@ -137,6 +143,7 @@
                 </div>
             </div>
 
+            <!-- INPUT TEKS INSTRUKSI -->
             <div class="glass-card p-3.5 rounded-2xl space-y-3">
                 <div class="space-y-1.5">
                     <label class="text-[11px] text-gray-300 font-semibold">Teks Instruksi Kerja</label>
@@ -144,6 +151,7 @@
                 </div>
             </div>
 
+            <!-- PILIHAN ESTETIKA WARNA -->
             <div class="space-y-2">
                 <label class="text-[11px] text-gray-300 font-semibold px-0.5">Pilih Warna Aksen Dokumen</label>
                 <div class="grid grid-cols-5 gap-1 text-[10px] font-bold">
@@ -155,11 +163,13 @@
                 </div>
             </div>
 
-            <button id="btnGenerate" type="button" onclick="downloadMasterV97PDF()" class="w-full bg-gradient-to-r from-indigo-500 via-purple-500 to-pink-500 text-white font-extrabold py-3.5 rounded-xl text-xs tracking-widest uppercase shadow-lg">
+            <!-- TOMBOL CETAK UTAMA -->
+            <button id="btnGenerate" type="button" onclick="downloadMasterV104PDF()" class="w-full bg-gradient-to-r from-indigo-500 via-purple-500 to-pink-500 text-white font-extrabold py-3.5 rounded-xl text-xs tracking-widest uppercase shadow-lg">
                 <i class="fa-solid fa-sparkles mr-2"></i> GENERATE DOCUMENT
             </button>
         </div>
 
+        <!-- PANEL PREVIEW KANAN -->
         <div class="lg:col-span-7 glass-panel p-5 rounded-3xl flex flex-col h-[88vh]">
             <div class="flex items-center justify-between border-b border-gray-800/60 pb-3 mb-3">
                 <h3 class="text-xs font-bold uppercase text-gray-400"><i class="fa-solid fa-expand text-indigo-400 mr-2"></i> Live Digital Screen Proof</h3>
@@ -170,7 +180,7 @@
                 <div id="headerBox" class="border-b-4 border-amber-400 pb-3 flex justify-between items-center">
                     <div>
                         <div class="flex items-center gap-2">
-                            <span id="previewMaskot" class="text-2xl">🕌</span>
+                            <span id="previewMaskot" class="text-2xl">🇲🇨</span>
                             <h2 id="previewTitle" class="text-sm font-black text-amber-600 uppercase">LEMBAR AKTIVITAS</h2>
                         </div>
                         <p id="previewInstruction" class="text-[10px] text-gray-500 font-semibold italic mt-1 leading-relaxed"></p>
@@ -183,15 +193,15 @@
     </main>
 
     <script>
+        const DEFAULT_PERSONAL_KEY = "ANAKPINTAR2026";
+        const DEFAULT_MRR_KEY = "MASTERPRO2026";
         let selectedGateMode = "demo", isAuthorized = true; 
         let activeThemeName = "amber", activePrimaryColor = "#f59e0b", activeSecondaryColor = "#d97706";
 
-        // Tampilkan nilai kunci dan nama kustomisasi branding yang tersimpan saat pertama dimuat
         window.addEventListener('DOMContentLoaded', () => {
             document.getElementById("masterPersonalSetup").value = localStorage.getItem("MASTER_KEY_PERSONAL") || "";
             document.getElementById("masterMrrSetup").value = localStorage.getItem("MASTER_KEY_MRR") || "";
             
-            // Default awal jika kosong adalah: WORKSHEET STUDIO oleh koh Ojiek
             const currentTitle = localStorage.getItem("CUSTOM_APP_TITLE") || "WORKSHEET STUDIO";
             const currentSub = localStorage.getItem("CUSTOM_APP_SUB") || "by. koh Ojiek";
             
@@ -218,7 +228,7 @@
             localStorage.setItem("CUSTOM_APP_SUB", cSub);
             
             terapkanBrandingUI(cTitle, cSub);
-            alert("Sip, Van! Kunci master dan Kustomisasi Nama Studio berhasil diperbarui secara rahasia.");
+            alert("Konfigurasi kunci master dan nama studio berhasil disimpan.");
             validasiProsesKunci(false);
         }
 
@@ -255,16 +265,14 @@
             if (selectedGateMode === "demo") { isAuthorized = true; evaluasiUIStatus(); return; }
             
             const userInputValue = document.getElementById("configPersonalKey").value.trim().toUpperCase();
-            const correctPersonalKey = (localStorage.getItem("MASTER_KEY_PERSONAL") || "").toUpperCase();
-            const correctMrrKey = (localStorage.getItem("MASTER_KEY_MRR") || "").toUpperCase();
+            const correctPersonalKey = (localStorage.getItem("MASTER_KEY_PERSONAL") || DEFAULT_PERSONAL_KEY).toUpperCase();
+            const correctMrrKey = (localStorage.getItem("MASTER_KEY_MRR") || DEFAULT_MRR_KEY).toUpperCase();
 
             if (selectedGateMode === "personal") {
-                if (correctPersonalKey === "") { isAuthorized = false; }
-                else { isAuthorized = (userInputValue === correctPersonalKey); }
+                isAuthorized = (userInputValue === correctPersonalKey);
             } 
             else if (selectedGateMode === "mrr") {
-                if (correctMrrKey === "") { isAuthorized = false; }
-                else { isAuthorized = (userInputValue === correctMrrKey); }
+                isAuthorized = (userInputValue === correctMrrKey);
             }
 
             evaluasiUIStatus();
@@ -273,7 +281,7 @@
                 if (isAuthorized) {
                     alert(`Selamat! Lisensi ${selectedGateMode.toUpperCase()} Berhasil Diaktifkan.`);
                 } else {
-                    alert("Kode lisensi salah atau belum dikonfigurasi oleh pemilik toko!");
+                    alert("Kode lisensi salah atau belum sesuai!");
                 }
             }
         }
@@ -305,7 +313,7 @@
             localStorage.removeItem("MASTER_KEY_MRR");
             localStorage.removeItem("CUSTOM_APP_TITLE");
             localStorage.removeItem("CUSTOM_APP_SUB");
-            alert("Sistem lisensi dan nama studio berhasil dikosongkan ke pengaturan awal."); location.reload();
+            alert("Sistem lisensi dikosongkan ke pengaturan awal."); location.reload();
         }
 
         function toggleInputs() {
@@ -346,7 +354,7 @@
             document.getElementById("previewContainer").innerHTML = `
                 <div class="border-2 border-dashed rounded-2xl p-6 text-center bg-gray-50 flex flex-col items-center justify-center min-h-[160px]" style="border-color:${activePrimaryColor}">
                     <span class="text-4xl opacity-50 mb-1">🕌</span>
-                    <p class="text-xs font-mono font-bold text-gray-700">[ ENGINE SECURE v10.3 RUNNING ]</p>
+                    <p class="text-xs font-mono font-bold text-gray-700">[ ENGINE SECURE v10.4 FIXED ]</p>
                     <p class="text-[10px] text-gray-400 mt-1">Sistem perlindungan kode & Dynamic Branding aktif.</p>
                 </div>`;
         }
@@ -369,16 +377,17 @@
             }
         }
 
-        function downloadMasterV97PDF() {
+        // 🔥 FUNGSIONAL TOMBOL GENERATE UTAMA YANG SUDAH DIREPARASI TOTAL
+        function downloadMasterV104PDF() {
             if(!isAuthorized) return;
             const mode = document.getElementById("workMode").value;
             const sizeOption = document.getElementById("paperSize").value;
             let maxPages = parseInt(document.getElementById("totalPdfPages").value);
             const instText = document.getElementById("instructionText").value;
 
-            // Ambil Nama Branding Kustom untuk footer PDF
-            const currentTitle = localStorage.getItem("CUSTOM_APP_TITLE") || "WORKSHEET STUDIO";
-            const currentSub = localStorage.getItem("CUSTOM_APP_SUB") || "by. koh Ojiek";
+            // Mengamankan pemanggilan data kustomisasi global agar tidak merusak tombol
+            const cTitle = localStorage.getItem("CUSTOM_APP_TITLE") || "WORKSHEET STUDIO";
+            const cSub = localStorage.getItem("CUSTOM_APP_SUB") || "by. koh Ojiek";
 
             if(selectedGateMode === "demo" && maxPages > 1) {
                 alert("Mode Demo: Jumlah halaman dipangkas otomatis menjadi 1 lembar."); maxPages = 1;
@@ -398,9 +407,9 @@
                 doc.setFillColor(activePrimaryColor); doc.rect(12, 12, w - 8, 1.5, "F");
 
                 doc.setFont("Helvetica", "bold"); doc.setFontSize(13); doc.setTextColor(activeSecondaryColor);
-                doc.text(mode.replace(/_/g, " ").toUpperCase(), 15, 23);
+                doc.text(mode.replace(/_/g, " ").toUpperCase(), 15, 24);
                 doc.setFont("Helvetica", "normal"); doc.setFontSize(8.5); doc.setTextColor(70, 70, 70);
-                doc.text(`${instText} (Halaman ${page})`, 15, 29);
+                doc.text(`${instText} (Halaman ${page})`, 15, 30);
 
                 let cx = w / 2;
                 let cy = h / 2 + 10;
@@ -477,7 +486,6 @@
                     doc.setDrawColor(100, 100, 100); doc.setLineWidth(0.4); doc.rect(15, cy - 38, w/2 - 12, 36, "D"); doc.rect(w/2 + 5, cy - 38, w/2 - 12, 36, "D"); doc.rect(15, cy + 5, w/2 - 12, 36, "D"); doc.rect(w/2 + 5, cy + 5, w/2 - 12, 36, "D"); doc.setFont("Helvetica", "bold"); doc.setFontSize(12); doc.text("APEL", 30, cy - 20); doc.text("SINGA", w - 50, cy - 20);
                 }
 
-                // Cetak nama kustom di footer bawah halaman PDF secara dinamis
                 doc.setFont("Helvetica", "normal"); doc.setFontSize(7); doc.setTextColor(160, 160, 160);
                 doc.text(`${cTitle} Premium [${selectedGateMode.toUpperCase()}] - ${cSub}`, 15, h + 3);
             }
