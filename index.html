@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Kids Worksheet & Planner Creator v9.7 (Ultra-Stable Edition)</title>
+    <title>Kids Worksheet & Planner Creator v9.8 (Final Repair)</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
@@ -48,7 +48,7 @@
             <div class="flex items-center justify-between border-b border-gray-800/60 pb-3">
                 <div>
                     <h1 class="text-xl font-extrabold tracking-tight bg-gradient-to-r from-indigo-400 via-pink-400 to-amber-300 bg-clip-text text-transparent uppercase">Worksheet Studio</h1>
-                    <p class="text-[11px] text-gray-400 font-medium tracking-wide mt-0.5">v9.7 Stable Core Engine</p>
+                    <p class="text-[11px] text-gray-400 font-medium tracking-wide mt-0.5">v9.8 Patch Production</p>
                 </div>
                 <div id="statusBadge" class="text-[10px] bg-amber-500/10 text-amber-400 border border-amber-500/20 px-3 py-1 rounded-full font-bold tracking-wide">
                     DEMO MODE ACTIVE
@@ -172,7 +172,7 @@
     </main>
 
     <script>
-        // 🔒 AKURASI BRANKAS KUNCI DEFAULT (DIJAMIN BEBAS BENTROK)
+        // 🔒 AKURASI BRANKAS KUNCI DEFAULT
         const DEFAULT_PERSONAL_KEY = "ANAKPINTAR2026";
         const DEFAULT_MRR_KEY = "MASTERPRO2026";
 
@@ -213,7 +213,7 @@
             validasiProsesKunci();
         }
 
-        // 🔥 LOGIKA VERIFIKASI BARU: TIDAK SENSITIF HURUF BESAR/KECIL & ANTI-ERROR
+        // LOGIKA VERIFIKASI BARU
         function validasiProsesKunci() {
             if (selectedGateMode === "demo") {
                 isAuthorized = true;
@@ -292,7 +292,7 @@
             localStorage.setItem("KEY_PERSONAL_CONFIG", DEFAULT_PERSONAL_KEY);
             localStorage.setItem("KEY_MRR_CONFIG", DEFAULT_MRR_KEY);
             localStorage.removeItem("LAST_TYPED_KEY_PERSONAL");
-            localStorage.removeItem("LAST_TYPED_KEY_MRR");
+            localStorage.removeItem("LAST_TYMED_KEY_MRR");
             
             alert("Sistem berhasil mereset sandi toko Anda ke default pabrik.");
             location.reload();
@@ -338,8 +338,8 @@
             container.innerHTML = html;
         }
 
-        // ENGINE GENERATOR DENGAN BATASAN DAN FITUR EQUAL
-        function downloadMasterV96PDF() {
+        // ENGINE GENERATOR UTAMA (NAMA FUNGSI SUDAH COCOK 100%)
+        function downloadMasterV97PDF() {
             if(!isAuthorized) return;
 
             const mode = document.getElementById("workMode").value;
@@ -347,7 +347,6 @@
             let maxPages = parseInt(document.getElementById("totalPdfPages").value);
             const instText = document.getElementById("instructionText").value;
 
-            // KENDALI PEMBATAS MODUL DEMO: Hanya batasi jumlah lembar PDF-nya saja!
             if(selectedGateMode === "demo" && maxPages > 1) {
                 alert("Sistem mendeteksi Mode Demo. Jumlah unduhan otomatis dipangkas menjadi maksimal 1 halaman! Aktifkan Lisensi Personal/MRR untuk cetak banyak halaman.");
                 maxPages = 1;
@@ -364,16 +363,13 @@
             for (let page = 1; page <= maxPages; page++) {
                 if (page > 1) doc.addPage();
 
-                // Bingkai Garis Tepi luar
                 doc.setDrawColor(activePrimaryColor); doc.setLineWidth(0.5);
                 let w = sizeOption === "a5" ? 138 : (sizeOption === "f4" ? 205 : 194);
                 let h = sizeOption === "a5" ? 200 : (sizeOption === "f4" ? 320 : 281);
                 doc.rect(8, 8, w, h);
 
-                // Banner Header Accent Line
                 doc.setFillColor(activePrimaryColor); doc.rect(12, 12, w - 8, 2, "F");
 
-                // Judul Dokumen & Instruksi Kerja
                 doc.setFont("Helvetica", "bold"); doc.setFontSize(14); doc.setTextColor(activeSecondaryColor);
                 doc.text(mode.replace("_", " ").toUpperCase(), 15, 24);
 
@@ -383,7 +379,6 @@
                 let centerX = w / 2;
                 let centerY = h / 2 + 10;
 
-                // Render Konten Vektor sesuai Kategori Pilihan
                 if (mode === "mewarnai_hewan") {
                     doc.setDrawColor(40, 40, 40); doc.setLineWidth(0.8);
                     doc.circle(centerX, centerY, 30, "D"); 
@@ -415,9 +410,8 @@
                     doc.text("Gunakan alat tulis atau krayon berwarna untuk melatih konsentrasi anak.", 25, 65);
                 }
 
-                // Footer Proteksi Hak Cipta
                 doc.setFont("Helvetica", "normal"); doc.setFontSize(7); doc.setTextColor(170, 170, 170);
-                doc.text(`Worksheet Studio Premium v9.6 [${selectedGateMode.toUpperCase()}] - Hak Cipta Produk Koh Ojiek`, 15, h + 3);
+                doc.text(`Worksheet Studio Premium v9.8 [${selectedGateMode.toUpperCase()}] - Hak Cipta Produk Koh Ojiek`, 15, h + 3);
             }
 
             doc.save(`Worksheet_${selectedGateMode}_${mode}.pdf`);
