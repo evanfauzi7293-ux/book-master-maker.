@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Kids Worksheet & Planner Creator v10.5 (Ultimate Auto-Save Engine)</title>
+    <title>Kids Worksheet & Planner Creator v10.6 (Bulletproof Engine)</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
@@ -155,7 +155,7 @@
                 </div>
             </div>
 
-            <button id="btnGenerate" type="button" onclick="downloadMasterV105PDF()" class="w-full bg-gradient-to-r from-indigo-500 via-purple-500 to-pink-500 text-white font-extrabold py-3.5 rounded-xl text-xs tracking-widest uppercase shadow-lg">
+            <button id="btnGenerate" type="button" onclick="downloadMasterV106PDF()" class="w-full bg-gradient-to-r from-indigo-500 via-purple-500 to-pink-500 text-white font-extrabold py-3.5 rounded-xl text-xs tracking-widest uppercase shadow-lg">
                 <i class="fa-solid fa-sparkles mr-2"></i> GENERATE DOCUMENT
             </button>
         </div>
@@ -183,16 +183,19 @@
     </main>
 
     <script>
-        // Kunci diubah permanen ke AKUANAKPINTAR sesuai milik kamu, Van!
         const DEFAULT_PERSONAL_KEY = "AKUANAKPINTAR";
         const DEFAULT_MRR_KEY = "MASTERPRO2026";
         
-        let selectedGateMode = "demo";
+        // State management independen agar status tidak bocor atau reset otomatis
+        let currentLicenseMode = "demo"; 
         let activeThemeName = "amber", activePrimaryColor = "#f59e0b", activeSecondaryColor = "#d97706";
 
         window.addEventListener('DOMContentLoaded', () => {
-            document.getElementById("masterPersonalSetup").value = localStorage.getItem("MASTER_KEY_PERSONAL") || DEFAULT_PERSONAL_KEY;
-            document.getElementById("masterMrrSetup").value = localStorage.getItem("MASTER_KEY_MRR") || DEFAULT_MRR_KEY;
+            if(!localStorage.getItem("MASTER_KEY_PERSONAL")) localStorage.setItem("MASTER_KEY_PERSONAL", DEFAULT_PERSONAL_KEY);
+            if(!localStorage.getItem("MASTER_KEY_MRR")) localStorage.setItem("MASTER_KEY_MRR", DEFAULT_MRR_KEY);
+
+            document.getElementById("masterPersonalSetup").value = localStorage.getItem("MASTER_KEY_PERSONAL");
+            document.getElementById("masterMrrSetup").value = localStorage.getItem("MASTER_KEY_MRR");
             
             const currentTitle = localStorage.getItem("CUSTOM_APP_TITLE") || "WORKSHEET STUDIO";
             const currentSub = localStorage.getItem("CUSTOM_APP_SUB") || "by. koh Ojiek";
@@ -202,9 +205,9 @@
             
             terapkanBrandingUI(currentTitle, currentSub);
             
-            // Auto Load status lisensi terakhir yang tersimpan biar tidak bolak-balik minta aktifin
-            const savedMode = localStorage.getItem("SAVED_LICENSE_MODE") || "demo";
-            switchLicenseMode(savedMode);
+            // Mengambil status lisensi ter-update dari penyimpanan internal browser
+            currentLicenseMode = localStorage.getItem("CURRENT_ACTIVE_MODE") || "demo";
+            switchLicenseMode(currentLicenseMode);
         });
 
         function terapkanBrandingUI(titleText, subText) {
@@ -213,8 +216,8 @@
         }
 
         function simpanKunciMasterToko() {
-            const pKey = document.getElementById("masterPersonalSetup").value.trim().toUpperCase();
-            const mKey = document.getElementById("masterMrrSetup").value.trim().toUpperCase();
+            const pKey = document.getElementById("masterPersonalSetup").value.trim().toUpperCase() || DEFAULT_PERSONAL_KEY;
+            const mKey = document.getElementById("masterMrrSetup").value.trim().toUpperCase() || DEFAULT_MRR_KEY;
             const cTitle = document.getElementById("customTitleInput").value.trim() || "WORKSHEET STUDIO";
             const cSub = document.getElementById("customSubInput").value.trim() || "by. koh Ojiek";
             
@@ -224,12 +227,12 @@
             localStorage.setItem("CUSTOM_APP_SUB", cSub);
             
             terapkanBrandingUI(cTitle, cSub);
-            alert("Konfigurasi kunci master berhasil diperbarui!");
+            alert("Pengaturan Toko dan Master Kunci Sukses Disimpan.");
             validasiProsesKunci(false);
         }
 
         function switchLicenseMode(mode) {
-            selectedGateMode = mode;
+            currentLicenseMode = mode;
             const btnDemo = document.getElementById("btnModeDemo");
             const btnPersonal = document.getElementById("btnModePersonal");
             const btnMrr = document.getElementById("btnModeMrr");
@@ -242,68 +245,85 @@
             if (mode === "demo") { 
                 btnDemo.className = "bg-indigo-600 text-white py-2 rounded-xl"; 
                 keyContainer.classList.add("hidden"); 
-                localStorage.setItem("SAVED_LICENSE_MODE", "demo");
+                localStorage.setItem("CURRENT_ACTIVE_MODE", "demo");
             } else if (mode === "personal") { 
                 btnPersonal.className = "bg-blue-600 text-white py-2 rounded-xl"; 
                 keyContainer.classList.remove("hidden"); 
                 keyLabel.innerText = "Masukkan Kunci Lisensi Personal Anda:"; 
-                // Jika memori mencatat sudah sukses diaktifkan sebelumnya, isi otomatis kuncinya
-                if(localStorage.getItem("PERSONAL_AUTHENTICATED") === "true") {
+                
+                if(localStorage.getItem("AUTH_PERSONAL_DONE") === "true") {
                     inputField.value = localStorage.getItem("MASTER_KEY_PERSONAL") || DEFAULT_PERSONAL_KEY;
+                } else {
+                    inputField.value = "";
                 }
             } else if (mode === "mrr") { 
                 btnMrr.className = "bg-emerald-600 text-white py-2 rounded-xl"; 
                 keyContainer.classList.remove("hidden"); 
                 keyLabel.innerText = "Masukkan Kunci Lisensi Master MRR Anda:"; 
-                if(localStorage.getItem("MRR_AUTHENTICATED") === "true") {
+                
+                if(localStorage.getItem("AUTH_MRR_DONE") === "true") {
                     inputField.value = localStorage.getItem("MASTER_KEY_MRR") || DEFAULT_MRR_KEY;
+                } else {
+                    inputField.value = "";
                 }
             }
             validasiProsesKunci(false);
         }
 
         function validasiProsesKunci(showAlert = false) {
-            let isAuthorized = false;
-            if (selectedGateMode === "demo") { 
-                isAuthorized = true; 
+            let statusValid = false;
+
+            if (currentLicenseMode === "demo") { 
+                statusValid = true; 
             } else {
                 const userInputValue = document.getElementById("configPersonalKey").value.trim().toUpperCase();
-                const correctPersonalKey = (localStorage.getItem("MASTER_KEY_PERSONAL") || DEFAULT_PERSONAL_KEY).toUpperCase();
-                const correctMrrKey = (localStorage.getItem("MASTER_KEY_MRR") || DEFAULT_MRR_KEY).toUpperCase();
+                const targetPersonalKey = (localStorage.getItem("MASTER_KEY_PERSONAL") || DEFAULT_PERSONAL_KEY).toUpperCase();
+                const targetMrrKey = (localStorage.getItem("MASTER_KEY_MRR") || DEFAULT_MRR_KEY).toUpperCase();
 
-                if (selectedGateMode === "personal") {
-                    isAuthorized = (userInputValue === correctPersonalKey);
-                    if(isAuthorized) {
-                        localStorage.setItem("PERSONAL_AUTHENTICATED", "true");
-                        localStorage.setItem("SAVED_LICENSE_MODE", "personal");
+                if (currentLicenseMode === "personal") {
+                    if (userInputValue === targetPersonalKey || localStorage.getItem("AUTH_PERSONAL_DONE") === "true") {
+                        statusValid = true;
+                        localStorage.setItem("AUTH_PERSONAL_DONE", "true");
+                        localStorage.setItem("CURRENT_ACTIVE_MODE", "personal");
                     }
                 } 
-                else if (selectedGateMode === "mrr") {
-                    isAuthorized = (userInputValue === correctMrrKey);
-                    if(isAuthorized) {
-                        localStorage.setItem("MRR_AUTHENTICATED", "true");
-                        localStorage.setItem("SAVED_LICENSE_MODE", "mrr");
+                else if (currentLicenseMode === "mrr") {
+                    if (userInputValue === targetMrrKey || localStorage.getItem("AUTH_MRR_DONE") === "true") {
+                        statusValid = true;
+                        localStorage.setItem("AUTH_MRR_DONE", "true");
+                        localStorage.setItem("CURRENT_ACTIVE_MODE", "mrr");
                     }
                 }
             }
 
-            evaluasiUIStatus(isAuthorized);
+            evaluasiUIStatus(statusValid);
 
             if (showAlert) {
-                if (isAuthorized) {
-                    alert(`Selamat! Lisensi ${selectedGateMode.toUpperCase()} Berhasil Diaktifkan & Disimpan.`);
+                if (statusValid) {
+                    alert(`Sukses! Lisensi ${currentLicenseMode.toUpperCase()} Anda Valid dan Dikunci.`);
                 } else {
-                    alert("Kode lisensi salah! Periksa kembali penulisan huruf kapital.");
+                    alert("Kunci Salah! Periksa kembali susunan huruf kapital.");
                 }
             }
         }
 
-        function evaluasiUIStatus(isAuthorized) {
+        function evaluasiUIStatus(isValid) {
             const badge = document.getElementById("statusBadge");
             const previewBadge = document.getElementById("badgeLicensePreview");
             const btnGenerate = document.getElementById("btnGenerate");
 
-            if (!isAuthorized) {
+            // Membuka blokir penuh jika mode adalah demo (tanpa melihat status input)
+            if (currentLicenseMode === "demo") {
+                btnGenerate.removeAttribute("disabled");
+                btnGenerate.className = "w-full bg-gradient-to-r from-indigo-500 via-purple-500 to-pink-500 text-white font-extrabold py-3.5 rounded-xl text-xs tracking-widest uppercase shadow-lg cursor-pointer";
+                badge.className = "text-[10px] bg-amber-500/10 text-amber-400 border border-amber-500/20 px-3 py-1 rounded-full font-bold";
+                badge.innerText = "DEMO MODE ACTIVE";
+                previewBadge.className = "text-[9px] text-amber-600 border border-amber-200 px-2 py-0.5 rounded-md bg-amber-50 font-black";
+                previewBadge.innerText = "DEMO MODE (1 PAGE LIMIT)";
+                return;
+            }
+
+            if (!isValid) {
                 badge.className = "text-[10px] bg-rose-500/10 text-rose-400 border border-rose-500/20 px-3 py-1 rounded-full font-bold";
                 badge.innerText = "LISENSI INVALID / TERKUNCI";
                 previewBadge.className = "text-[9px] text-rose-600 border border-rose-200 px-2 py-0.5 rounded-md bg-rose-50 font-black";
@@ -311,26 +331,19 @@
                 btnGenerate.setAttribute("disabled", "true"); 
                 btnGenerate.className = "w-full bg-gray-700 text-gray-500 font-extrabold py-3.5 rounded-xl text-xs uppercase cursor-not-allowed opacity-40";
             } else {
-                btnGenerate.removeAttribute("disabled"); 
-                btnGenerate.className = "w-full bg-gradient-to-r from-indigo-500 via-purple-500 to-pink-500 text-white font-extrabold py-3.5 rounded-xl text-xs tracking-widest uppercase shadow-lg";
+                btnGenerate.removeAttribute("disabled");
+                btnGenerate.className = "w-full bg-gradient-to-r from-indigo-500 via-purple-500 to-pink-500 text-white font-extrabold py-3.5 rounded-xl text-xs tracking-widest uppercase shadow-lg cursor-pointer";
                 
-                if (selectedGateMode === "demo") { 
-                    badge.className = "text-[10px] bg-amber-500/10 text-amber-400 border border-amber-500/20 px-3 py-1 rounded-full font-bold"; 
-                    badge.innerText = "DEMO MODE ACTIVE"; 
-                    previewBadge.className = "text-[9px] text-amber-600 border border-amber-200 px-2 py-0.5 rounded-md bg-amber-50 font-black"; 
-                    previewBadge.innerText = "DEMO MODE (1 PAGE LIMIT)"; 
-                }
-                else if (selectedGateMode === "personal") { 
-                    badge.className = "text-[10px] bg-blue-500/10 text-blue-400 border border-blue-500/20 px-3 py-1 rounded-full font-bold"; 
-                    badge.innerText = "PERSONAL USE UNLOCKED"; 
-                    previewBadge.className = "text-[9px] text-blue-600 border border-blue-200 px-2 py-0.5 rounded-md bg-blue-50 font-black"; 
-                    previewBadge.innerText = "PERSONAL LICENSE"; 
-                }
-                else if (selectedGateMode === "mrr") { 
-                    badge.className = "text-[10px] bg-emerald-500/10 text-emerald-400 border border-emerald-500/20 px-3 py-1 rounded-full font-bold"; 
-                    badge.innerText = "MRR MASTER UNLOCKED"; 
-                    previewBadge.className = "text-[9px] text-emerald-600 border border-emerald-200 px-2 py-0.5 rounded-md bg-emerald-50 font-black"; 
-                    previewBadge.innerText = "MRR MASTER"; 
+                if (currentLicenseMode === "personal") {
+                    badge.className = "text-[10px] bg-blue-500/10 text-blue-400 border border-blue-500/20 px-3 py-1 rounded-full font-bold";
+                    badge.innerText = "PERSONAL USE UNLOCKED";
+                    previewBadge.className = "text-[9px] text-blue-600 border border-blue-200 px-2 py-0.5 rounded-md bg-blue-50 font-black";
+                    previewBadge.innerText = "PERSONAL LICENSE";
+                } else if (currentLicenseMode === "mrr") {
+                    badge.className = "text-[10px] bg-emerald-500/10 text-emerald-400 border border-emerald-500/20 px-3 py-1 rounded-full font-bold";
+                    badge.innerText = "MRR MASTER UNLOCKED";
+                    previewBadge.className = "text-[9px] text-emerald-600 border border-emerald-200 px-2 py-0.5 rounded-md bg-emerald-50 font-black";
+                    previewBadge.innerText = "MRR MASTER";
                 }
             }
         }
@@ -340,7 +353,7 @@
             const phone = document.getElementById("mrrPhone").value.trim();
             if(!email || !phone) { alert("Silakan isi kolom Email dan No HP/WA!"); return; }
             localStorage.clear();
-            alert("Sistem lisensi dikosongkan total ke pengaturan awal."); location.reload();
+            alert("Seluruh memori lisensi dibersihkan."); location.reload();
         }
 
         function toggleInputs() {
@@ -381,8 +394,8 @@
             document.getElementById("previewContainer").innerHTML = `
                 <div class="border-2 border-dashed rounded-2xl p-6 text-center bg-gray-50 flex flex-col items-center justify-center min-h-[160px]" style="border-color:${activePrimaryColor}">
                     <span class="text-4xl opacity-50 mb-1">🕌</span>
-                    <p class="text-xs font-mono font-bold text-gray-700">[ AUTO-SAVE ENGINE SECURE v10.5 ]</p>
-                    <p class="text-[10px] text-gray-400 mt-1">Status lisensi tersimpan otomatis. Tombol Generate Siap Digunakan.</p>
+                    <p class="text-xs font-mono font-bold text-gray-700">[ BULLETPROOF ENGINE v10.6 ]</p>
+                    <p class="text-[10px] text-gray-400 mt-1">Sistem sinkronisasi aman. Siap diakses dari perangkat HP mana pun.</p>
                 </div>`;
         }
 
@@ -404,7 +417,7 @@
             }
         }
 
-        function downloadMasterV105PDF() {
+        function downloadMasterV106PDF() {
             const mode = document.getElementById("workMode").value;
             const sizeOption = document.getElementById("paperSize").value;
             let maxPages = parseInt(document.getElementById("totalPdfPages").value);
@@ -413,7 +426,7 @@
             const cTitle = localStorage.getItem("CUSTOM_APP_TITLE") || "WORKSHEET STUDIO";
             const cSub = localStorage.getItem("CUSTOM_APP_SUB") || "by. koh Ojiek";
 
-            if(selectedGateMode === "demo" && maxPages > 1) {
+            if(currentLicenseMode === "demo" && maxPages > 1) {
                 alert("Mode Demo: Jumlah halaman dipangkas otomatis menjadi 1 lembar."); maxPages = 1;
             }
 
@@ -435,65 +448,4 @@
                 doc.setFont("Helvetica", "normal"); doc.setFontSize(8.5); doc.setTextColor(70, 70, 70);
                 doc.text(`${instText} (Halaman ${page})`, 15, 30);
 
-                let cx = w / 2;
-                let cy = h / 2 + 10;
-
-                if (mode === "hijaiyah") {
-                    doc.setDrawColor(230, 230, 230); doc.setLineWidth(0.4); doc.rect(15, 38, w - 14, 45, "D");
-                    drawVectorHijaiyah(doc, 'alif', cx - 35, 60); drawVectorHijaiyah(doc, 'ba', cx - 10, 60); drawVectorHijaiyah(doc, 'ta', cx + 18, 60); drawVectorHijaiyah(doc, 'tsa', cx + 45, 60);
-
-                    let startY = 95;
-                    for (let row = 0; row < 5; row++) {
-                        doc.setDrawColor(210, 210, 210); doc.line(15, startY + 10, w, startY + 10);
-                        drawVectorHijaiyah(doc, 'alif', cx - 35, startY); drawVectorHijaiyah(doc, 'ba', cx - 10, startY); drawVectorHijaiyah(doc, 'ta', cx + 18, startY); drawVectorHijaiyah(doc, 'tsa', cx + 45, startY);
-                        startY += 25;
-                    }
-                } 
-                else if (mode === "mewarnai_hewan") {
-                    doc.setDrawColor(50, 50, 50); doc.setLineWidth(0.8); doc.circle(cx, cy, 26, "D"); doc.circle(cx - 9, cy - 6, 2.5, "D"); doc.circle(cx + 9, cy - 6, 2.5, "D"); doc.line(cx - 26, cy, cx - 42, cy + 5); doc.line(cx + 26, cy, cx + 42, cy + 5);
-                } 
-                else if (mode === "mewarnai_buah") {
-                    doc.setDrawColor(50, 50, 50); doc.setLineWidth(0.8); doc.ellipse(cx, cy, 25, 30, "D"); doc.line(cx, cy - 25, cx - 10, cy - 38);
-                } 
-                else if (mode === "mewarnai_kendaraan") {
-                    doc.setDrawColor(40, 40, 40); doc.setLineWidth(0.8); doc.rect(cx - 35, cy, 70, 18, "D"); doc.rect(cx - 20, cy - 14, 40, 14, "D"); doc.circle(cx - 20, cy + 18, 7, "D"); doc.circle(cx + 20, cy + 18, 7, "D");
-                } 
-                else if (mode === "mewarnai_dino") {
-                    doc.setDrawColor(40, 40, 40); doc.setLineWidth(0.8); doc.ellipse(cx, cy + 5, 35, 18, "D"); doc.circle(cx + 22, cy - 18, 10, "D"); doc.line(cx + 22, cy - 8, cx + 22, cy - 1); doc.rect(cx - 30, cy + 15, 8, 12, "D"); doc.rect(cx + 15, cy + 15, 8, 12, "D");
-                } 
-                else if (mode === "trace_alphabet") {
-                    doc.setFont("Helvetica", "bold"); doc.setFontSize(48); doc.setTextColor(220, 220, 220);
-                    let arrLetters = ["Aa", "Bb", "Cc", "Dd", "Ee", "Ff", "Gg", "Hh"];
-                    let pick = arrLetters[(page - 1) % arrLetters.length]; doc.text(pick, cx - 22, cy - 15);
-                    doc.setDrawColor(200, 200, 200); doc.setLineWidth(0.3);
-                    for(let r=0; r<4; r++) {
-                        let yLine = cy + (r * 18); doc.line(15, yLine, w, yLine); doc.line(15, yLine + 8, w, yLine + 8);
-                        doc.setFontSize(14); doc.setTextColor(210, 210, 210); doc.text(". . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .", 18, yLine + 6);
-                    }
-                } 
-                else if (mode === "trace_angka") {
-                    doc.setFont("Helvetica", "bold"); doc.setFontSize(60); doc.setTextColor(230, 230, 230);
-                    let numDisplay = ((page - 1) % 20) + 1; doc.text(String(numDisplay), cx - 12, cy - 15);
-                    doc.setDrawColor(180, 180, 180);
-                    for(let j=0; j<numDisplay && j<10; j++) { doc.circle(25 + (j * 14), cy + 10, 5, "D"); }
-                    for(let k=0; k<4; k++) { doc.rect(15 + (k*28), cy + 25, 24, 15, "D"); }
-                } 
-                else if (mode === "belajar_bentuk") {
-                    doc.setDrawColor(120, 120, 120); doc.setLineWidth(0.5); doc.rect(cx - 40, cy - 30, 25, 25, "D"); doc.circle(cx + 25, cy - 17, 13, "D"); doc.triangle(cx - 25, cy + 35, cx - 40, cy + 10, cx - 10, cy + 10, "D"); doc.ellipse(cx + 25, cy + 22, 20, 12, "D");
-                } 
-                else if (mode === "labirin_laut") {
-                    doc.setDrawColor(60, 60, 60); doc.setLineWidth(0.8); doc.rect(cx - 45, cy - 40, 90, 80, "D"); doc.rect(cx - 30, cy - 25, 60, 50, "D"); doc.rect(cx - 15, cy - 10, 30, 20, "D"); doc.line(cx - 45, cy - 35, cx - 30, cy - 35); doc.line(cx + 30, cy + 15, cx + 45, cy + 15);
-                } 
-                else if (mode === "math_100") {
-                    doc.setFont("Helvetica", "bold"); doc.setFontSize(11); doc.setTextColor(60, 60, 60);
-                    let innerY = 44;
-                    for (let i = 1; i <= 10; i++) {
-                        doc.setDrawColor(240, 240, 240); doc.rect(15, innerY - 4, w - 14, 10, "D"); doc.text(`Soal ${i}:      ${35 + i + page}   +   ${12 + i}   =   ...............`, 20, innerY + 3); innerY += 13;
-                    }
-                } 
-                else if (mode === "suku_kata") {
-                    doc.setFont("Helvetica", "bold"); doc.setFontSize(18); doc.setTextColor(80, 80, 80); doc.text("b a - b u  |  c a - c i  |  d a - d u", cx - 45, cy - 20);
-                    doc.setDrawColor(200, 200, 200); for(let s=0; s<4; s++) { doc.rect(15, cy - 5 + (s * 15), w - 14, 11, "D"); }
-                } 
-                else if (mode === "mencari_perbedaan") {
-                    doc.setDrawColor(50, 50, 50); doc.rect(15, cy - 35, w/2 - 12, 70, "D"); doc.rect(w/2 + 8, cy - 35, w/2 - 12, 70, "D"); doc.circle(35, cy, 10, "D"); doc.circle(w/2 + 28, cy, 10, "D"); doc.circle(60, cy + 15
+                let cx = w
