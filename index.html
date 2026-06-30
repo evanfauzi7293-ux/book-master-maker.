@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Kids Worksheet & Planner Creator v9.6 (Unified Features Edition)</title>
+    <title>Kids Worksheet & Planner Creator v9.7 (Ultra-Stable Edition)</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
@@ -48,7 +48,7 @@
             <div class="flex items-center justify-between border-b border-gray-800/60 pb-3">
                 <div>
                     <h1 class="text-xl font-extrabold tracking-tight bg-gradient-to-r from-indigo-400 via-pink-400 to-amber-300 bg-clip-text text-transparent uppercase">Worksheet Studio</h1>
-                    <p class="text-[11px] text-gray-400 font-medium tracking-wide mt-0.5">v9.6 Unified Core Engine</p>
+                    <p class="text-[11px] text-gray-400 font-medium tracking-wide mt-0.5">v9.7 Stable Core Engine</p>
                 </div>
                 <div id="statusBadge" class="text-[10px] bg-amber-500/10 text-amber-400 border border-amber-500/20 px-3 py-1 rounded-full font-bold tracking-wide">
                     DEMO MODE ACTIVE
@@ -66,7 +66,7 @@
                 <div id="keyInputContainer" class="hidden space-y-2 pt-1 border-t border-gray-800/60">
                     <label id="keyInputLabel" class="text-[10px] text-gray-400 block">Masukkan Kunci Lisensi Anda:</label>
                     <div class="flex gap-2">
-                        <input type="text" id="configPersonalKey" placeholder="Ketik Lisensi Anda..." class="flex-1 bg-gray-950/40 border border-gray-800 rounded-xl px-3 py-1.5 text-xs text-gray-200 outline-none">
+                        <input type="text" id="configPersonalKey" placeholder="Ketik Lisensi Anda..." class="flex-1 bg-gray-950/40 border border-gray-800 rounded-xl px-3 py-1.5 text-xs text-white tracking-wider outline-none font-mono">
                         <button type="button" onclick="simpanKunciAktivasi()" class="bg-indigo-600 hover:bg-indigo-500 text-white font-bold px-4 py-1.5 rounded-xl text-xs transition-all">Aktifkan</button>
                     </div>
                 </div>
@@ -133,7 +133,7 @@
                     <button type="button" onclick="setTheme('amber', '#f59e0b', '#d97706')" class="bg-amber-500/10 text-amber-400 border border-amber-500/20 py-1.5 rounded-lg">Amber</button>
                     <button type="button" onclick="setTheme('blue', '#3b82f6', '#1d4ed8')" class="bg-blue-500/10 text-blue-400 border border-blue-500/20 py-1.5 rounded-lg">Blue</button>
                     <button type="button" onclick="setTheme('pink', '#ec4899', '#be185d')" class="bg-pink-500/10 text-pink-400 border border-pink-500/20 py-1.5 rounded-lg">Pink</button>
-                    <button type="button" onclick="setTheme('emerald', '#10b981', '#047857')" class="bg-emerald-500/10 text-emerald-400 border border-emerald-500/20 py-1.5 rounded-lg">Emerald</button>
+                    <button type="button" onclick="setTheme('emerald', '#10b981', '#047757')" class="bg-emerald-500/10 text-emerald-400 border border-emerald-500/20 py-1.5 rounded-lg">Emerald</button>
                     <button type="button" onclick="setTheme('purple', '#a855f7', '#7e22ce')" class="bg-purple-500/10 text-purple-400 border border-purple-500/20 py-1.5 rounded-lg">Purple</button>
                     <button type="button" onclick="setTheme('indigo', '#6366f1', '#4338ca')" class="bg-indigo-500/10 text-indigo-400 border border-indigo-500/20 py-1.5 rounded-lg">Indigo</button>
                     <button type="button" onclick="setTheme('rose', '#f43f5e', '#be123c')" class="bg-rose-500/10 text-rose-400 border border-rose-500/20 py-1.5 rounded-lg">Rose</button>
@@ -143,7 +143,7 @@
                 </div>
             </div>
 
-            <button id="btnGenerate" type="button" onclick="downloadMasterV96PDF()" class="w-full bg-gradient-to-r from-indigo-500 via-purple-500 to-pink-500 hover:from-indigo-400 hover:to-pink-400 text-white font-extrabold py-3.5 px-4 rounded-xl text-xs shadow-lg uppercase tracking-widest">
+            <button id="btnGenerate" type="button" onclick="downloadMasterV97PDF()" class="w-full bg-gradient-to-r from-indigo-500 via-purple-500 to-pink-500 hover:from-indigo-400 hover:to-pink-400 text-white font-extrabold py-3.5 px-4 rounded-xl text-xs shadow-lg uppercase tracking-widest">
                 <i class="fa-solid fa-sparkles mr-2 text-xs"></i> GENERATE DOCUMENT
             </button>
         </div>
@@ -172,19 +172,15 @@
     </main>
 
     <script>
-        // 🔒 BRANKAS LISENSI
+        // 🔒 AKURASI BRANKAS KUNCI DEFAULT (DIJAMIN BEBAS BENTROK)
         const DEFAULT_PERSONAL_KEY = "ANAKPINTAR2026";
         const DEFAULT_MRR_KEY = "MASTERPRO2026";
 
-        let selectedGateMode = "demo"; // demo, personal, mrr
-        let isAuthorized = true; // Mode demo langsung otomatis menyala
+        let selectedGateMode = "demo"; 
+        let isAuthorized = true; 
         let activeThemeName = "amber", activePrimaryColor = "#f59e0b", activeSecondaryColor = "#d97706";
 
-        // Inisialisasi awal database lokal jika kosong
-        if (!localStorage.getItem("KEY_PERSONAL_CONFIG")) localStorage.setItem("KEY_PERSONAL_CONFIG", DEFAULT_PERSONAL_KEY);
-        if (!localStorage.getItem("KEY_MRR_CONFIG")) localStorage.setItem("KEY_MRR_CONFIG", DEFAULT_MRR_KEY);
-
-        // NAVIGASI TOMBOL PILIHAN LISENSI
+        // MENGATUR NAVIGASI STRUKTUR TOMBOL LISENSI
         function switchLicenseMode(mode) {
             selectedGateMode = mode;
             
@@ -193,6 +189,7 @@
             const btnMrr = document.getElementById("btnModeMrr");
             const keyContainer = document.getElementById("keyInputContainer");
             const keyLabel = document.getElementById("keyInputLabel");
+            const inputField = document.getElementById("configPersonalKey");
 
             [btnDemo, btnPersonal, btnMrr].forEach(btn => {
                 btn.className = "bg-gray-800 text-gray-400 py-2 rounded-xl transition-all";
@@ -202,57 +199,54 @@
                 btnDemo.className = "bg-indigo-600 text-white py-2 rounded-xl transition-all";
                 keyContainer.classList.add("hidden");
                 isAuthorized = true;
-                evaluasiUIStatus();
             } else if (mode === "personal") {
                 btnPersonal.className = "bg-blue-600 text-white py-2 rounded-xl transition-all";
                 keyContainer.classList.remove("hidden");
                 keyLabel.innerText = "Masukkan Kunci Lisensi Personal Use:";
-                muatKunciOtomatis();
+                inputField.value = localStorage.getItem("LAST_TYPED_KEY_PERSONAL") || DEFAULT_PERSONAL_KEY;
             } else if (mode === "mrr") {
                 btnMrr.className = "bg-emerald-600 text-white py-2 rounded-xl transition-all";
                 keyContainer.classList.remove("hidden");
                 keyLabel.innerText = "Masukkan Kunci Lisensi MRR Enterprise:";
-                muatKunciOtomatis();
-            }
-        }
-
-        function muatKunciOtomatis() {
-            const inputField = document.getElementById("configPersonalKey");
-            const savedKey = localStorage.getItem("SAVED_USER_INPUT_KEY_" + selectedGateMode);
-            
-            if(savedKey) {
-                inputField.value = savedKey;
-            } else {
-                // Beri nilai default otomatis agar memudahkan pengujian user
-                inputField.value = selectedGateMode === "personal" ? DEFAULT_PERSONAL_KEY : DEFAULT_MRR_KEY;
+                inputField.value = localStorage.getItem("LAST_TYPED_KEY_MRR") || DEFAULT_MRR_KEY;
             }
             validasiProsesKunci();
         }
 
-        function simpanKunciAktivasi() {
-            const inputVal = document.getElementById("configPersonalKey").value.trim();
-            localStorage.setItem("SAVED_USER_INPUT_KEY_" + selectedGateMode, inputVal);
-            validasiProsesKunci();
-            
-            if(isAuthorized) {
-                alert(`Lisensi ${selectedGateMode.toUpperCase()} Berhasil Diaktifkan!`);
-            } else {
-                alert("Kunci lisensi salah atau tidak sesuai!");
-            }
-        }
-
+        // 🔥 LOGIKA VERIFIKASI BARU: TIDAK SENSITIF HURUF BESAR/KECIL & ANTI-ERROR
         function validasiProsesKunci() {
-            const inputVal = document.getElementById("configPersonalKey").value.trim();
-            
-            // Evaluasi ganda: cek ke localStorage atau langsung ke hardcoded agar anti-gagal
-            if (selectedGateMode === "personal" && (inputVal === DEFAULT_PERSONAL_KEY || inputVal === localStorage.getItem("KEY_PERSONAL_CONFIG"))) {
+            if (selectedGateMode === "demo") {
                 isAuthorized = true;
-            } else if (selectedGateMode === "mrr" && (inputVal === DEFAULT_MRR_KEY || inputVal === localStorage.getItem("KEY_MRR_CONFIG"))) {
+                evaluasiUIStatus();
+                return;
+            }
+
+            const inputVal = document.getElementById("configPersonalKey").value.trim().toUpperCase();
+            const storedPersonal = (localStorage.getItem("KEY_PERSONAL_CONFIG") || DEFAULT_PERSONAL_KEY).toUpperCase();
+            const storedMrr = (localStorage.getItem("KEY_MRR_CONFIG") || DEFAULT_MRR_KEY).toUpperCase();
+
+            if (selectedGateMode === "personal" && (inputVal === DEFAULT_PERSONAL_KEY || inputVal === storedPersonal)) {
+                isAuthorized = true;
+            } else if (selectedGateMode === "mrr" && (inputVal === DEFAULT_MRR_KEY || inputVal === storedMrr)) {
                 isAuthorized = true;
             } else {
                 isAuthorized = false;
             }
             evaluasiUIStatus();
+        }
+
+        function simpanKunciAktivasi() {
+            const inputVal = document.getElementById("configPersonalKey").value.trim();
+            if (selectedGateMode === "personal") localStorage.setItem("LAST_TYPED_KEY_PERSONAL", inputVal);
+            if (selectedGateMode === "mrr") localStorage.setItem("LAST_TYPED_KEY_MRR", inputVal);
+            
+            validasiProsesKunci();
+            
+            if(isAuthorized) {
+                alert(`Sukses! Lisensi ${selectedGateMode.toUpperCase()} Berhasil Diaktifkan.`);
+            } else {
+                alert("Maaf, Kunci Lisensi salah atau tidak sesuai!");
+            }
         }
 
         function evaluasiUIStatus() {
@@ -262,7 +256,7 @@
 
             if (!isAuthorized) {
                 badge.className = "text-[10px] bg-rose-500/10 text-rose-400 border border-rose-500/20 px-3 py-1 rounded-full font-bold tracking-wide";
-                badge.innerText = "LISENSI TERKUNCI / INVALID";
+                badge.innerText = "LISENSI INVALID / TERKUNCI";
                 previewBadge.className = "text-[9px] text-rose-600 border border-rose-200 px-2 py-0.5 rounded-md font-mono font-black bg-rose-50";
                 previewBadge.innerText = "LOCKED";
                 btnGenerate.setAttribute("disabled", "true");
@@ -285,7 +279,7 @@
                     badge.className = "text-[10px] bg-emerald-500/10 text-emerald-400 border border-emerald-500/20 px-3 py-1 rounded-full font-bold tracking-wide";
                     badge.innerText = "MRR MASTER UNLOCKED";
                     previewBadge.className = "text-[9px] text-emerald-600 border border-emerald-200 px-2 py-0.5 rounded-md font-mono font-black bg-emerald-50";
-                    previewBadge.innerText = "MRR ENTERPRISE MASTER";
+                    previewBadge.innerText = "MRR MASTER";
                 }
             }
         }
@@ -297,8 +291,8 @@
             
             localStorage.setItem("KEY_PERSONAL_CONFIG", DEFAULT_PERSONAL_KEY);
             localStorage.setItem("KEY_MRR_CONFIG", DEFAULT_MRR_KEY);
-            localStorage.setItem("SAVED_USER_INPUT_KEY_personal", DEFAULT_PERSONAL_KEY);
-            localStorage.setItem("SAVED_USER_INPUT_KEY_mrr", DEFAULT_MRR_KEY);
+            localStorage.removeItem("LAST_TYPED_KEY_PERSONAL");
+            localStorage.removeItem("LAST_TYPED_KEY_MRR");
             
             alert("Sistem berhasil mereset sandi toko Anda ke default pabrik.");
             location.reload();
@@ -344,7 +338,7 @@
             container.innerHTML = html;
         }
 
-        // GENERATOR PDF UTAMA DENGAN BATASAN DAN FITUR EQUAL
+        // ENGINE GENERATOR DENGAN BATASAN DAN FITUR EQUAL
         function downloadMasterV96PDF() {
             if(!isAuthorized) return;
 
@@ -355,7 +349,7 @@
 
             // KENDALI PEMBATAS MODUL DEMO: Hanya batasi jumlah lembar PDF-nya saja!
             if(selectedGateMode === "demo" && maxPages > 1) {
-                alert("Sistem mendeteksi Mode Demo. Jumlah unduhan otomatis dipangkas menjadi maksimal 1 halaman! Aktifkan Lisensi Personal/MRR untuk cetak multi-halaman.");
+                alert("Sistem mendeteksi Mode Demo. Jumlah unduhan otomatis dipangkas menjadi maksimal 1 halaman! Aktifkan Lisensi Personal/MRR untuk cetak banyak halaman.");
                 maxPages = 1;
             }
 
@@ -414,7 +408,6 @@
                         innerY += 14;
                     }
                 } else if (mode === "labirin_laut" || mode === "hijaiyah" || mode === "trace_alphabet" || mode === "belajar_bentuk" || mode === "suku_kata") {
-                    // Fallback Render Template Dinamis agar semua opsi berfungsi optimal
                     doc.setFont("Helvetica", "bold"); doc.setFontSize(11); doc.setTextColor(100, 100, 100);
                     doc.rect(20, 45, w - 25, h - 70, "D");
                     doc.text(`[ Konten Blok Utama Modul ${mode.toUpperCase()} - Halaman ${page} ]`, 25, 55);
@@ -430,7 +423,7 @@
             doc.save(`Worksheet_${selectedGateMode}_${mode}.pdf`);
         }
 
-        // Boot-up engine pertama kali
+        // Boot-up engine
         toggleInputs(); updateLivePreview(); switchLicenseMode('demo');
     </script>
 </body>
