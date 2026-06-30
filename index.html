@@ -3,36 +3,21 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Kids Worksheet & Planner Creator v9.9 (Mega-Expansion Edition)</title>
+    <title>Kids Worksheet & Planner Creator v10.0 (Ultra Engine)</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght=300;400;500;600;700;800&display=swap');
-        
         body { 
             background: radial-gradient(circle at top right, rgba(99, 102, 241, 0.15), transparent 40%),
                         radial-gradient(circle at bottom left, rgba(236, 72, 153, 0.15), transparent 40%),
                         #030712;
-            color: #f3f4f6;
-            font-family: 'Plus Jakarta Sans', sans-serif;
-            overflow-x: hidden;
+            color: #f3f4f6; font-family: 'Plus Jakarta Sans', sans-serif; overflow-x: hidden;
         }
-        .glass-panel {
-            background: rgba(17, 24, 39, 0.45);
-            backdrop-filter: blur(20px);
-            -webkit-backdrop-filter: blur(20px);
-            border: 1px solid rgba(255, 255, 255, 0.06);
-            box-shadow: 0 20px 50px rgba(0, 0, 0, 0.3);
-        }
-        .glass-card {
-            background: rgba(255, 255, 255, 0.02);
-            border: 1px solid rgba(255, 255, 255, 0.04);
-        }
-        .floating-paper {
-            background: #ffffff;
-            box-shadow: 0 30px 60px rgba(0, 0, 0, 0.4), 0 0 40px rgba(99, 102, 241, 0.05);
-        }
+        .glass-panel { background: rgba(17, 24, 39, 0.45); backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px); border: 1px solid rgba(255, 255, 255, 0.06); box-shadow: 0 20px 50px rgba(0, 0, 0, 0.3); }
+        .glass-card { background: rgba(255, 255, 255, 0.02); border: 1px solid rgba(255, 255, 255, 0.04); }
+        .floating-paper { background: #ffffff; box-shadow: 0 30px 60px rgba(0, 0, 0, 0.4); }
         .custom-scrollbar::-webkit-scrollbar { width: 6px; }
         .custom-scrollbar::-webkit-scrollbar-track { background: transparent; }
         .custom-scrollbar::-webkit-scrollbar-thumb { background: rgba(255, 255, 255, 0.1); border-radius: 10px; }
@@ -48,15 +33,13 @@
             <div class="flex items-center justify-between border-b border-gray-800/60 pb-3">
                 <div>
                     <h1 class="text-xl font-extrabold tracking-tight bg-gradient-to-r from-indigo-400 via-pink-400 to-amber-300 bg-clip-text text-transparent uppercase">Worksheet Studio</h1>
-                    <p class="text-[11px] text-gray-400 font-medium tracking-wide mt-0.5">v9.9 Mega Engine Expansion</p>
+                    <p class="text-[11px] text-gray-400 font-medium tracking-wide mt-0.5">v10.0 Premium Engine</p>
                 </div>
-                <div id="statusBadge" class="text-[10px] bg-amber-500/10 text-amber-400 border border-amber-500/20 px-3 py-1 rounded-full font-bold tracking-wide">
-                    DEMO MODE ACTIVE
-                </div>
+                <div id="statusBadge" class="text-[10px] bg-amber-500/10 text-amber-400 border border-amber-500/20 px-3 py-1 rounded-full font-bold tracking-wide">DEMO MODE ACTIVE</div>
             </div>
 
             <div class="glass-card p-3.5 rounded-2xl border-l-4 border-l-indigo-500/60 space-y-3">
-                <label class="text-[11px] text-indigo-400 font-bold uppercase block"><i class="fa-solid fa-keyhole mr-1"></i> Pilih Mode Lisensi Engine</label>
+                <label class="text-[11px] text-indigo-400 font-bold uppercase block"><i class="fa-solid fa-keyhole mr-1"></i> Mode Aktivasi Lisensi</label>
                 <div class="grid grid-cols-3 gap-1.5 text-[10px] font-bold">
                     <button type="button" id="btnModeDemo" onclick="switchLicenseMode('demo')" class="bg-indigo-600 text-white py-2 rounded-xl transition-all">Demo Mode</button>
                     <button type="button" id="btnModePersonal" onclick="switchLicenseMode('personal')" class="bg-gray-800 text-gray-400 py-2 rounded-xl transition-all">Personal Use</button>
@@ -67,7 +50,7 @@
                     <label id="keyInputLabel" class="text-[10px] text-gray-400 block">Masukkan Kunci Lisensi:</label>
                     <div class="flex gap-2">
                         <input type="password" id="configPersonalKey" placeholder="••••••••••••••" class="flex-1 bg-gray-950/40 border border-gray-800 rounded-xl px-3 py-1.5 text-xs text-white tracking-widest outline-none font-mono">
-                        <button type="button" onclick="simpanKunciAktivasi()" class="bg-indigo-600 hover:bg-indigo-500 text-white font-bold px-4 py-1.5 rounded-xl text-xs transition-all">Aktifkan</button>
+                        <button type="button" onclick="simpanKunciAktivasi()" class="bg-indigo-600 text-white font-bold px-4 py-1.5 rounded-xl text-xs">Aktifkan</button>
                     </div>
                 </div>
 
@@ -76,7 +59,7 @@
                         <input type="email" id="mrrEmail" placeholder="Email Terdaftar..." class="w-full bg-gray-950/20 border border-gray-800/80 rounded-xl px-2.5 py-1 text-[11px] text-gray-300 outline-none">
                         <input type="text" id="mrrPhone" placeholder="No HP/WhatsApp..." class="w-full bg-gray-950/20 border border-gray-800/80 rounded-xl px-2.5 py-1 text-[11px] text-gray-300 outline-none">
                     </div>
-                    <button type="button" onclick="resetPasswordEngine()" class="w-full bg-gray-900 hover:bg-gray-800 text-gray-400 text-[10px] py-1 rounded-lg transition-all"><i class="fa-solid fa-rotate-left mr-1"></i> Reset Lisensi Mandiri (Default)</button>
+                    <button type="button" onclick="resetPasswordEngine()" class="w-full bg-gray-900 text-gray-400 text-[10px] py-1 rounded-lg"><i class="fa-solid fa-rotate-left mr-1"></i> Reset Lisensi Mandiri (Default)</button>
                 </div>
             </div>
 
@@ -108,11 +91,10 @@
             </div>
 
             <div class="glass-card p-3.5 rounded-2xl space-y-3">
-                <p class="text-[11px] text-indigo-400 font-bold uppercase tracking-wider"><i class="fa-solid fa-sliders mr-1"></i> Pengaturan Cetak Dokumen</p>
                 <div class="grid grid-cols-2 gap-3">
                     <div class="space-y-1">
                         <label class="text-[10px] text-gray-400">Ukuran Kertas</label>
-                        <select id="paperSize" onchange="updateLivePreview()" class="w-full bg-gray-950/40 border border-gray-800 rounded-xl px-2.5 py-1.5 text-xs text-white outline-none font-semibold">
+                        <select id="paperSize" onchange="updateLivePreview()" class="w-full bg-gray-950/40 border border-gray-800 rounded-xl px-2.5 py-1.5 text-xs text-white outline-none">
                             <option value="a4" selected>A4 Standard</option>
                             <option value="f4">F4 / Folio</option>
                             <option value="a5">A5 Buku Kecil</option>
@@ -120,12 +102,8 @@
                     </div>
                     <div class="space-y-1">
                         <label class="text-[10px] text-gray-400">Jumlah Cetak Lembar</label>
-                        <select id="totalPdfPages" class="w-full bg-gray-950/40 border border-gray-800 rounded-xl px-2.5 py-1.5 text-xs text-white outline-none font-mono font-bold">
-                            <script>
-                                for(let i=1; i<=25; i++) {
-                                    document.write(`<option value="${i}" ${i===5?'selected':''}>${i} Lembar</option>`);
-                                }
-                            </script>
+                        <select id="totalPdfPages" class="w-full bg-gray-950/40 border border-gray-800 rounded-xl px-2.5 py-1.5 text-xs text-white font-mono font-bold">
+                            <script>for(let i=1; i<=25; i++) { document.write(`<option value="${i}" ${i===5?'selected':''}>${i} Lembar</option>`); }</script>
                         </select>
                     </div>
                 </div>
@@ -139,29 +117,24 @@
             </div>
 
             <div class="space-y-2">
-                <label class="text-[11px] text-gray-300 font-semibold px-0.5">Pilih Estetika Warna Lembar Kerja (10 Pilihan)</label>
-                <div class="grid grid-cols-2 sm:grid-cols-5 gap-1.5 text-[10px] font-bold">
+                <label class="text-[11px] text-gray-300 font-semibold px-0.5">Pilih Warna Aksen Dokumen</label>
+                <div class="grid grid-cols-5 gap-1 text-[10px] font-bold">
                     <button type="button" onclick="setTheme('amber', '#f59e0b', '#d97706')" class="bg-amber-500/10 text-amber-400 border border-amber-500/20 py-1.5 rounded-lg">Amber</button>
                     <button type="button" onclick="setTheme('blue', '#3b82f6', '#1d4ed8')" class="bg-blue-500/10 text-blue-400 border border-blue-500/20 py-1.5 rounded-lg">Blue</button>
                     <button type="button" onclick="setTheme('pink', '#ec4899', '#be185d')" class="bg-pink-500/10 text-pink-400 border border-pink-500/20 py-1.5 rounded-lg">Pink</button>
-                    <button type="button" onclick="setTheme('emerald', '#10b981', '#047757')" class="bg-emerald-500/10 text-emerald-400 border border-emerald-500/20 py-1.5 rounded-lg">Emerald</button>
+                    <button type="button" onclick="setTheme('emerald', '#10b981', '#047757')" class="bg-emerald-500/10 text-emerald-400 border border-emerald-500/20 py-1.5 rounded-lg">Green</button>
                     <button type="button" onclick="setTheme('purple', '#a855f7', '#7e22ce')" class="bg-purple-500/10 text-purple-400 border border-purple-500/20 py-1.5 rounded-lg">Purple</button>
-                    <button type="button" onclick="setTheme('indigo', '#6366f1', '#4338ca')" class="bg-indigo-500/10 text-indigo-400 border border-indigo-500/20 py-1.5 rounded-lg">Indigo</button>
-                    <button type="button" onclick="setTheme('rose', '#f43f5e', '#be123c')" class="bg-rose-500/10 text-rose-400 border border-rose-500/20 py-1.5 rounded-lg">Rose</button>
-                    <button type="button" onclick="setTheme('cyan', '#06b6d4', '#0e7490')" class="bg-cyan-500/10 text-cyan-400 border border-cyan-500/20 py-1.5 rounded-lg">Cyan</button>
-                    <button type="button" onclick="setTheme('orange', '#f97316', '#c2410c')" class="bg-orange-500/10 text-orange-400 border border-orange-500/20 py-1.5 rounded-lg">Orange</button>
-                    <button type="button" onclick="setTheme('slate', '#64748b', '#334155')" class="bg-slate-500/10 text-slate-400 border border-slate-500/20 py-1.5 rounded-lg">Slate</button>
                 </div>
             </div>
 
-            <button id="btnGenerate" type="button" onclick="downloadMasterV97PDF()" class="w-full bg-gradient-to-r from-indigo-500 via-purple-500 to-pink-500 hover:from-indigo-400 hover:to-pink-400 text-white font-extrabold py-3.5 px-4 rounded-xl text-xs shadow-lg uppercase tracking-widest">
-                <i class="fa-solid fa-sparkles mr-2 text-xs"></i> GENERATE DOCUMENT
+            <button id="btnGenerate" type="button" onclick="downloadMasterV97PDF()" class="w-full bg-gradient-to-r from-indigo-500 via-purple-500 to-pink-500 text-white font-extrabold py-3.5 rounded-xl text-xs tracking-widest uppercase shadow-lg">
+                <i class="fa-solid fa-sparkles mr-2"></i> GENERATE DOCUMENT
             </button>
         </div>
 
         <div class="lg:col-span-7 glass-panel p-5 rounded-3xl flex flex-col h-[88vh]">
             <div class="flex items-center justify-between border-b border-gray-800/60 pb-3 mb-3">
-                <h3 class="text-xs font-bold uppercase tracking-widest text-gray-400"><i class="fa-solid fa-expand text-indigo-400 mr-2"></i> Live Digital Screen Proof</h3>
+                <h3 class="text-xs font-bold uppercase text-gray-400"><i class="fa-solid fa-expand text-indigo-400 mr-2"></i> Live Digital Screen Proof</h3>
                 <div id="sizeIndicator" class="text-[10px] font-mono text-indigo-400 bg-indigo-500/5 px-2.5 py-0.5 border border-indigo-500/15 rounded-full">UKURAN: A4</div>
             </div>
             
@@ -170,31 +143,25 @@
                     <div>
                         <div class="flex items-center gap-2">
                             <span id="previewMaskot" class="text-2xl">🎨</span>
-                            <h2 id="previewTitle" class="text-sm font-black tracking-wide text-amber-600 uppercase">LEMBAR AKTIVITAS</h2>
+                            <h2 id="previewTitle" class="text-sm font-black text-amber-600 uppercase">LEMBAR AKTIVITAS</h2>
                         </div>
                         <p id="previewInstruction" class="text-[10px] text-gray-500 font-semibold italic mt-1 leading-relaxed"></p>
                     </div>
                     <div id="badgeLicensePreview" class="text-[9px] text-amber-600 border px-2 py-0.5 rounded-md font-mono font-black bg-amber-50">DEMO MODE</div>
                 </div>
-
                 <div class="space-y-3 pt-1" id="previewContainer"></div>
             </div>
         </div>
     </main>
 
     <script>
-        // 🔒 BRANKAS LISENSI
         const DEFAULT_PERSONAL_KEY = "ANAKPINTAR2026";
         const DEFAULT_MRR_KEY = "MASTERPRO2026";
-
-        let selectedGateMode = "demo"; 
-        let isAuthorized = true; 
+        let selectedGateMode = "demo", isAuthorized = true; 
         let activeThemeName = "amber", activePrimaryColor = "#f59e0b", activeSecondaryColor = "#d97706";
 
-        // NAVIGASI LISENSI
         function switchLicenseMode(mode) {
             selectedGateMode = mode;
-            
             const btnDemo = document.getElementById("btnModeDemo");
             const btnPersonal = document.getElementById("btnModePersonal");
             const btnMrr = document.getElementById("btnModeMrr");
@@ -202,47 +169,20 @@
             const keyLabel = document.getElementById("keyInputLabel");
             const inputField = document.getElementById("configPersonalKey");
 
-            [btnDemo, btnPersonal, btnMrr].forEach(btn => {
-                btn.className = "bg-gray-800 text-gray-400 py-2 rounded-xl transition-all";
-            });
+            [btnDemo, btnPersonal, btnMrr].forEach(btn => btn.className = "bg-gray-800 text-gray-400 py-2 rounded-xl transition-all");
 
-            if (mode === "demo") {
-                btnDemo.className = "bg-indigo-600 text-white py-2 rounded-xl transition-all";
-                keyContainer.classList.add("hidden");
-                isAuthorized = true;
-            } else if (mode === "personal") {
-                btnPersonal.className = "bg-blue-600 text-white py-2 rounded-xl transition-all";
-                keyContainer.classList.remove("hidden");
-                keyLabel.innerText = "Masukkan Kunci Lisensi Personal Use:";
-                inputField.value = localStorage.getItem("LAST_TYPED_KEY_PERSONAL") || DEFAULT_PERSONAL_KEY;
-            } else if (mode === "mrr") {
-                btnMrr.className = "bg-emerald-600 text-white py-2 rounded-xl transition-all";
-                keyContainer.classList.remove("hidden");
-                keyLabel.innerText = "Masukkan Kunci Lisensi MRR Enterprise:";
-                inputField.value = localStorage.getItem("LAST_TYPED_KEY_MRR") || DEFAULT_MRR_KEY;
-            }
+            if (mode === "demo") { btnDemo.className = "bg-indigo-600 text-white py-2 rounded-xl"; keyContainer.classList.add("hidden"); isAuthorized = true; }
+            else if (mode === "personal") { btnPersonal.className = "bg-blue-600 text-white py-2 rounded-xl"; keyContainer.classList.remove("hidden"); keyLabel.innerText = "Kunci Lisensi Personal Use:"; inputField.value = localStorage.getItem("LAST_TYPED_KEY_PERSONAL") || DEFAULT_PERSONAL_KEY; }
+            else if (mode === "mrr") { btnMrr.className = "bg-emerald-600 text-white py-2 rounded-xl"; keyContainer.classList.remove("hidden"); keyLabel.innerText = "Kunci Lisensi MRR Enterprise:"; inputField.value = localStorage.getItem("LAST_TYPED_KEY_MRR") || DEFAULT_MRR_KEY; }
             validasiProsesKunci();
         }
 
-        // VALIDASI LISENSI
         function validasiProsesKunci() {
-            if (selectedGateMode === "demo") {
-                isAuthorized = true;
-                evaluasiUIStatus();
-                return;
-            }
-
+            if (selectedGateMode === "demo") { isAuthorized = true; evaluasiUIStatus(); return; }
             const inputVal = document.getElementById("configPersonalKey").value.trim().toUpperCase();
             const storedPersonal = (localStorage.getItem("KEY_PERSONAL_CONFIG") || DEFAULT_PERSONAL_KEY).toUpperCase();
             const storedMrr = (localStorage.getItem("KEY_MRR_CONFIG") || DEFAULT_MRR_KEY).toUpperCase();
-
-            if (selectedGateMode === "personal" && (inputVal === DEFAULT_PERSONAL_KEY || inputVal === storedPersonal)) {
-                isAuthorized = true;
-            } else if (selectedGateMode === "mrr" && (inputVal === DEFAULT_MRR_KEY || inputVal === storedMrr)) {
-                isAuthorized = true;
-            } else {
-                isAuthorized = false;
-            }
+            isAuthorized = (selectedGateMode === "personal" && (inputVal === DEFAULT_PERSONAL_KEY || inputVal === storedPersonal)) || (selectedGateMode === "mrr" && (inputVal === DEFAULT_MRR_KEY || inputVal === storedMrr));
             evaluasiUIStatus();
         }
 
@@ -250,14 +190,8 @@
             const inputVal = document.getElementById("configPersonalKey").value.trim();
             if (selectedGateMode === "personal") localStorage.setItem("LAST_TYPED_KEY_PERSONAL", inputVal);
             if (selectedGateMode === "mrr") localStorage.setItem("LAST_TYPED_KEY_MRR", inputVal);
-            
             validasiProsesKunci();
-            
-            if(isAuthorized) {
-                alert(`Sukses! Lisensi ${selectedGateMode.toUpperCase()} Berhasil Diaktifkan.`);
-            } else {
-                alert("Maaf, Kunci Lisensi salah atau tidak sesuai!");
-            }
+            alert(isAuthorized ? `Sukses! Lisensi ${selectedGateMode.toUpperCase()} Berhasil Diaktifkan.` : "Maaf, Kunci Lisensi salah!");
         }
 
         function evaluasiUIStatus() {
@@ -266,50 +200,27 @@
             const btnGenerate = document.getElementById("btnGenerate");
 
             if (!isAuthorized) {
-                badge.className = "text-[10px] bg-rose-500/10 text-rose-400 border border-rose-500/20 px-3 py-1 rounded-full font-bold tracking-wide";
+                badge.className = "text-[10px] bg-rose-500/10 text-rose-400 border border-rose-500/20 px-3 py-1 rounded-full font-bold";
                 badge.innerText = "LISENSI INVALID / TERKUNCI";
-                previewBadge.className = "text-[9px] text-rose-600 border border-rose-200 px-2 py-0.5 rounded-md font-mono font-black bg-rose-50";
+                previewBadge.className = "text-[9px] text-rose-600 border border-rose-200 px-2 py-0.5 rounded-md bg-rose-50 font-black";
                 previewBadge.innerText = "LOCKED";
-                btnGenerate.setAttribute("disabled", "true");
-                btnGenerate.className = "w-full bg-gray-700 text-gray-500 font-extrabold py-3.5 px-4 rounded-xl text-xs uppercase tracking-widest cursor-not-allowed opacity-40";
+                btnGenerate.setAttribute("disabled", "true"); btnGenerate.className = "w-full bg-gray-700 text-gray-500 font-extrabold py-3.5 rounded-xl text-xs uppercase cursor-not-allowed opacity-40";
             } else {
-                btnGenerate.removeAttribute("disabled");
-                btnGenerate.className = "w-full bg-gradient-to-r from-indigo-500 via-purple-500 to-pink-500 hover:from-indigo-400 hover:to-pink-400 text-white font-extrabold py-3.5 px-4 rounded-xl text-xs shadow-lg uppercase tracking-widest";
-                
-                if (selectedGateMode === "demo") {
-                    badge.className = "text-[10px] bg-amber-500/10 text-amber-400 border border-amber-500/20 px-3 py-1 rounded-full font-bold tracking-wide";
-                    badge.innerText = "DEMO MODE ACTIVE";
-                    previewBadge.className = "text-[9px] text-amber-600 border border-amber-200 px-2 py-0.5 rounded-md font-mono font-black bg-amber-50";
-                    previewBadge.innerText = "DEMO MODE (1 PAGE LIMIT)";
-                } else if (selectedGateMode === "personal") {
-                    badge.className = "text-[10px] bg-blue-500/10 text-blue-400 border border-blue-500/20 px-3 py-1 rounded-full font-bold tracking-wide";
-                    badge.innerText = "PERSONAL USE UNLOCKED";
-                    previewBadge.className = "text-[9px] text-blue-600 border border-blue-200 px-2 py-0.5 rounded-md font-mono font-black bg-blue-50";
-                    previewBadge.innerText = "PERSONAL LICENSE";
-                } else if (selectedGateMode === "mrr") {
-                    badge.className = "text-[10px] bg-emerald-500/10 text-emerald-400 border border-emerald-500/20 px-3 py-1 rounded-full font-bold tracking-wide";
-                    badge.innerText = "MRR MASTER UNLOCKED";
-                    previewBadge.className = "text-[9px] text-emerald-600 border border-emerald-200 px-2 py-0.5 rounded-md font-mono font-black bg-emerald-50";
-                    previewBadge.innerText = "MRR MASTER";
-                }
+                btnGenerate.removeAttribute("disabled"); btnGenerate.className = "w-full bg-gradient-to-r from-indigo-500 via-purple-500 to-pink-500 text-white font-extrabold py-3.5 rounded-xl text-xs tracking-widest uppercase shadow-lg";
+                if (selectedGateMode === "demo") { badge.className = "text-[10px] bg-amber-500/10 text-amber-400 border border-amber-500/20 px-3 py-1 rounded-full font-bold"; badge.innerText = "DEMO MODE ACTIVE"; previewBadge.className = "text-[9px] text-amber-600 border border-amber-200 px-2 py-0.5 rounded-md bg-amber-50 font-black"; previewBadge.innerText = "DEMO MODE (1 PAGE LIMIT)"; }
+                else if (selectedGateMode === "personal") { badge.className = "text-[10px] bg-blue-500/10 text-blue-400 border border-blue-500/20 px-3 py-1 rounded-full font-bold"; badge.innerText = "PERSONAL USE UNLOCKED"; previewBadge.className = "text-[9px] text-blue-600 border border-blue-200 px-2 py-0.5 rounded-md bg-blue-50 font-black"; previewBadge.innerText = "PERSONAL LICENSE"; }
+                else if (selectedGateMode === "mrr") { badge.className = "text-[10px] bg-emerald-500/10 text-emerald-400 border border-emerald-500/20 px-3 py-1 rounded-full font-bold"; badge.innerText = "MRR MASTER UNLOCKED"; previewBadge.className = "text-[9px] text-emerald-600 border border-emerald-200 px-2 py-0.5 rounded-md bg-emerald-50 font-black"; previewBadge.innerText = "MRR MASTER"; }
             }
         }
 
         function resetPasswordEngine() {
             const email = document.getElementById("mrrEmail").value.trim();
             const phone = document.getElementById("mrrPhone").value.trim();
-            if(!email || !phone) { alert("Silakan isi kolom Email dan No HP/WA Anda untuk verifikasi data!"); return; }
-            
-            localStorage.setItem("KEY_PERSONAL_CONFIG", DEFAULT_PERSONAL_KEY);
-            localStorage.setItem("KEY_MRR_CONFIG", DEFAULT_MRR_KEY);
-            localStorage.removeItem("LAST_TYPED_KEY_PERSONAL");
-            localStorage.removeItem("LAST_TYPED_KEY_MRR");
-            
-            alert("Sistem berhasil mereset sandi toko Anda ke default pabrik.");
-            location.reload();
+            if(!email || !phone) { alert("Silakan isi kolom Email dan No HP/WA!"); return; }
+            localStorage.setItem("KEY_PERSONAL_CONFIG", DEFAULT_PERSONAL_KEY); localStorage.setItem("KEY_MRR_CONFIG", DEFAULT_MRR_KEY);
+            alert("Sistem berhasil mereset sandi toko Anda ke default pabrik."); location.reload();
         }
 
-        // LOGIKA KATA INSTRUKSI DINAMIS UNTUK 15 MODUL
         function toggleInputs() {
             const mode = document.getElementById("workMode").value;
             const instInput = document.getElementById("instructionText");
@@ -317,117 +228,189 @@
 
             if (mode === "mewarnai_hewan") { instInput.value = "Warnai gambar makhluk hewan laut lucu di bawah ini sesuai imajinasimu!"; maskot.innerText = "🎨"; }
             else if (mode === "mewarnai_buah") { instInput.value = "Warnai buah-buahan segar berikut sesuai dengan kreativitasmu!"; maskot.innerText = "🍓"; }
-            else if (mode === "mewarnai_kendaraan") { instInput.value = "Warnai berbagai macam kendaraan transportasi kota di bawah ini!"; maskot.innerText = "🚗"; }
-            else if (mode === "mewarnai_dino") { instInput.value = "Yuk, warnai dinosaurus zaman purba yang gagah dan keren ini!"; maskot.innerText = "🦖"; }
-            else if (mode === "trace_alphabet") { instInput.value = "Tebalkan huruf besar dan kecil dari A sampai Z berikut ini!"; maskot.innerText = "🇬🇧"; }
-            else if (mode === "trace_angka") { instInput.value = "Ikuti garis putus-putus untuk menulis angka matematika dasar!"; maskot.innerText = "🔢"; }
-            else if (mode === "hijaiyah") { instInput.value = "Mari menebalkan huruf Hijaiyah berikut dengan rapi!"; maskot.innerText = "🕌"; }
-            else if (mode === "belajar_bentuk") { instInput.value = "Tebalkan garis putus-putus geometri di bawah ini!"; maskot.innerText = "📐"; }
-            else if (mode === "labirin_laut") { instInput.value = "Bantu Gurita kecil menemukan jalan menuju terumbu karang!"; maskot.innerText = "🦈"; }
+            else if (mode === "mewarnai_kendaraan") { instInput.value = "Yuk warnai mobil balap sport super cepat ini dengan warna kesukaanmu!"; maskot.innerText = "🚗"; }
+            else if (mode === "mewarnai_dino") { instInput.value = "Warnai dinosaurus T-Rex purba raksasa ini agar terlihat keren!"; maskot.innerText = "🦖"; }
+            else if (mode === "trace_alphabet") { instInput.value = "Tebalkan huruf abjad putus-putus besar dan kecil di bawah ini!"; maskot.innerText = "🇬🇧"; }
+            else if (mode === "trace_angka") { instInput.value = "Ayo belajar menebalkan angka matematika dasar dan hitung objeknya!"; maskot.innerText = "🔢"; }
+            else if (mode === "hijaiyah") { instInput.value = "Mari menebalkan huruf Hijaiyah Alif Ba Ta berikut dengan rapi!"; maskot.innerText = "🕌"; }
+            else if (mode === "belajar_bentuk") { instInput.value = "Tebalkan garis putus-putus bentuk geometri dasar berikut!"; maskot.innerText = "📐"; }
+            else if (mode === "labirin_laut") { instInput.value = "Bantu petualang cilik mencari jalan keluar dari labirin misterius ini!"; maskot.innerText = "🦈"; }
             else if (mode === "math_100") { instInput.value = "Selesaikan kuis operasi penjumlahan bilangan 1 sampai 100 berikut!"; maskot.innerText = "🧮"; }
-            else if (mode === "suku_kata") { instInput.value = "Eja dan baca kombinasi suku kata dasar di bawah ini!"; maskot.innerText = "📝"; }
-            else if (mode === "mencari_perbedaan") { instInput.value = "Temukan 5 perbedaan tersembunyi di antara kedua gambar berikut!"; maskot.innerText = "🔍"; }
-            else if (mode === "mencocokkan_bayangan") { instInput.value = "Tariklah garis dari gambar objek ke bayangan siluet yang cocok!"; maskot.innerText = "👥"; }
-            else if (mode === "dot_to_dot") { instInput.value = "Hubungkan titik angka berurutan untuk memunculkan gambar rahasia!"; maskot.innerText = "✏️"; }
-            else if (mode === "flashcard_kosakata") { instInput.value = "Gunting dan pelajari kartu kosakata edukasi di bawah ini!"; maskot.innerText = "💡"; }
+            else if (mode === "suku_kata") { instInput.value = "Eja, baca, dan tebalkan kombinasi suku kata dasar di bawah ini!"; maskot.innerText = "📝"; }
+            else if (mode === "mencari_perbedaan") { instInput.value = "Temukan 5 lingkaran perbedaan tersembunyi antara dua sisi gambar!"; maskot.innerText = "🔍"; }
+            else if (mode === "mencocokkan_bayangan") { instInput.value = "Tariklah garis lurus dari gambar objek ke siluet bayangan yang tepat!"; maskot.innerText = "👥"; }
+            else if (mode === "dot_to_dot") { instInput.value = "Hubungkan titik-titik nomor 1 sampai 20 untuk membentuk objek rahasia!"; maskot.innerText = "✏️"; }
+            else if (mode === "flashcard_kosakata") { instInput.value = "Gunting sepanjang garis putus-putus untuk membuat kartu belajar pintar!"; maskot.innerText = "💡"; }
         }
 
         function setTheme(name, hex1, hex2) {
             activeThemeName = name; activePrimaryColor = hex1; activeSecondaryColor = hex2;
             document.getElementById("headerBox").style.borderColor = hex1;
-            document.getElementById("previewTitle").style.color = hex2;
-            updateLivePreview();
+            document.getElementById("previewTitle").style.color = hex2; updateLivePreview();
         }
 
         function updateLivePreview() {
             const mode = document.getElementById("workMode").value;
             const size = document.getElementById("paperSize").value;
-            const container = document.getElementById("previewContainer");
-            
             document.getElementById("sizeIndicator").innerText = `UKURAN KERTAS: ${size.toUpperCase()}`;
             document.getElementById("previewInstruction").innerText = document.getElementById("instructionText").value;
             document.getElementById("previewTitle").innerText = mode.replace(/_/g, " ").toUpperCase();
 
-            let html = `
-                <div class="border-2 border-dashed rounded-2xl p-8 text-center text-gray-400 bg-gray-50 flex flex-col items-center justify-center min-h-[180px]" style="border-color:${activePrimaryColor}">
-                    <span class="text-5xl opacity-40 mb-2">✨</span>
-                    <p class="text-xs font-mono font-bold text-gray-600">[ Modul Konten Generator ${mode.toUpperCase()} Aktif ]</p>
-                    <p class="text-[10px] text-gray-400 mt-1">Siap dicetak berlembar-lembar secara otomatis ke PDF berkepadatan tinggi.</p>
+            document.getElementById("previewContainer").innerHTML = `
+                <div class="border-2 border-dashed rounded-2xl p-6 text-center bg-gray-50 flex flex-col items-center justify-center min-h-[160px]" style="border-color:${activePrimaryColor}">
+                    <span class="text-4xl opacity-50 mb-1">⚡</span>
+                    <p class="text-xs font-mono font-bold text-gray-700">[ ENGINE LAYOUT ${mode.toUpperCase()} READY ]</p>
+                    <p class="text-[10px] text-gray-400 mt-1">Struktur vektor aktif. Dokumen siap dicetak presisi ke format PDF.</p>
                 </div>`;
-            container.innerHTML = html;
         }
 
-        // GENERATOR PDF UTAMA
+        // ==========================================
+        // CORE ENGINE VECTOR GENERATOR (ANTI-KOSONG)
+        // ==========================================
         function downloadMasterV97PDF() {
             if(!isAuthorized) return;
-
             const mode = document.getElementById("workMode").value;
             const sizeOption = document.getElementById("paperSize").value;
             let maxPages = parseInt(document.getElementById("totalPdfPages").value);
             const instText = document.getElementById("instructionText").value;
 
             if(selectedGateMode === "demo" && maxPages > 1) {
-                alert("Sistem mendeteksi Mode Demo. Jumlah unduhan otomatis dipangkas menjadi maksimal 1 halaman! Aktifkan Lisensi Personal/MRR untuk cetak banyak halaman.");
-                maxPages = 1;
+                alert("Mode Demo: Jumlah halaman dipangkas otomatis menjadi 1 lembar."); maxPages = 1;
             }
 
             const { jsPDF } = window.jspdf;
-            
-            let formatSize = "a4";
-            if (sizeOption === "f4") formatSize = [215, 330];
-            if (sizeOption === "a5") formatSize = "a5";
-
+            let formatSize = sizeOption === "f4" ? [215, 330] : (sizeOption === "a5" ? "a5" : "a4");
             const doc = new jsPDF({ orientation: "portrait", unit: "mm", format: formatSize });
 
             for (let page = 1; page <= maxPages; page++) {
                 if (page > 1) doc.addPage();
 
-                doc.setDrawColor(activePrimaryColor); doc.setLineWidth(0.5);
                 let w = sizeOption === "a5" ? 138 : (sizeOption === "f4" ? 205 : 194);
                 let h = sizeOption === "a5" ? 200 : (sizeOption === "f4" ? 320 : 281);
-                doc.rect(8, 8, w, h);
+                
+                // Bingkai Utama Khusus Anak
+                doc.setDrawColor(activePrimaryColor); doc.setLineWidth(0.6); doc.rect(8, 8, w, h);
+                doc.setFillColor(activePrimaryColor); doc.rect(12, 12, w - 8, 1.5, "F");
 
-                doc.setFillColor(activePrimaryColor); doc.rect(12, 12, w - 8, 2, "F");
+                // Header Teks
+                doc.setFont("Helvetica", "bold"); doc.setFontSize(13); doc.setTextColor(activeSecondaryColor);
+                doc.text(mode.replace(/_/g, " ").toUpperCase(), 15, 23);
+                doc.setFont("Helvetica", "normal"); doc.setFontSize(8.5); doc.setTextColor(70, 70, 70);
+                doc.text(`${instText} (Halaman ${page})`, 15, 29);
 
-                doc.setFont("Helvetica", "bold"); doc.setFontSize(14); doc.setTextColor(activeSecondaryColor);
-                doc.text(mode.replace(/_/g, " ").toUpperCase(), 15, 24);
+                let cx = w / 2;
+                let cy = h / 2 + 10;
 
-                doc.setFont("Helvetica", "normal"); doc.setFontSize(9); doc.setTextColor(80, 80, 80);
-                doc.text(`${instText} (Lembar Ke-${page})`, 15, 30);
-
-                let centerX = w / 2;
-                let centerY = h / 2 + 10;
-
-                // LOGIKA VEKTOR PDF BERDASARKAN KATEGORI EXPANSION
+                // ROUTING VECTOR DRAWING ANTI KOSONG UNTUK SEMUA 15 KATEGORI
                 if (mode === "mewarnai_hewan") {
+                    doc.setDrawColor(50, 50, 50); doc.setLineWidth(0.8);
+                    doc.circle(cx, cy, 26, "D"); doc.circle(cx - 9, cy - 6, 2.5, "D"); doc.circle(cx + 9, cy - 6, 2.5, "D");
+                    doc.line(cx - 26, cy, cx - 42, cy + 5); doc.line(cx + 26, cy, cx + 42, cy + 5);
+                } 
+                else if (mode === "mewarnai_buah") {
+                    doc.setDrawColor(50, 50, 50); doc.setLineWidth(0.8);
+                    doc.ellipse(cx, cy, 25, 30, "D"); doc.line(cx, cy - 25, cx - 10, cy - 38);
+                } 
+                else if (mode === "mewarnai_kendaraan") {
                     doc.setDrawColor(40, 40, 40); doc.setLineWidth(0.8);
-                    doc.circle(centerX, centerY, 30, "D"); doc.circle(centerX - 10, centerY - 8, 3, "D"); doc.circle(centerX + 10, centerY - 8, 3, "D");
-                    for(let t = 0; t < 4; t++) { doc.line(centerX - 30, centerY + (t * 6), centerX - 48, centerY + 10 + (t * 4)); doc.line(centerX + 30, centerY + (t * 6), centerX + 48, centerY + 10 + (t * 4)); }
-                } else if (mode === "mewarnai_buah") {
+                    doc.rect(cx - 35, cy, 70, 18, "D"); doc.rect(cx - 20, cy - 14, 40, 14, "D");
+                    doc.circle(cx - 20, cy + 18, 7, "D"); doc.circle(cx + 20, cy + 18, 7, "D");
+                } 
+                else if (mode === "mewarnai_dino") {
                     doc.setDrawColor(40, 40, 40); doc.setLineWidth(0.8);
-                    doc.ellipse(centerX, centerY, 28, 32, "D"); doc.line(centerX, centerY - 28, centerX - 12, centerY - 40);
-                } else if (mode === "math_100") {
-                    doc.setFont("Helvetica", "bold"); doc.setFontSize(12); doc.setTextColor(50, 50, 50);
-                    let innerY = 48;
-                    for (let i = 1; i <= 10; i++) {
-                        doc.setDrawColor(240, 240, 240); doc.rect(15, innerY - 5, w - 14, 11, "D");
-                        let n1 = 40 + (i * 3) + page; let n2 = 15 + (i * 2);
-                        doc.text(`Soal ${i}:      ${n1}   +   ${n2}   =   ...............`, 20, innerY + 2);
-                        innerY += 14;
+                    doc.ellipse(cx, cy + 5, 35, 18, "D"); doc.circle(cx + 22, cy - 18, 10, "D");
+                    doc.line(cx + 22, cy - 8, cx + 22, cy - 1); doc.rect(cx - 30, cy + 15, 8, 12, "D"); doc.rect(cx + 15, cy + 15, 8, 12, "D");
+                } 
+                else if (mode === "trace_alphabet") {
+                    doc.setFont("Helvetica", "bold"); doc.setFontSize(48); doc.setTextColor(220, 220, 220);
+                    let arrLetters = ["Aa", "Bb", "Cc", "Dd", "Ee", "Ff", "Gg", "Hh"];
+                    let pick = arrLetters[(page - 1) % arrLetters.length];
+                    doc.text(pick, cx - 22, cy - 15);
+                    doc.setDrawColor(200, 200, 200); doc.setLineWidth(0.3);
+                    for(let r=0; r<4; r++) {
+                        let yLine = cy + (r * 18);
+                        doc.line(15, yLine, w, yLine); doc.line(15, yLine + 8, w, yLine + 8);
+                        doc.setFontSize(14); doc.setTextColor(210, 210, 210);
+                        doc.text(". . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .", 18, yLine + 6);
                     }
-                } else {
-                    // Blok Modul Universal untuk Tracing, Labirin, Perbedaan, dll
-                    doc.setFont("Helvetica", "bold"); doc.setFontSize(11); doc.setTextColor(100, 100, 100);
-                    doc.rect(20, 45, w - 25, h - 70, "D");
-                    doc.text(`[ Konten Aktivitas Modul: ${mode.toUpperCase()} ]`, 25, 55);
-                    doc.setFont("Helvetica", "normal"); doc.setFontSize(9);
-                    doc.text(`Halaman otomatis ke-${page} siap cetak dengan resolusi presisi tinggi.`, 25, 65);
+                } 
+                else if (mode === "trace_angka") {
+                    doc.setFont("Helvetica", "bold"); doc.setFontSize(60); doc.setTextColor(230, 230, 230);
+                    let numDisplay = ((page - 1) % 20) + 1;
+                    doc.text(String(numDisplay), cx - 12, cy - 15);
+                    doc.setDrawColor(180, 180, 180);
+                    for(let j=0; j<numDisplay && j<10; j++) { doc.circle(25 + (j * 14), cy + 10, 5, "D"); }
+                    for(let k=0; k<4; k++) { doc.rect(15 + (k*28), cy + 25, 24, 15, "D"); }
+                } 
+                else if (mode === "hijaiyah") {
+                    doc.setFont("Courier", "bold"); doc.setFontSize(55); doc.setTextColor(200, 200, 200);
+                    doc.text("ا  ب  ت  ث", cx - 40, cy - 10);
+                    for(let i=0; i<3; i++) {
+                        let yH = cy + 12 + (i * 20);
+                        doc.setDrawColor(220, 220, 220); doc.rect(15, yH, w - 14, 15, "D");
+                        doc.line(15, yH + 7.5, w, yH + 7.5);
+                    }
+                } 
+                else if (mode === "belajar_bentuk") {
+                    doc.setDrawColor(120, 120, 120); doc.setLineWidth(0.5);
+                    doc.rect(cx - 40, cy - 30, 25, 25, "D"); doc.circle(cx + 25, cy - 17, 13, "D");
+                    doc.triangle(cx - 25, cy + 35, cx - 40, cy + 10, cx - 10, cy + 10, "D");
+                    doc.ellipse(cx + 25, cy + 22, 20, 12, "D");
+                } 
+                else if (mode === "labirin_laut") {
+                    doc.setDrawColor(60, 60, 60); doc.setLineWidth(0.8);
+                    doc.rect(cx - 45, cy - 40, 90, 80, "D"); doc.rect(cx - 30, cy - 25, 60, 50, "D");
+                    doc.rect(cx - 15, cy - 10, 30, 20, "D");
+                    doc.line(cx - 45, cy - 35, cx - 30, cy - 35); doc.line(cx + 30, cy + 15, cx + 45, cy + 15);
+                } 
+                else if (mode === "math_100") {
+                    doc.setFont("Helvetica", "bold"); doc.setFontSize(11); doc.setTextColor(60, 60, 60);
+                    let innerY = 44;
+                    for (let i = 1; i <= 10; i++) {
+                        doc.setDrawColor(240, 240, 240); doc.rect(15, innerY - 4, w - 14, 10, "D");
+                        doc.text(`Soal ${i}:      ${35 + i + page}   +   ${12 + i}   =   ...............`, 20, innerY + 3);
+                        innerY += 13;
+                    }
+                } 
+                else if (mode === "suku_kata") {
+                    doc.setFont("Helvetica", "bold"); doc.setFontSize(18); doc.setTextColor(80, 80, 80);
+                    doc.text("b a - b u  |  c a - c i  |  d a - d u", cx - 45, cy - 20);
+                    doc.setDrawColor(200, 200, 200);
+                    for(let s=0; s<4; s++) { doc.rect(15, cy - 5 + (s * 15), w - 14, 11, "D"); }
+                } 
+                else if (mode === "mencari_perbedaan") {
+                    doc.setDrawColor(50, 50, 50); doc.rect(15, cy - 35, w/2 - 12, 70, "D"); doc.rect(w/2 + 8, cy - 35, w/2 - 12, 70, "D");
+                    doc.circle(35, cy, 10, "D"); doc.circle(w/2 + 28, cy, 10, "D");
+                    doc.circle(60, cy + 15, 6, "D"); // Sisi kanan sengaja tidak digambar circle kecil ini untuk pembeda logika anak
+                } 
+                else if (mode === "mencocokkan_bayangan") {
+                    doc.setFont("Helvetica", "bold"); doc.setFontSize(11);
+                    doc.text("OBJEK ASLI", 20, cy - 32); doc.text("SILUET BAYANGAN", w - 60, cy - 32);
+                    for(let m=0; m<3; m++) {
+                        doc.setDrawColor(50, 50, 50); doc.rect(20, cy - 20 + (m * 22), 15, 15, "D");
+                        doc.setFillColor(30, 30, 30); doc.rect(w - 45, cy - 20 + (((m+1)%3) * 22), 15, 15, "F");
+                    }
+                } 
+                else if (mode === "dot_to_dot") {
+                    doc.setDrawColor(40, 40, 40); doc.setFontSize(8);
+                    for(let d=1; d<=15; d++) {
+                        let dx = cx + 35 * Math.cos((d * 2 * Math.PI) / 15);
+                        let dy = cy + 35 * Math.sin((d * 2 * Math.PI) / 15);
+                        doc.circle(dx, dy, 0.8, "F"); doc.text(String(d), dx + 2, dy);
+                    }
+                } 
+                else if (mode === "flashcard_kosakata") {
+                    doc.setDrawColor(100, 100, 100); doc.setLineWidth(0.4);
+                    // Gambar 4 Kotak Gunting Grid Flashcard
+                    doc.rect(15, cy - 38, w/2 - 12, 36, "D"); doc.rect(w/2 + 5, cy - 38, w/2 - 12, 36, "D");
+                    doc.rect(15, cy + 5, w/2 - 12, 36, "D"); doc.rect(w/2 + 5, cy + 5, w/2 - 12, 36, "D");
+                    doc.setFont("Helvetica", "bold"); doc.setFontSize(12); doc.text("APEL", 30, cy - 20); doc.text("SINGA", w - 50, cy - 20);
                 }
 
-                doc.setFont("Helvetica", "normal"); doc.setFontSize(7); doc.setTextColor(170, 170, 170);
-                doc.text(`Worksheet Studio Premium v9.9 [${selectedGateMode.toUpperCase()}] - Hak Cipta Produk Koh Ojiek`, 15, h + 3);
+                // Footer Lisensi Profesional
+                doc.setFont("Helvetica", "normal"); doc.setFontSize(7); doc.setTextColor(160, 160, 160);
+                doc.text(`Worksheet Studio Premium v10.0 [${selectedGateMode.toUpperCase()}] - Hak Cipta Produk Koh Ojiek`, 15, h + 3);
             }
-
             doc.save(`Worksheet_${selectedGateMode}_${mode}.pdf`);
         }
 
