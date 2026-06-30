@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Kids Worksheet & Planner Creator v10.9 (Strict Gatekeeper)</title>
+    <title>Kids Worksheet & Planner Creator v11.0 (Mobile Armor)</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
@@ -49,7 +49,9 @@
                 <div id="keyInputContainer" class="hidden space-y-2 pt-1 border-t border-gray-800/60">
                     <label id="keyInputLabel" class="text-[10px] text-gray-400 block">Masukkan Kunci Lisensi:</label>
                     <div class="flex gap-2">
-                        <input type="password" id="configPersonalKey" placeholder="••••••••••••" class="flex-1 bg-gray-950/40 border border-gray-800 rounded-xl px-3 py-1.5 text-xs text-white tracking-widest outline-none font-mono uppercase">
+                        <input type="password" id="configPersonalKey" placeholder="••••••••••••" 
+                               autocorrect="off" autocapitalize="none" autocomplete="off" spellcheck="false"
+                               class="flex-1 bg-gray-950/40 border border-gray-800 rounded-xl px-3 py-1.5 text-xs text-white tracking-widest outline-none font-mono uppercase">
                         <button type="button" onclick="prosesValidasiTombolKlik()" class="bg-indigo-600 text-white font-bold px-4 py-1.5 rounded-xl text-xs">Aktifkan</button>
                     </div>
                 </div>
@@ -152,7 +154,7 @@
                 </div>
             </div>
 
-            <button id="btnGenerate" type="button" onclick="downloadMasterV109PDF()" class="w-full bg-gradient-to-r from-indigo-500 via-purple-500 to-pink-500 text-white font-extrabold py-3.5 rounded-xl text-xs tracking-widest uppercase shadow-lg">
+            <button id="btnGenerate" type="button" onclick="downloadMasterV110PDF()" class="w-full bg-gradient-to-r from-indigo-500 via-purple-500 to-pink-500 text-white font-extrabold py-3.5 rounded-xl text-xs tracking-widest uppercase shadow-lg">
                 <i class="fa-solid fa-sparkles mr-2"></i> GENERATE DOCUMENT
             </button>
         </div>
@@ -212,8 +214,9 @@
         }
 
         function simpanKunciMasterToko() {
-            const pKey = document.getElementById("masterPersonalSetup").value.trim().toUpperCase() || DEFAULT_PERSONAL_KEY;
-            const mKey = document.getElementById("masterMrrSetup").value.trim().toUpperCase() || DEFAULT_MRR_KEY;
+            // Pembersihan ekstra pada input setup admin toko agar tidak typo
+            const pKey = document.getElementById("masterPersonalSetup").value.replace(/\s+/g, '').toUpperCase() || DEFAULT_PERSONAL_KEY;
+            const mKey = document.getElementById("masterMrrSetup").value.replace(/\s+/g, '').toUpperCase() || DEFAULT_MRR_KEY;
             const cTitle = document.getElementById("customTitleInput").value.trim() || "WORKSHEET STUDIO";
             const cSub = document.getElementById("customSubInput").value.trim() || "by. koh Ojiek";
             
@@ -241,7 +244,7 @@
             const keyLabel = document.getElementById("keyInputLabel");
             const inputField = document.getElementById("configPersonalKey");
 
-            inputField.value = ""; // Bersihkan kolom setiap kali pindah menu
+            inputField.value = "";
 
             [btnDemo, btnPersonal, btnMrr].forEach(btn => btn.className = "bg-gray-800 text-gray-400 py-2 rounded-xl transition-all");
 
@@ -259,11 +262,9 @@
                 keyLabel.innerText = "Masukkan Kunci Lisensi Master MRR Anda:"; 
             }
             
-            // Jalankan validasi pasif (membaca memori lokal saat perpindahan tab)
             validasiPasifSistem();
         }
 
-        // FUNGSI BARU: Hanya membaca memori lokal tanpa memotong inputan user
         function validasiPasifSistem() {
             let statusValid = false;
             if (currentLicenseMode === "demo") {
@@ -276,9 +277,10 @@
             evaluasiUIStatus(statusValid);
         }
 
-        // FUNGSI BARU: Diaktifkan secara paksa HANYA jika pengguna menekan tombol "Aktifkan"
+        // FIX TOTAL UNTUK KEYBOARD MOBILE HP
         function prosesValidasiTombolKlik() {
-            const userInputValue = document.getElementById("configPersonalKey").value.trim().toUpperCase();
+            // .replace(/\s+/g, '') berfungsi menghapus SEMUA spasi kosong di depan, tengah, maupun belakang kata secara agresif
+            const userInputValue = document.getElementById("configPersonalKey").value.replace(/\s+/g, '').toUpperCase();
 
             if (userInputValue === SECRET_SUPER_ADMIN_CODE) {
                 document.getElementById("adminMasterPanel").classList.remove("hidden");
@@ -287,8 +289,8 @@
                 return;
             }
 
-            const targetPersonalKey = (localStorage.getItem("MASTER_KEY_PERSONAL") || DEFAULT_PERSONAL_KEY).toUpperCase();
-            const targetMrrKey = (localStorage.getItem("MASTER_KEY_MRR") || DEFAULT_MRR_KEY).toUpperCase();
+            const targetPersonalKey = (localStorage.getItem("MASTER_KEY_PERSONAL") || DEFAULT_PERSONAL_KEY).replace(/\s+/g, '').toUpperCase();
+            const targetMrrKey = (localStorage.getItem("MASTER_KEY_MRR") || DEFAULT_MRR_KEY).replace(/\s+/g, '').toUpperCase();
 
             if (currentLicenseMode === "personal") {
                 if (userInputValue === targetPersonalKey && userInputValue !== "") {
@@ -297,7 +299,7 @@
                     alert("Sukses! Lisensi PERSONAL USE Berhasil Diaktifkan.");
                     evaluasiUIStatus(true);
                 } else {
-                    localStorage.removeItem("AUTH_PERSONAL_DONE"); // Hapus status jika salah ketik
+                    localStorage.removeItem("AUTH_PERSONAL_DONE");
                     alert("Kunci Salah atau Kosong! Gagal mengaktifkan mode Personal.");
                     evaluasiUIStatus(false);
                 }
@@ -309,7 +311,7 @@
                     alert("Sukses! Lisensi MASTER MRR Berhasil Diaktifkan.");
                     evaluasiUIStatus(true);
                 } else {
-                    localStorage.removeItem("AUTH_MRR_DONE"); // Hapus status jika salah ketik
+                    localStorage.removeItem("AUTH_MRR_DONE");
                     alert("Kunci Salah atau Kosong! Gagal mengaktifkan mode MRR Master.");
                     evaluasiUIStatus(false);
                 }
@@ -401,8 +403,8 @@
             document.getElementById("previewContainer").innerHTML = `
                 <div class="border-2 border-dashed rounded-2xl p-6 text-center bg-gray-50 flex flex-col items-center justify-center min-h-[160px]" style="border-color:${activePrimaryColor}">
                     <span class="text-4xl opacity-50 mb-1">🕌</span>
-                    <p class="text-xs font-mono font-bold text-gray-700">[ SECURITY ISOLATED v10.9 ]</p>
-                    <p class="text-[10px] text-gray-400 mt-1">Sistem gerbang ketat aktif. Masuk asal-asalan otomatis ditolak & dikunci balik.</p>
+                    <p class="text-xs font-mono font-bold text-gray-700">[ SECURITY ISOLATED v11.0 ]</p>
+                    <p class="text-[10px] text-gray-400 mt-1">Armor mobile aktif. Kebal spasi gaib dan auto-correct keyboard smartphone.</p>
                 </div>`;
         }
 
@@ -424,7 +426,7 @@
             }
         }
 
-        function downloadMasterV109PDF() {
+        function downloadMasterV110PDF() {
             const mode = document.getElementById("workMode").value;
             const sizeOption = document.getElementById("paperSize").value;
             let maxPages = parseInt(document.getElementById("totalPdfPages").value);
