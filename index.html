@@ -448,4 +448,88 @@
                 doc.setFont("Helvetica", "normal"); doc.setFontSize(8.5); doc.setTextColor(70, 70, 70);
                 doc.text(`${instText} (Halaman ${page})`, 15, 30);
 
-                let cx = w
+                let cx = w / 2;
+                let cy = h / 2 + 10;
+
+                if (mode === "hijaiyah") {
+                    doc.setDrawColor(230, 230, 230); doc.setLineWidth(0.4); doc.rect(15, 38, w - 14, 45, "D");
+                    drawVectorHijaiyah(doc, 'alif', cx - 35, 60); drawVectorHijaiyah(doc, 'ba', cx - 10, 60); drawVectorHijaiyah(doc, 'ta', cx + 18, 60); drawVectorHijaiyah(doc, 'tsa', cx + 45, 60);
+
+                    let startY = 95;
+                    for (let row = 0; row < 5; row++) {
+                        doc.setDrawColor(210, 210, 210); doc.line(15, startY + 10, w, startY + 10);
+                        drawVectorHijaiyah(doc, 'alif', cx - 35, startY); drawVectorHijaiyah(doc, 'ba', cx - 10, startY); drawVectorHijaiyah(doc, 'ta', cx + 18, startY); drawVectorHijaiyah(doc, 'tsa', cx + 45, startY);
+                        startY += 25;
+                    }
+                } 
+                else if (mode === "mewarnai_hewan") {
+                    doc.setDrawColor(50, 50, 50); doc.setLineWidth(0.8); doc.circle(cx, cy, 26, "D"); doc.circle(cx - 9, cy - 6, 2.5, "D"); doc.circle(cx + 9, cy - 6, 2.5, "D"); doc.line(cx - 26, cy, cx - 42, cy + 5); doc.line(cx + 26, cy, cx + 42, cy + 5);
+                } 
+                else if (mode === "mewarnai_buah") {
+                    doc.setDrawColor(50, 50, 50); doc.setLineWidth(0.8); doc.ellipse(cx, cy, 25, 30, "D"); doc.line(cx, cy - 25, cx - 10, cy - 38);
+                } 
+                else if (mode === "mewarnai_kendaraan") {
+                    doc.setDrawColor(40, 40, 40); doc.setLineWidth(0.8); doc.rect(cx - 35, cy, 70, 18, "D"); doc.rect(cx - 20, cy - 14, 40, 14, "D"); doc.circle(cx - 20, cy + 18, 7, "D"); doc.circle(cx + 20, cy + 18, 7, "D");
+                } 
+                else if (mode === "mewarnai_dino") {
+                    doc.setDrawColor(40, 40, 40); doc.setLineWidth(0.8); doc.ellipse(cx, cy + 5, 35, 18, "D"); doc.circle(cx + 22, cy - 18, 10, "D"); doc.line(cx + 22, cy - 8, cx + 22, cy - 1); doc.rect(cx - 30, cy + 15, 8, 12, "D"); doc.rect(cx + 15, cy + 15, 8, 12, "D");
+                } 
+                else if (mode === "trace_alphabet") {
+                    doc.setFont("Helvetica", "bold"); doc.setFontSize(48); doc.setTextColor(220, 220, 220);
+                    let arrLetters = ["Aa", "Bb", "Cc", "Dd", "Ee", "Ff", "Gg", "Hh"];
+                    let pick = arrLetters[(page - 1) % arrLetters.length]; doc.text(pick, cx - 22, cy - 15);
+                    doc.setDrawColor(200, 200, 200); doc.setLineWidth(0.3);
+                    for(let r=0; r<4; r++) {
+                        let yLine = cy + (r * 18); doc.line(15, yLine, w, yLine); doc.line(15, yLine + 8, w, yLine + 8);
+                        doc.setFontSize(14); doc.setTextColor(210, 210, 210); doc.text(". . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .", 18, yLine + 6);
+                    }
+                } 
+                else if (mode === "trace_angka") {
+                    doc.setFont("Helvetica", "bold"); doc.setFontSize(60); doc.setTextColor(230, 230, 230);
+                    let numDisplay = ((page - 1) % 20) + 1; doc.text(String(numDisplay), cx - 12, cy - 15);
+                    doc.setDrawColor(180, 180, 180);
+                    for(let j=0; j<numDisplay && j<10; j++) { doc.circle(25 + (j * 14), cy + 10, 5, "D"); }
+                    for(let k=0; k<4; k++) { doc.rect(15 + (k*28), cy + 25, 24, 15, "D"); }
+                } 
+                else if (mode === "belajar_bentuk") {
+                    doc.setDrawColor(120, 120, 120); doc.setLineWidth(0.5); doc.rect(cx - 40, cy - 30, 25, 25, "D"); doc.circle(cx + 25, cy - 17, 13, "D"); doc.triangle(cx - 25, cy + 35, cx - 40, cy + 10, cx - 10, cy + 10, "D"); doc.ellipse(cx + 25, cy + 22, 20, 12, "D");
+                } 
+                else if (mode === "labirin_laut") {
+                    doc.setDrawColor(60, 60, 60); doc.setLineWidth(0.8); doc.rect(cx - 45, cy - 40, 90, 80, "D"); doc.rect(cx - 30, cy - 25, 60, 50, "D"); doc.rect(cx - 15, cy - 10, 30, 20, "D"); doc.line(cx - 45, cy - 35, cx - 30, cy - 35); doc.line(cx + 30, cy + 15, cx + 45, cy + 15);
+                } 
+                else if (mode === "math_100") {
+                    doc.setFont("Helvetica", "bold"); doc.setFontSize(11); doc.setTextColor(60, 60, 60);
+                    let innerY = 44;
+                    for (let i = 1; i <= 10; i++) {
+                        doc.setDrawColor(240, 240, 240); doc.rect(15, innerY - 4, w - 14, 10, "D"); doc.text(`Soal ${i}:      ${35 + i + page}   +   ${12 + i}   =   ...............`, 20, innerY + 3); innerY += 13;
+                    }
+                } 
+                else if (mode === "suku_kata") {
+                    doc.setFont("Helvetica", "bold"); doc.setFontSize(18); doc.setTextColor(80, 80, 80); doc.text("b a - b u  |  c a - c i  |  d a - d u", cx - 45, cy - 20);
+                    doc.setDrawColor(200, 200, 200); for(let s=0; s<4; s++) { doc.rect(15, cy - 5 + (s * 15), w - 14, 11, "D"); }
+                } 
+                else if (mode === "mencari_perbedaan") {
+                    doc.setDrawColor(50, 50, 50); doc.rect(15, cy - 35, w/2 - 12, 70, "D"); doc.rect(w/2 + 8, cy - 35, w/2 - 12, 70, "D"); doc.circle(35, cy, 10, "D"); doc.circle(w/2 + 28, cy, 10, "D"); doc.circle(60, cy + 15, 6, "D");
+                } 
+                else if (mode === "mencocokkan_bayangan") {
+                    doc.setFont("Helvetica", "bold"); doc.setFontSize(11); doc.text("OBJEK ASLI", 20, cy - 32); doc.text("SILUET BAYANGAN", w - 60, cy - 32);
+                    for(let m=0; m<3; m++) { doc.setDrawColor(50, 50, 50); doc.rect(20, cy - 20 + (m * 22), 15, 15, "D"); doc.setFillColor(30, 30, 30); doc.rect(w - 45, cy - 20 + (((m+1)%3) * 22), 15, 15, "F"); }
+                } 
+                else if (mode === "dot_to_dot") {
+                    doc.setDrawColor(40, 40, 40); doc.setFontSize(8);
+                    for(let d=1; d<=15; d++) { let dx = cx + 35 * Math.cos((d * 2 * Math.PI) / 15); let dy = cy + 35 * Math.sin((d * 2 * Math.PI) / 15); doc.circle(dx, dy, 0.8, "F"); doc.text(String(d), dx + 2, dy); }
+                } 
+                else if (mode === "flashcard_kosakata") {
+                    doc.setDrawColor(100, 100, 100); doc.setLineWidth(0.4); doc.rect(15, cy - 38, w/2 - 12, 36, "D"); doc.rect(w/2 + 5, cy - 38, w/2 - 12, 36, "D"); doc.rect(15, cy + 5, w/2 - 12, 36, "D"); doc.rect(w/2 + 5, cy + 5, w/2 - 12, 36, "D"); doc.setFont("Helvetica", "bold"); doc.setFontSize(12); doc.text("APEL", 30, cy - 20); doc.text("SINGA", w - 50, cy - 20);
+                }
+
+                doc.setFont("Helvetica", "normal"); doc.setFontSize(7); doc.setTextColor(160, 160, 160);
+                doc.text(`${cTitle} Premium [${currentLicenseMode.toUpperCase()}] - ${cSub}`, 15, h + 3);
+            }
+            doc.save(`Worksheet_${currentLicenseMode}_${mode}.pdf`);
+        }
+
+        toggleInputs(); updateLivePreview();
+    </script>
+</body>
+</html>
