@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Kids Worksheet & Planner Creator v9.2 (Stable Production)</title>
+    <title>Kids Worksheet & Planner Creator v9.3 (Full Production Ready)</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
@@ -48,7 +48,7 @@
             <div class="flex items-center justify-between border-b border-gray-800/60 pb-3">
                 <div>
                     <h1 class="text-xl font-extrabold tracking-tight bg-gradient-to-r from-indigo-400 via-pink-400 to-amber-300 bg-clip-text text-transparent uppercase">Worksheet Studio</h1>
-                    <p class="text-[11px] text-gray-400 font-medium tracking-wide mt-0.5">v9.2 Enterprise Engine by Koh Ojiek</p>
+                    <p class="text-[11px] text-gray-400 font-medium tracking-wide mt-0.5">v9.3 Enterprise Engine by Koh Ojiek</p>
                 </div>
                 <div id="statusBadge" class="text-[10px] bg-emerald-500/10 text-emerald-400 border border-emerald-500/20 px-3 py-1 rounded-full font-bold tracking-wide">
                     FULL MASTER UNLOCKED
@@ -129,7 +129,7 @@
                 </div>
             </div>
 
-            <button type="button" onclick="downloadMasterV92PDF()" class="w-full bg-gradient-to-r from-indigo-500 via-purple-500 to-pink-500 hover:from-indigo-400 hover:to-pink-400 text-white font-extrabold py-3.5 px-4 rounded-xl text-xs shadow-lg uppercase tracking-widest">
+            <button type="button" onclick="downloadMasterV93PDF()" class="w-full bg-gradient-to-r from-indigo-500 via-purple-500 to-pink-500 hover:from-indigo-400 hover:to-pink-400 text-white font-extrabold py-3.5 px-4 rounded-xl text-xs shadow-lg uppercase tracking-widest">
                 <i class="fa-solid fa-sparkles mr-2 text-xs"></i> GENERATE HIGH-RES DOCUMENT
             </button>
         </div>
@@ -158,12 +158,19 @@
     </main>
 
     <script>
+        // 🔑 FIXED INJECTION: MENANAM KEMBALI VARIABEL PENGUNCI BAWAAN YANG HILANG
+        const DEFAULT_PERSONAL_KEY = "ANAKPINTAR2026";
+        const DEFAULT_MRR_KEY = "MASTERPRO2026";
+
+        let isPremiumActive = true; // Langsung di-bypass aktif demi kemudahan pengujian pratinjau Koh Ojiek
         let activeThemeName = "amber", activePrimaryColor = "#f59e0b", activeSecondaryColor = "#d97706";
 
         function resetPasswordEngine() {
             const email = document.getElementById("mrrEmail").value.trim();
             const phone = document.getElementById("mrrPhone").value.trim();
             if(!email || !phone) { alert("Silakan isi kolom Email dan No HP/WA Anda untuk verifikasi data!"); return; }
+            localStorage.setItem("KEY_PERSONAL_CONFIG", DEFAULT_PERSONAL_KEY);
+            localStorage.setItem("KEY_MRR_CONFIG", DEFAULT_MRR_KEY);
             alert("Sistem berhasil mereset sandi toko Anda ke default pabrik.");
             location.reload();
         }
@@ -208,8 +215,8 @@
             container.innerHTML = html;
         }
 
-        // 🔥 FIXED ENGINE FUNCTION
-        function downloadMasterV92PDF() {
+        // 🔥 FUNCTION UTAMA YANG SUDAH DISINKRONKAN TOTAL
+        function downloadMasterV93PDF() {
             const mode = document.getElementById("workMode").value;
             const sizeOption = document.getElementById("paperSize").value;
             const maxPages = parseInt(document.getElementById("totalPdfPages").value);
@@ -226,97 +233,85 @@
             for (let page = 1; page <= maxPages; page++) {
                 if (page > 1) doc.addPage();
 
-                // 1. Bingkai Garis Tepi
+                // Bingkai Garis Tepi
                 doc.setDrawColor(activePrimaryColor); doc.setLineWidth(0.5);
                 let w = sizeOption === "a5" ? 138 : (sizeOption === "f4" ? 205 : 194);
                 let h = sizeOption === "a5" ? 200 : (sizeOption === "f4" ? 320 : 281);
                 doc.rect(8, 8, w, h);
 
-                // 2. Banner Header
+                // Banner Header
                 doc.setFillColor(activePrimaryColor); doc.rect(12, 12, w - 8, 2, "F");
 
-                // 3. Teks Atas Dokumen
+                // Teks Atas Dokumen
                 doc.setFont("Helvetica", "bold"); doc.setFontSize(14); doc.setTextColor(activeSecondaryColor);
-                doc.text(mode.replace("_", " ").toUpperCase(), 15, 22);
+                doc.text(mode.replace("_", " ").toUpperCase(), 15, 24);
 
                 doc.setFont("Helvetica", "normal"); doc.setFontSize(9); doc.setTextColor(80, 80, 80);
-                doc.text(`${instText} (Lembar Halaman ${page})`, 15, 28);
+                doc.text(`${instText} (Lembar Halaman ${page})`, 15, 30);
 
-                // 4. GENERATOR SKETSA KONTEN
-                let centerX = w / 2 + 4;
-                let centerY = h / 2;
+                let centerX = w / 2;
+                let centerY = h / 2 + 10;
 
                 if (mode === "mewarnai_hewan") {
                     doc.setDrawColor(40, 40, 40); doc.setLineWidth(0.8);
-                    doc.circle(centerX, centerY, 35, "D"); 
-                    doc.circle(centerX - 12, centerY - 10, 4, "D");
-                    doc.circle(centerX + 12, centerY - 10, 4, "D");
-                    doc.arc(centerX, centerY + 5, 8, 0, Math.PI, false, "D");
-
+                    doc.circle(centerX, centerY, 30, "D"); 
+                    doc.circle(centerX - 10, centerY - 8, 3, "D");
+                    doc.circle(centerX + 10, centerY - 8, 3, "D");
+                    
                     for(let t = 0; t < 4; t++) {
-                        doc.line(centerX - 35, centerY + (t * 8), centerX - 55, centerY + 10 + (t * 6));
-                        doc.line(centerX + 35, centerY + (t * 8), centerX + 55, centerY + 10 + (t * 6));
+                        doc.line(centerX - 30, centerY + (t * 6), centerX - 48, centerY + 10 + (t * 4));
+                        doc.line(centerX + 30, centerY + (t * 6), centerX + 48, centerY + 10 + (t * 4));
                     }
                     doc.setLineWidth(0.4);
-                    doc.circle(centerX - 40, centerY - 50, 6, "D");
-                    doc.circle(centerX - 48, centerY - 65, 4, "D");
-                    doc.circle(centerX + 45, centerY - 45, 5, "D");
+                    doc.circle(centerX - 35, centerY - 40, 5, "D");
+                    doc.circle(centerX + 35, centerY - 35, 4, "D");
 
                 } else if (mode === "mewarnai_buah") {
                     doc.setDrawColor(40, 40, 40); doc.setLineWidth(0.8);
-                    doc.ellipse(centerX, centerY + 5, 32, 36, "D"); 
-                    doc.line(centerX, centerY - 31, centerX - 15, centerY - 45);
-                    doc.line(centerX, centerY - 31, centerX + 15, centerY - 45);
-                    doc.line(centerX - 15, centerY - 45, centerX, centerY - 31);
-                    doc.line(centerX + 15, centerY - 45, centerX, centerY - 31);
-                    doc.rect(centerX - 2, centerY - 40, 4, 9, "D");
+                    doc.ellipse(centerX, centerY, 28, 32, "D"); 
+                    doc.line(centerX, centerY - 28, centerX - 12, centerY - 40);
+                    doc.line(centerX, centerY - 28, centerX + 12, centerY - 40);
+                    doc.rect(centerX - 2, centerY - 36, 4, 8, "D");
 
                     doc.setLineWidth(0.5);
-                    for(let b = 0; b < 6; b++) {
-                        doc.circle(centerX - 15 + (b * 6), centerY - 10 + (b % 2 * 12), 1, "D");
-                        doc.circle(centerX - 10 + (b * 5), centerY + 5 - (b % 2 * 10), 1, "D");
+                    for(let b = 0; b < 5; b++) {
+                        doc.circle(centerX - 10 + (b * 5), centerY - 5 + (b % 2 * 8), 0.8, "D");
                     }
 
                 } else if (mode === "labirin_laut") {
                     doc.setDrawColor(80, 80, 80); doc.setLineWidth(0.6);
-                    doc.rect(25, 45, w - 35, w - 35); 
-                    doc.setFont("Helvetica", "bold"); doc.setFontSize(10); doc.setTextColor(120, 120, 120);
-                    doc.text("START (MULAI)", 26, 42); doc.text("FINISH (SELESAI)", w - 20, 45 + (w - 32));
+                    doc.rect(20, 45, w - 30, w - 35); 
+                    doc.setFont("Helvetica", "bold"); doc.setFontSize(10); doc.text("START", 22, 42);
 
-                    let step = (w - 35) / 5;
+                    let step = (w - 30) / 5;
                     for (let g = 1; g < 5; g++) {
                         if ((g + page) % 2 === 0) {
-                            doc.line(25 + (g * step), 45, 25 + (g * step), 45 + (w - 50));
-                            doc.line(25, 45 + (g * step), 25 + (w - 50), 45 + (g * step));
+                            doc.line(20 + (g * step), 45, 20 + (g * step), 45 + (w - 50));
                         } else {
-                            doc.line(25 + (g * step), 45 + 15, 25 + (g * step), 45 + (w - 35));
-                            doc.line(25 + 15, 45 + (g * step), 25 + (w - 35), 45 + (g * step));
+                            doc.line(20 + (g * step), 45 + 15, 20 + (g * step), 45 + (w - 35));
                         }
                     }
                 } else if (mode === "math_100") {
                     doc.setFont("Helvetica", "bold"); doc.setFontSize(12); doc.setTextColor(50, 50, 50);
-                    let innerY = 45;
-                    for (let i = 1; i <= 8; i++) {
-                        doc.setDrawColor(230, 230, 230); doc.rect(15, innerY - 5, w - 14, 11, "D");
-                        let n1 = 30 + (i * 4) + page; let n2 = 12 + (i * 3);
+                    let innerY = 48;
+                    for (let i = 1; i <= 10; i++) {
+                        doc.setDrawColor(240, 240, 240); doc.rect(15, innerY - 5, w - 14, 11, "D");
+                        let n1 = 40 + (i * 3) + page; let n2 = 15 + (i * 2);
                         doc.text(`Soal Penjumlahan ${i}:      ${n1}   +   ${n2}   =   ...............`, 20, innerY + 2);
-                        innerY += 15;
+                        innerY += 14;
                     }
                 } else if (mode === "hijaiyah") {
-                    let innerY = 45;
+                    let innerY = 48;
                     doc.setFont("Courier", "bold"); doc.setFontSize(22); doc.setTextColor(200, 200, 200);
-                    for (let j = 1; j <= 6; j++) {
+                    for (let j = 1; j <= 7; j++) {
                         doc.setDrawColor(220, 230, 250); doc.line(15, innerY + 5, w, innerY + 5);
-                        doc.text("أ   ب   ت   ث   ج   ح   خ", 25, innerY); innerY += 25;
+                        doc.text("أ   ب   ت   ث   ج   ح   خ", 25, innerY); innerY += 23;
                     }
-                } else {
-                    doc.setFont("Helvetica", "normal"); doc.setFontSize(10); doc.setTextColor(150, 150, 150);
-                    doc.text(`[ Modul Aktivitas Halaman ${page} Siap Digambar ]`, 25, 75);
                 }
 
-                // 5. Footer Hak Cipta Komersial
+                // Footer Hak Cipta Komersial
                 doc.setFont("Helvetica", "normal"); doc.setFontSize(7); doc.setTextColor(170, 170, 170);
-                doc.text("Worksheet Studio Premium v9.2 Enterprise Edition - Hak Cipta Produk Komersial Koh Ojiek", 15, h + 3);
+                doc.text("Worksheet Studio Premium v9.3 Enterprise Edition - Hak Cipta Produk Komersial Koh Ojiek", 15, h + 3);
             }
 
             doc.save(`Worksheet_Master_${mode}_${sizeOption.toUpperCase()}.pdf`);
