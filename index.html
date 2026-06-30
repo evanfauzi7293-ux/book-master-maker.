@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Kids Worksheet & Planner Creator v10.8 (Isolated Tower)</title>
+    <title>Kids Worksheet & Planner Creator v10.9 (Strict Gatekeeper)</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
@@ -50,7 +50,7 @@
                     <label id="keyInputLabel" class="text-[10px] text-gray-400 block">Masukkan Kunci Lisensi:</label>
                     <div class="flex gap-2">
                         <input type="password" id="configPersonalKey" placeholder="••••••••••••" class="flex-1 bg-gray-950/40 border border-gray-800 rounded-xl px-3 py-1.5 text-xs text-white tracking-widest outline-none font-mono uppercase">
-                        <button type="button" onclick="validasiProsesKunci(true)" class="bg-indigo-600 text-white font-bold px-4 py-1.5 rounded-xl text-xs">Aktifkan</button>
+                        <button type="button" onclick="prosesValidasiTombolKlik()" class="bg-indigo-600 text-white font-bold px-4 py-1.5 rounded-xl text-xs">Aktifkan</button>
                     </div>
                 </div>
 
@@ -152,7 +152,7 @@
                 </div>
             </div>
 
-            <button id="btnGenerate" type="button" onclick="downloadMasterV108PDF()" class="w-full bg-gradient-to-r from-indigo-500 via-purple-500 to-pink-500 text-white font-extrabold py-3.5 rounded-xl text-xs tracking-widest uppercase shadow-lg">
+            <button id="btnGenerate" type="button" onclick="downloadMasterV109PDF()" class="w-full bg-gradient-to-r from-indigo-500 via-purple-500 to-pink-500 text-white font-extrabold py-3.5 rounded-xl text-xs tracking-widest uppercase shadow-lg">
                 <i class="fa-solid fa-sparkles mr-2"></i> GENERATE DOCUMENT
             </button>
         </div>
@@ -182,7 +182,7 @@
     <script>
         const DEFAULT_PERSONAL_KEY = "AKUANAKPINTAR";
         const DEFAULT_MRR_KEY = "MASTERPRO2026";
-        const SECRET_SUPER_ADMIN_CODE = "ADMINSUPER2026"; // Kunci rahasia untuk memunculkan panel setelan master toko
+        const SECRET_SUPER_ADMIN_CODE = "ADMINSUPER2026";
         
         let currentLicenseMode = "demo"; 
         let activeThemeName = "amber", activePrimaryColor = "#f59e0b", activeSecondaryColor = "#d97706";
@@ -241,8 +241,7 @@
             const keyLabel = document.getElementById("keyInputLabel");
             const inputField = document.getElementById("configPersonalKey");
 
-            // Kosongkan kolom input setiap kali ganti menu agar tidak terpampang kuncinya
-            inputField.value = "";
+            inputField.value = ""; // Bersihkan kolom setiap kali pindah menu
 
             [btnDemo, btnPersonal, btnMrr].forEach(btn => btn.className = "bg-gray-800 text-gray-400 py-2 rounded-xl transition-all");
 
@@ -259,52 +258,63 @@
                 keyContainer.classList.remove("hidden"); 
                 keyLabel.innerText = "Masukkan Kunci Lisensi Master MRR Anda:"; 
             }
-            validasiProsesKunci(false);
+            
+            // Jalankan validasi pasif (membaca memori lokal saat perpindahan tab)
+            validasiPasifSistem();
         }
 
-        function validasiProsesKunci(showAlert = false) {
+        // FUNGSI BARU: Hanya membaca memori lokal tanpa memotong inputan user
+        function validasiPasifSistem() {
             let statusValid = false;
+            if (currentLicenseMode === "demo") {
+                statusValid = true;
+            } else if (currentLicenseMode === "personal") {
+                if (localStorage.getItem("AUTH_PERSONAL_DONE") === "true") statusValid = true;
+            } else if (currentLicenseMode === "mrr") {
+                if (localStorage.getItem("AUTH_MRR_DONE") === "true") statusValid = true;
+            }
+            evaluasiUIStatus(statusValid);
+        }
+
+        // FUNGSI BARU: Diaktifkan secara paksa HANYA jika pengguna menekan tombol "Aktifkan"
+        function prosesValidasiTombolKlik() {
             const userInputValue = document.getElementById("configPersonalKey").value.trim().toUpperCase();
 
-            // Fitur Rahasia: Jika mengetik kode Super Admin, buka panel rahasia konfigurasi toko
             if (userInputValue === SECRET_SUPER_ADMIN_CODE) {
                 document.getElementById("adminMasterPanel").classList.remove("hidden");
                 document.getElementById("configPersonalKey").value = "";
-                if(showAlert) alert("Akses Super Admin Diterima! Panel Pengaturan Toko Terbuka di Bawah.");
+                alert("Akses Super Admin Diterima! Panel Konfigurasi Terbuka di Bawah.");
                 return;
             }
 
-            if (currentLicenseMode === "demo") { 
-                statusValid = true; 
-            } else {
-                const targetPersonalKey = (localStorage.getItem("MASTER_KEY_PERSONAL") || DEFAULT_PERSONAL_KEY).toUpperCase();
-                const targetMrrKey = (localStorage.getItem("MASTER_KEY_MRR") || DEFAULT_MRR_KEY).toUpperCase();
+            const targetPersonalKey = (localStorage.getItem("MASTER_KEY_PERSONAL") || DEFAULT_PERSONAL_KEY).toUpperCase();
+            const targetMrrKey = (localStorage.getItem("MASTER_KEY_MRR") || DEFAULT_MRR_KEY).toUpperCase();
 
-                if (currentLicenseMode === "personal") {
-                    if (userInputValue === targetPersonalKey || localStorage.getItem("AUTH_PERSONAL_DONE") === "true") {
-                        statusValid = true;
-                        localStorage.setItem("AUTH_PERSONAL_DONE", "true");
-                        localStorage.setItem("CURRENT_ACTIVE_MODE", "personal");
-                    }
-                } 
-                else if (currentLicenseMode === "mrr") {
-                    if (userInputValue === targetMrrKey || localStorage.getItem("AUTH_MRR_DONE") === "true") {
-                        statusValid = true;
-                        localStorage.setItem("AUTH_MRR_DONE", "true");
-                        localStorage.setItem("CURRENT_ACTIVE_MODE", "mrr");
-                    }
-                }
-            }
-
-            evaluasiUIStatus(statusValid);
-
-            if (showAlert) {
-                if (statusValid) {
-                    alert(`Sukses! Lisensi ${currentLicenseMode.toUpperCase()} Aktif Sempurna.`);
+            if (currentLicenseMode === "personal") {
+                if (userInputValue === targetPersonalKey && userInputValue !== "") {
+                    localStorage.setItem("AUTH_PERSONAL_DONE", "true");
+                    localStorage.setItem("CURRENT_ACTIVE_MODE", "personal");
+                    alert("Sukses! Lisensi PERSONAL USE Berhasil Diaktifkan.");
+                    evaluasiUIStatus(true);
                 } else {
-                    alert("Kunci Salah! Silakan ketik ulang dengan benar.");
+                    localStorage.removeItem("AUTH_PERSONAL_DONE"); // Hapus status jika salah ketik
+                    alert("Kunci Salah atau Kosong! Gagal mengaktifkan mode Personal.");
+                    evaluasiUIStatus(false);
+                }
+            } 
+            else if (currentLicenseMode === "mrr") {
+                if (userInputValue === targetMrrKey && userInputValue !== "") {
+                    localStorage.setItem("AUTH_MRR_DONE", "true");
+                    localStorage.setItem("CURRENT_ACTIVE_MODE", "mrr");
+                    alert("Sukses! Lisensi MASTER MRR Berhasil Diaktifkan.");
+                    evaluasiUIStatus(true);
+                } else {
+                    localStorage.removeItem("AUTH_MRR_DONE"); // Hapus status jika salah ketik
+                    alert("Kunci Salah atau Kosong! Gagal mengaktifkan mode MRR Master.");
+                    evaluasiUIStatus(false);
                 }
             }
+            document.getElementById("configPersonalKey").value = "";
         }
 
         function evaluasiUIStatus(isValid) {
@@ -349,7 +359,7 @@
 
         function resetPerangkatSaja() {
             localStorage.clear();
-            alert("Memori Lisensi Dibersihkan!");
+            alert("Memori Lisensi Dibersihkan! Seluruh mode kembali terkunci.");
             location.reload();
         }
 
@@ -391,8 +401,8 @@
             document.getElementById("previewContainer").innerHTML = `
                 <div class="border-2 border-dashed rounded-2xl p-6 text-center bg-gray-50 flex flex-col items-center justify-center min-h-[160px]" style="border-color:${activePrimaryColor}">
                     <span class="text-4xl opacity-50 mb-1">🕌</span>
-                    <p class="text-xs font-mono font-bold text-gray-700">[ SECURITY ISOLATED v10.8 ]</p>
-                    <p class="text-[10px] text-gray-400 mt-1">Panel admin tersembunyi sepenuhnya. Input lisensi berupa sensor password.</p>
+                    <p class="text-xs font-mono font-bold text-gray-700">[ SECURITY ISOLATED v10.9 ]</p>
+                    <p class="text-[10px] text-gray-400 mt-1">Sistem gerbang ketat aktif. Masuk asal-asalan otomatis ditolak & dikunci balik.</p>
                 </div>`;
         }
 
@@ -414,7 +424,7 @@
             }
         }
 
-        function downloadMasterV108PDF() {
+        function downloadMasterV109PDF() {
             const mode = document.getElementById("workMode").value;
             const sizeOption = document.getElementById("paperSize").value;
             let maxPages = parseInt(document.getElementById("totalPdfPages").value);
@@ -492,41 +502,9 @@
                     doc.setDrawColor(120, 120, 120); doc.setLineWidth(0.5); doc.rect(cx - 40, cy - 30, 25, 25, "D"); doc.circle(cx + 25, cy - 17, 13, "D"); doc.triangle(cx - 25, cy + 35, cx - 40, cy + 10, cx - 10, cy + 10, "D"); doc.ellipse(cx + 25, cy + 22, 20, 12, "D");
                 } 
                 else if (mode === "labirin_laut") {
-                    doc.setDrawColor(60, 60, 60); doc.setLineWidth(0.8); doc.rect(cx - 45, cy - 40, 90, 80, "D"); doc.rect(cx - 30, cy - 25, 60, 50, "D"); doc.rect(cx - 15, cy - 10, 30, 20, "D"); doc.line(cx - 45, cy - 35, cx - 30, cy - 35); doc.line(cx + 30, cy + 15, cx + 45, py + 15);
+                    doc.setDrawColor(60, 60, 60); doc.setLineWidth(0.8); doc.rect(cx - 45, cy - 40, 90, 80, "D"); doc.rect(cx - 30, cy - 25, 60, 50, "D"); doc.rect(cx - 15, cy - 10, 30, 20, "D"); doc.line(cx - 45, cy - 35, cx - 30, cy - 35); doc.line(cx + 30, cy + 15, cx + 45, cy + 15);
                 } 
                 else if (mode === "math_100") {
                     doc.setFont("Helvetica", "bold"); doc.setFontSize(11); doc.setTextColor(60, 60, 60);
                     let innerY = 44;
-                    for (let i = 1; i <= 10; i++) {
-                        doc.setDrawColor(240, 240, 240); doc.rect(15, innerY - 4, w - 14, 10, "D"); doc.text(`Soal ${i}:      ${35 + i + page}   +   ${12 + i}   =   ...............`, 20, innerY + 3); innerY += 13;
-                    }
-                } 
-                else if (mode === "suku_kata") {
-                    doc.setFont("Helvetica", "bold"); doc.setFontSize(18); doc.setTextColor(80, 80, 80); doc.text("b a - b u  |  c a - c i  |  d a - d u", cx - 45, cy - 20);
-                    doc.setDrawColor(200, 200, 200); for(let s=0; s<4; s++) { doc.rect(15, cy - 5 + (s * 15), w - 14, 11, "D"); }
-                } 
-                else if (mode === "mencari_perbedaan") {
-                    doc.setDrawColor(50, 50, 50); doc.rect(15, cy - 35, w/2 - 12, 70, "D"); doc.rect(w/2 + 8, cy - 35, w/2 - 12, 70, "D"); doc.circle(35, cy, 10, "D"); doc.circle(w/2 + 28, cy, 10, "D"); doc.circle(60, cy + 15, 6, "D");
-                } 
-                else if (mode === "mencocokkan_bayangan") {
-                    doc.setFont("Helvetica", "bold"); doc.setFontSize(11); doc.text("OBJEK ASLI", 20, cy - 32); doc.text("SILUET BAYANGAN", w - 60, cy - 32);
-                    for(let m=0; m<3; m++) { doc.setDrawColor(50, 50, 50); doc.rect(20, cy - 20 + (m * 22), 15, 15, "D"); doc.setFillColor(30, 30, 30); doc.rect(w - 45, cy - 20 + (((m+1)%3) * 22), 15, 15, "F"); }
-                } 
-                else if (mode === "dot_to_dot") {
-                    doc.setDrawColor(40, 40, 40); doc.setFontSize(8);
-                    for(let d=1; d<=15; d++) { let dx = cx + 35 * Math.cos((d * 2 * Math.PI) / 15); let dy = cy + 35 * Math.sin((d * 2 * Math.PI) / 15); doc.circle(dx, dy, 0.8, "F"); doc.text(String(d), dx + 2, dy); }
-                } 
-                else if (mode === "flashcard_kosakata") {
-                    doc.setDrawColor(100, 100, 100); doc.setLineWidth(0.4); doc.rect(15, cy - 38, w/2 - 12, 36, "D"); doc.rect(w/2 + 5, cy - 38, w/2 - 12, 36, "D"); doc.rect(15, cy + 5, w/2 - 12, 36, "D"); doc.rect(w/2 + 5, cy + 5, w/2 - 12, 36, "D"); doc.setFont("Helvetica", "bold"); doc.setFontSize(12); doc.text("APEL", 30, cy - 20); doc.text("SINGA", w - 50, cy - 20);
-                }
-
-                doc.setFont("Helvetica", "normal"); doc.setFontSize(7); doc.setTextColor(160, 160, 160);
-                doc.text(`${cTitle} Premium [${currentLicenseMode.toUpperCase()}] - ${cSub}`, 15, h + 3);
-            }
-            doc.save(`Worksheet_${currentLicenseMode}_${mode}.pdf`);
-        }
-
-        toggleInputs(); updateLivePreview();
-    </script>
-</body>
-</html>
+                    for (let i = 1; i <= 10;
