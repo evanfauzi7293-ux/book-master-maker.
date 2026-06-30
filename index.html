@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Kids Worksheet & Planner Creator v10.0 (Ultra Engine)</title>
+    <title>Kids Worksheet & Planner Creator v10.1 (Hijaiyah Patch)</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
@@ -33,7 +33,7 @@
             <div class="flex items-center justify-between border-b border-gray-800/60 pb-3">
                 <div>
                     <h1 class="text-xl font-extrabold tracking-tight bg-gradient-to-r from-indigo-400 via-pink-400 to-amber-300 bg-clip-text text-transparent uppercase">Worksheet Studio</h1>
-                    <p class="text-[11px] text-gray-400 font-medium tracking-wide mt-0.5">v10.0 Premium Engine</p>
+                    <p class="text-[11px] text-gray-400 font-medium tracking-wide mt-0.5">v10.1 Engine Engine</p>
                 </div>
                 <div id="statusBadge" class="text-[10px] bg-amber-500/10 text-amber-400 border border-amber-500/20 px-3 py-1 rounded-full font-bold tracking-wide">DEMO MODE ACTIVE</div>
             </div>
@@ -67,7 +67,7 @@
                 <label class="text-[11px] text-gray-300 font-semibold px-0.5">Pilih Kategori Modul Aktivitas Anak</label>
                 <select id="workMode" onchange="toggleInputs(); updateLivePreview();" class="w-full bg-gray-950/60 border border-gray-800 focus:border-indigo-500 rounded-xl px-3 py-2 text-xs text-gray-200 outline-none font-medium">
                     <optgroup label="🎨 Modul Mewarnai Tematik">
-                        <option value="mewarnai_hewan" selected>🎨 Mewarnai Ragam Hebat Hewan Lucu</option>
+                        <option value="mewarnai_hewan">🎨 Mewarnai Ragam Hebat Hewan Lucu</option>
                         <option value="mewarnai_buah">🍓 Mewarnai Buah-Buahan Segar</option>
                         <option value="mewarnai_kendaraan">🚗 Mewarnai Aneka Transportasi & Mobil</option>
                         <option value="mewarnai_dino">🦖 Mewarnai Petualangan Dunia Dinosaurus</option>
@@ -75,7 +75,7 @@
                     <optgroup label="✍️ Modul Tracing & Menulis Dasar">
                         <option value="trace_alphabet">🇬🇧 Tracing Alphabet Seru (Huruf A-Z)</option>
                         <option value="trace_angka">🔢 Tracing Angka Matematika Dasar (1-20)</option>
-                        <option value="hijaiyah">🕌 Menulis & Tracing Huruf Hijaiyah</option>
+                        <option value="hijaiyah" selected>🕌 Menulis & Tracing Huruf Hijaiyah</option>
                         <option value="belajar_bentuk">📐 Mengenal & Tracing Bentuk Geometri</option>
                     </optgroup>
                     <optgroup label="🧠 Modul Kognitif & Logika Kecerdasan">
@@ -112,7 +112,7 @@
             <div class="glass-card p-3.5 rounded-2xl space-y-3">
                 <div class="space-y-1.5">
                     <label class="text-[11px] text-gray-300 font-semibold">Teks Instruksi Kerja</label>
-                    <input type="text" id="instructionText" value="Warnai gambar makhluk hewan laut lucu di bawah ini sesuai imajinasimu!" class="w-full bg-gray-950/40 border border-gray-800 rounded-xl px-3 py-2 text-xs text-gray-300 outline-none" oninput="updateLivePreview()">
+                    <input type="text" id="instructionText" value="Mari menebalkan huruf Hijaiyah Alif Ba Ta berikut dengan rapi!" class="w-full bg-gray-950/40 border border-gray-800 rounded-xl px-3 py-2 text-xs text-gray-300 outline-none" oninput="updateLivePreview()">
                 </div>
             </div>
 
@@ -142,7 +142,7 @@
                 <div id="headerBox" class="border-b-4 border-amber-400 pb-3 flex justify-between items-center">
                     <div>
                         <div class="flex items-center gap-2">
-                            <span id="previewMaskot" class="text-2xl">🎨</span>
+                            <span id="previewMaskot" class="text-2xl">🕌</span>
                             <h2 id="previewTitle" class="text-sm font-black text-amber-600 uppercase">LEMBAR AKTIVITAS</h2>
                         </div>
                         <p id="previewInstruction" class="text-[10px] text-gray-500 font-semibold italic mt-1 leading-relaxed"></p>
@@ -258,15 +258,43 @@
 
             document.getElementById("previewContainer").innerHTML = `
                 <div class="border-2 border-dashed rounded-2xl p-6 text-center bg-gray-50 flex flex-col items-center justify-center min-h-[160px]" style="border-color:${activePrimaryColor}">
-                    <span class="text-4xl opacity-50 mb-1">⚡</span>
-                    <p class="text-xs font-mono font-bold text-gray-700">[ ENGINE LAYOUT ${mode.toUpperCase()} READY ]</p>
-                    <p class="text-[10px] text-gray-400 mt-1">Struktur vektor aktif. Dokumen siap dicetak presisi ke format PDF.</p>
+                    <span class="text-4xl opacity-50 mb-1">🕌</span>
+                    <p class="text-xs font-mono font-bold text-gray-700">[ ENGINE VECTOR ${mode.toUpperCase()} PATCHED ]</p>
+                    <p class="text-[10px] text-gray-400 mt-1">Sistem kaligrafi kurva aktif otomatis saat dicetak ke file PDF.</p>
                 </div>`;
         }
 
-        // ==========================================
-        // CORE ENGINE VECTOR GENERATOR (ANTI-KOSONG)
-        // ==========================================
+        // FUNGSI KHUSUS MENGGAMBAR VEKTOR HURUF HIJAIYAH (ANTI FONT CRASH)
+        function drawVectorHijaiyah(doc, type, x, y) {
+            doc.setDrawColor(180, 180, 180); doc.setLineWidth(0.8);
+            
+            if (type === 'alif') {
+                // Alif: Garis vertikal tegak lurus dengan sedikit lekukan atas
+                doc.line(x, y - 12, x, y + 12);
+                // Hamzah Kecil di atasnya
+                doc.line(x - 2, y - 16, x + 2, y - 16);
+                doc.line(x + 2, y - 16, x - 2, y - 19);
+            } 
+            else if (type === 'ba' || type === 'ta' || type === 'tsa') {
+                // Bentuk Perahu / Mangkok dasar Hijaiyah
+                doc.line(x - 14, y, x - 12, y + 6); 
+                doc.line(x - 12, y + 6, x + 12, y + 6); 
+                doc.line(x + 12, y + 6, x + 14, y);
+                
+                // Distribusi Letak Titik Spesifik Huruf
+                if (type === 'ba') {
+                    doc.setFillColor(150, 150, 150); doc.circle(x, y + 11, 1.2, "F"); // 1 Titik di Bawah
+                } else if (type === 'ta') {
+                    doc.setFillColor(150, 150, 150); 
+                    doc.circle(x - 3, y + 1, 1.1, "F"); doc.circle(x + 3, y + 1, 1.1, "F"); // 2 Titik di Dalam/Atas
+                } else if (type === 'tsa') {
+                    doc.setFillColor(150, 150, 150);
+                    doc.circle(x - 3, y + 2, 1.1, "F"); doc.circle(x + 3, y + 2, 1.1, "F"); 
+                    doc.circle(x, y - 1, 1.1, "F"); // 3 Titik Segitiga
+                }
+            }
+        }
+
         function downloadMasterV97PDF() {
             if(!isAuthorized) return;
             const mode = document.getElementById("workMode").value;
@@ -288,11 +316,9 @@
                 let w = sizeOption === "a5" ? 138 : (sizeOption === "f4" ? 205 : 194);
                 let h = sizeOption === "a5" ? 200 : (sizeOption === "f4" ? 320 : 281);
                 
-                // Bingkai Utama Khusus Anak
                 doc.setDrawColor(activePrimaryColor); doc.setLineWidth(0.6); doc.rect(8, 8, w, h);
                 doc.setFillColor(activePrimaryColor); doc.rect(12, 12, w - 8, 1.5, "F");
 
-                // Header Teks
                 doc.setFont("Helvetica", "bold"); doc.setFontSize(13); doc.setTextColor(activeSecondaryColor);
                 doc.text(mode.replace(/_/g, " ").toUpperCase(), 15, 23);
                 doc.setFont("Helvetica", "normal"); doc.setFontSize(8.5); doc.setTextColor(70, 70, 70);
@@ -301,8 +327,33 @@
                 let cx = w / 2;
                 let cy = h / 2 + 10;
 
-                // ROUTING VECTOR DRAWING ANTI KOSONG UNTUK SEMUA 15 KATEGORI
-                if (mode === "mewarnai_hewan") {
+                // LOGIKA RETRIEVAL VECTOR KHUSUS HIJAIYAH (FIXED PATCH)
+                if (mode === "hijaiyah") {
+                    // 1. Gambar Master Grid Display Atas
+                    doc.setDrawColor(230, 230, 230); doc.setLineWidth(0.4);
+                    doc.rect(15, 38, w - 14, 45, "D");
+                    
+                    // Render Huruf Vektor Ukuran Besar sebagai Contoh Utama Anak
+                    drawVectorHijaiyah(doc, 'alif', cx - 35, 60);
+                    drawVectorHijaiyah(doc, 'ba', cx - 10, 60);
+                    drawVectorHijaiyah(doc, 'ta', cx + 18, 60);
+                    drawVectorHijaiyah(doc, 'tsa', cx + 45, 60);
+
+                    // 2. Buat Baris Garis Bantu Tracing Putus-Putus ke Bawah
+                    let startY = 95;
+                    for (let row = 0; row < 5; row++) {
+                        doc.setDrawColor(210, 210, 210); doc.line(15, startY + 10, w, startY + 10);
+                        
+                        // Isi kolom dengan huruf putus-putus menggunakan titik bantu halus
+                        drawVectorHijaiyah(doc, 'alif', cx - 35, startY);
+                        drawVectorHijaiyah(doc, 'ba', cx - 10, startY);
+                        drawVectorHijaiyah(doc, 'ta', cx + 18, startY);
+                        drawVectorHijaiyah(doc, 'tsa', cx + 45, startY);
+
+                        startY += 25;
+                    }
+                } 
+                else if (mode === "mewarnai_hewan") {
                     doc.setDrawColor(50, 50, 50); doc.setLineWidth(0.8);
                     doc.circle(cx, cy, 26, "D"); doc.circle(cx - 9, cy - 6, 2.5, "D"); doc.circle(cx + 9, cy - 6, 2.5, "D");
                     doc.line(cx - 26, cy, cx - 42, cy + 5); doc.line(cx + 26, cy, cx + 42, cy + 5);
@@ -336,20 +387,10 @@
                 } 
                 else if (mode === "trace_angka") {
                     doc.setFont("Helvetica", "bold"); doc.setFontSize(60); doc.setTextColor(230, 230, 230);
-                    let numDisplay = ((page - 1) % 20) + 1;
-                    doc.text(String(numDisplay), cx - 12, cy - 15);
+                    let numDisplay = ((page - 1) % 20) + 1; doc.text(String(numDisplay), cx - 12, cy - 15);
                     doc.setDrawColor(180, 180, 180);
                     for(let j=0; j<numDisplay && j<10; j++) { doc.circle(25 + (j * 14), cy + 10, 5, "D"); }
                     for(let k=0; k<4; k++) { doc.rect(15 + (k*28), cy + 25, 24, 15, "D"); }
-                } 
-                else if (mode === "hijaiyah") {
-                    doc.setFont("Courier", "bold"); doc.setFontSize(55); doc.setTextColor(200, 200, 200);
-                    doc.text("ا  ب  ت  ث", cx - 40, cy - 10);
-                    for(let i=0; i<3; i++) {
-                        let yH = cy + 12 + (i * 20);
-                        doc.setDrawColor(220, 220, 220); doc.rect(15, yH, w - 14, 15, "D");
-                        doc.line(15, yH + 7.5, w, yH + 7.5);
-                    }
                 } 
                 else if (mode === "belajar_bentuk") {
                     doc.setDrawColor(120, 120, 120); doc.setLineWidth(0.5);
@@ -381,7 +422,7 @@
                 else if (mode === "mencari_perbedaan") {
                     doc.setDrawColor(50, 50, 50); doc.rect(15, cy - 35, w/2 - 12, 70, "D"); doc.rect(w/2 + 8, cy - 35, w/2 - 12, 70, "D");
                     doc.circle(35, cy, 10, "D"); doc.circle(w/2 + 28, cy, 10, "D");
-                    doc.circle(60, cy + 15, 6, "D"); // Sisi kanan sengaja tidak digambar circle kecil ini untuk pembeda logika anak
+                    doc.circle(60, cy + 15, 6, "D");
                 } 
                 else if (mode === "mencocokkan_bayangan") {
                     doc.setFont("Helvetica", "bold"); doc.setFontSize(11);
@@ -401,15 +442,13 @@
                 } 
                 else if (mode === "flashcard_kosakata") {
                     doc.setDrawColor(100, 100, 100); doc.setLineWidth(0.4);
-                    // Gambar 4 Kotak Gunting Grid Flashcard
                     doc.rect(15, cy - 38, w/2 - 12, 36, "D"); doc.rect(w/2 + 5, cy - 38, w/2 - 12, 36, "D");
                     doc.rect(15, cy + 5, w/2 - 12, 36, "D"); doc.rect(w/2 + 5, cy + 5, w/2 - 12, 36, "D");
                     doc.setFont("Helvetica", "bold"); doc.setFontSize(12); doc.text("APEL", 30, cy - 20); doc.text("SINGA", w - 50, cy - 20);
                 }
 
-                // Footer Lisensi Profesional
                 doc.setFont("Helvetica", "normal"); doc.setFontSize(7); doc.setTextColor(160, 160, 160);
-                doc.text(`Worksheet Studio Premium v10.0 [${selectedGateMode.toUpperCase()}] - Hak Cipta Produk Koh Ojiek`, 15, h + 3);
+                doc.text(`Worksheet Studio Premium v10.1 [${selectedGateMode.toUpperCase()}] - Hak Cipta Produk Koh Ojiek`, 15, h + 3);
             }
             doc.save(`Worksheet_${selectedGateMode}_${mode}.pdf`);
         }
