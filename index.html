@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Kids Worksheet & Planner Creator v8.8 (Ultimate Edition)</title>
+    <title>Kids Worksheet & Planner Creator v8.9 (Auto-Download Edition)</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
@@ -56,17 +56,19 @@
 
     <main class="max-w-7xl w-full mx-auto grid grid-cols-1 lg:grid-cols-12 gap-6 items-start mt-2 relative z-10">
         
+        <!-- PANEL KONTROL KIRI -->
         <div class="lg:col-span-5 glass-panel p-5 rounded-3xl space-y-4 max-h-[88vh] overflow-y-auto custom-scrollbar">
             <div class="flex items-center justify-between border-b border-gray-800/60 pb-3">
                 <div>
                     <h1 class="text-xl font-extrabold tracking-tight bg-gradient-to-r from-indigo-400 via-pink-400 to-amber-300 bg-clip-text text-transparent uppercase">Worksheet Studio</h1>
-                    <p class="text-[11px] text-gray-400 font-medium tracking-wide mt-0.5">v8.8 Ultimate Engine by Koh Ojiek</p>
+                    <p class="text-[11px] text-gray-400 font-medium tracking-wide mt-0.5">v8.9 Enterprise Engine by Koh Ojiek</p>
                 </div>
                 <div id="statusBadge" class="text-[10px] bg-amber-500/10 text-amber-300 border border-amber-500/20 px-3 py-1 rounded-full font-bold tracking-wide">
                     DEMO MODE
                 </div>
             </div>
 
+            <!-- 🚪 GERBANG 1: PERSONAL -->
             <div id="gatePersonalWrapper" class="glass-card p-3.5 rounded-2xl border-l-4 border-l-amber-500/60 space-y-2">
                 <div class="flex justify-between items-center">
                     <label class="text-[11px] text-amber-400 font-bold uppercase"><i class="fa-solid fa-user-lock mr-1"></i> 1. Aktivasi Personal</label>
@@ -77,6 +79,7 @@
                 </div>
             </div>
 
+            <!-- 🚪 GERBANG 2: MASTER MRR + INTEGRASI RESET -->
             <div id="gateMrrWrapper" class="glass-card p-3.5 rounded-2xl border-l-4 border-l-indigo-500/60 space-y-2">
                 <div class="flex justify-between items-center">
                     <label class="text-[11px] text-indigo-400 font-bold uppercase"><i class="fa-solid fa-keyhole mr-1"></i> 2. Aktivasi Master MRR & Pemulihan</label>
@@ -95,6 +98,7 @@
                     </div>
                 </div>
 
+                <!-- PANEL KONFIGURASI ADMIN -->
                 <div id="mrrControlPanel" class="space-y-2 pt-3 border-t border-gray-800/60 mt-2 hidden">
                     <p class="text-[10px] text-emerald-400 font-bold"><i class="fa-solid fa-circle-check mr-1"></i> Rebranding Master Aktif</p>
                     <div class="space-y-1">
@@ -109,6 +113,7 @@
                 </div>
             </div>
 
+            <!-- SELEKSI KATEGORI -->
             <div class="space-y-1.5">
                 <label class="text-[11px] text-gray-300 font-semibold px-0.5">Pilih Kategori Modul Aktivitas</label>
                 <select id="workMode" onchange="toggleInputs(); updateLivePreview();" class="w-full bg-gray-950/60 border border-gray-800 focus:border-indigo-500 rounded-xl px-3 py-2 text-xs text-gray-200 outline-none font-medium">
@@ -125,16 +130,16 @@
                 </select>
             </div>
 
+            <!-- PENGATURAN KERTAS & HALAMAN -->
             <div class="glass-card p-3.5 rounded-2xl space-y-3">
                 <p class="text-[11px] text-indigo-400 font-bold uppercase tracking-wider"><i class="fa-solid fa-sliders mr-1"></i> Pengaturan Cetak Dokumen</p>
-                
                 <div class="grid grid-cols-2 gap-3">
                     <div class="space-y-1">
                         <label class="text-[10px] text-gray-400">Ukuran Kertas</label>
                         <select id="paperSize" onchange="updateLivePreview()" class="w-full bg-gray-950/40 border border-gray-800 rounded-xl px-2.5 py-1.5 text-xs text-white outline-none font-semibold">
-                            <option value="a4" selected>A4 Standard (210x297mm)</option>
-                            <option value="f4">F4 / Folio (215x330mm)</option>
-                            <option value="a5">A5 Buku Kecil (148x210mm)</option>
+                            <option value="a4" selected>A4 Standard</option>
+                            <option value="f4">F4 / Folio</option>
+                            <option value="a5">A5 Buku Kecil</option>
                         </select>
                     </div>
                     <div class="space-y-1">
@@ -142,7 +147,7 @@
                         <select id="totalPdfPages" class="w-full bg-gray-950/40 border border-gray-800 rounded-xl px-2.5 py-1.5 text-xs text-white outline-none font-mono font-bold">
                             <script>
                                 for(let i=1; i<=25; i++) {
-                                    document.write(`<option value="${i}" ${i===5?'selected':''}>${i} Lembar Halaman</option>`);
+                                    document.write(`<option value="${i}" ${i===5?'selected':''}>${i} Lembar</option>`);
                                 }
                             </script>
                         </select>
@@ -150,18 +155,15 @@
                 </div>
             </div>
 
+            <!-- INPUT DATA -->
             <div class="glass-card p-3.5 rounded-2xl space-y-3">
-                <div id="inputTracingGroup" class="space-y-1.5 hidden">
-                    <label class="text-[11px] text-gray-300 font-semibold">Nama Anak</label>
-                    <input type="text" id="childName" maxlength="12" value="EVAN" class="w-full bg-gray-950/40 border border-gray-800 rounded-xl px-3 py-2 text-xs text-white uppercase outline-none" oninput="updateLivePreview()">
-                </div>
-
                 <div class="space-y-1.5">
                     <label class="text-[11px] text-gray-300 font-semibold">Teks Instruksi Kerja</label>
                     <input type="text" id="instructionText" value="Warnai gambar hewan di bawah ini dengan warna kesukaanmu!" class="w-full bg-gray-950/40 border border-gray-800 rounded-xl px-3 py-2 text-xs text-gray-300 outline-none" oninput="updateLivePreview()">
                 </div>
             </div>
 
+            <!-- 10 OPSI ESTETIKA WARNA -->
             <div class="space-y-2">
                 <label class="text-[11px] text-gray-300 font-semibold px-0.5">Pilih Estetika Warna Lembar Kerja (10 Opsi)</label>
                 <div class="grid grid-cols-2 sm:grid-cols-5 gap-1.5 text-[10px] font-bold">
@@ -178,11 +180,12 @@
                 </div>
             </div>
 
-            <button type="button" onclick="downloadMasterV88PDF()" class="w-full bg-gradient-to-r from-indigo-500 via-purple-500 to-pink-500 hover:from-indigo-400 hover:to-pink-500 text-white font-extrabold py-3.5 px-4 rounded-xl text-xs shadow-lg uppercase tracking-widest">
+            <button type="button" onclick="downloadMasterV89PDF()" class="w-full bg-gradient-to-r from-indigo-500 via-purple-500 to-pink-500 hover:from-indigo-400 hover:to-pink-400 text-white font-extrabold py-3.5 px-4 rounded-xl text-xs shadow-xl uppercase tracking-widest">
                 <i class="fa-solid fa-sparkles mr-2 text-xs"></i> GENERATE HIGH-RES DOCUMENT
             </button>
         </div>
 
+        <!-- PANEL PREVIEW KANAN -->
         <div class="lg:col-span-7 glass-panel p-5 rounded-3xl flex flex-col h-[88vh]">
             <div class="flex items-center justify-between border-b border-gray-800/60 pb-3 mb-3">
                 <h3 class="text-xs font-bold uppercase tracking-widest text-gray-400"><i class="fa-solid fa-expand text-indigo-400 mr-2"></i> Live Digital Screen Proof</h3>
@@ -193,7 +196,7 @@
                 <div id="headerBox" class="border-b-4 border-amber-400 pb-3 flex justify-between items-center">
                     <div>
                         <div class="flex items-center gap-2">
-                            <span id="previewMaskot" class="text-2xl">🦁</span>
+                            <span id="previewMaskot" class="text-2xl"> 🦁</span>
                             <h2 id="previewTitle" class="text-sm font-black tracking-wide text-amber-600 uppercase">LEMBAR AKTIVITAS</h2>
                         </div>
                         <p id="previewInstruction" class="text-[10px] text-gray-500 font-semibold italic mt-1 leading-relaxed"></p>
@@ -207,9 +210,6 @@
     </main>
 
     <script>
-        const DEFAULT_PERSONAL_KEY = "ANAKPINTAR2026";
-        const DEFAULT_MRR_KEY = "MASTERPRO2026";
-
         if (!localStorage.getItem("KEY_PERSONAL_CONFIG")) localStorage.setItem("KEY_PERSONAL_CONFIG", DEFAULT_PERSONAL_KEY);
         if (!localStorage.getItem("KEY_MRR_CONFIG")) localStorage.setItem("KEY_MRR_CONFIG", DEFAULT_MRR_KEY);
 
@@ -236,21 +236,13 @@
             updateLivePreview();
         }
 
-        // 🔥 ENGINE RESET PASSWORD VIA DATA INPUT (REQUEST BARU)
         function resetPasswordEngine() {
             const email = document.getElementById("mrrEmail").value.trim();
             const phone = document.getElementById("mrrPhone").value.trim();
-
-            if(!email || !phone) {
-                alert("Silakan isi kolom Email dan No HP/WA Anda di bawah kolom lisensi terlebih dahulu untuk verifikasi data identitas!");
-                return;
-            }
-
-            // Simulasi reset mandiri langsung mengembalikan kunci ke bawaan pabrik demi keamanan pengguna
+            if(!email || !phone) { alert("Silakan isi kolom Email dan No HP/WA Anda untuk verifikasi!"); return; }
             localStorage.setItem("KEY_PERSONAL_CONFIG", DEFAULT_PERSONAL_KEY);
             localStorage.setItem("KEY_MRR_CONFIG", DEFAULT_MRR_KEY);
-            
-            alert(`[VERIFIKASI SUKSES]\nIdentitas cocok! Sistem berhasil mereset sandi Anda ke default:\n\n1. Kunci Personal: ${DEFAULT_PERSONAL_KEY}\n2. Kunci Master MRR: ${DEFAULT_MRR_KEY}\n\nGunakan kunci ini untuk masuk.`);
+            alert("Sistem berhasil mereset sandi Anda ke default pabrik.");
             location.reload();
         }
 
@@ -317,8 +309,6 @@
                             <span>${45 + (i*11)} + ${23 + (i*5)} = _____</span>
                         </div>`;
                 }
-            } else if (mode === "hijaiyah") {
-                html = `<div class="grid grid-cols-4 gap-4 items-center p-2 text-center border border-dashed rounded-xl"><span class="font-arabic text-indigo-600 text-xl">أ</span><span class="text-gray-300">...</span><span class="text-gray-300">...</span><span class="text-gray-300">...</span></div>`;
             } else {
                 html = `<div class="p-4 bg-gray-50 rounded-xl border border-dashed text-xs text-gray-400 text-center font-mono">[Modul Struktur Konten Terpilih Aktif]</div>`;
             }
@@ -329,10 +319,79 @@
             container.innerHTML = html;
         }
 
-        function downloadMasterV88PDF() {
-            const size = document.getElementById("paperSize").value;
-            const pages = document.getElementById("totalPdfPages").value;
-            alert(`[SUKSES] Dokumen Berhasil Diproses!\n\nUkuran Kertas: ${size.toUpperCase()}\nTotal Output: ${pages} Lembar Halaman.\n\nSistem High-Resolution PDF siap disimpan.`);
+        // 🔥 PERBAIKAN FUNGSIONAL UTAMA: PROSES AUTO-DOWNLOAD PDF LANGSUNG KE PERANGKAT
+        function downloadMasterV89PDF() {
+            const mode = document.getElementById("workMode").value;
+            const sizeOption = document.getElementById("paperSize").value;
+            const maxPages = isPremiumActive ? parseInt(document.getElementById("totalPdfPages").value) : 1; // Demo dibatasi 1 lembar
+            const instText = document.getElementById("instructionText").value;
+
+            const { jsPDF } = window.jspdf;
+            
+            // Konfigurasi ukuran dinamis berdasarkan opsi input kertas
+            let formatSize = "a4";
+            if (sizeOption === "f4") formatSize = [215, 330];
+            if (sizeOption === "a5") formatSize = "a5";
+
+            const doc = new jsPDF({ orientation: "portrait", unit: "mm", format: formatSize });
+
+            // Looping cetak lembar halaman berdasarkan jumlah pilihan user (maksimal 25)
+            for (let page = 1; page <= maxPages; page++) {
+                if (page > 1) doc.addPage();
+
+                // Bingkai Ornamen Dekoratif Tepi
+                doc.setDrawColor(activePrimaryColor); doc.setLineWidth(0.4);
+                let w = sizeOption === "a5" ? 138 : (sizeOption === "f4" ? 205 : 194);
+                let h = sizeOption === "a5" ? 200 : (sizeOption === "f4" ? 320 : 281);
+                doc.rect(8, 8, w, h);
+
+                // Header Akses Garis Warna
+                doc.setFillColor(activePrimaryColor); doc.rect(12, 12, w - 8, 2, "F");
+
+                // Judul & Teks Perintah Instruksi Kerja
+                doc.setFont("Helvetica", "bold"); doc.setFontSize(14); doc.setTextColor(activeSecondaryColor);
+                doc.text(mode.replace("_", " ").toUpperCase(), 15, 22);
+
+                doc.setFont("Helvetica", "normal"); doc.setFontSize(9); doc.setTextColor(80, 80, 80);
+                doc.text(`${instText} (Halaman ${page} dari ${maxPages})`, 15, 28);
+
+                // Watermark Pelindung Hak Cipta jika status masih Demo
+                if (!isPremiumActive) {
+                    doc.setFont("Helvetica", "bold"); doc.setFontSize(28); doc.setTextColor(245, 210, 210);
+                    doc.text("PREVIEW DEMO WORKSHEET", 20, 100, { angle: 45 });
+                }
+
+                // Gambar Sketsa Konten Dasar Sesuai Mode di dalam File Dokumen
+                let innerY = 45;
+                doc.setFont("Helvetica", "bold"); doc.setFontSize(12); doc.setTextColor(50, 50, 50);
+                
+                if (mode === "math_100") {
+                    for (let i = 1; i <= 8; i++) {
+                        doc.setDrawColor(240, 240, 240); doc.rect(15, innerY - 5, w - 14, 11, "D");
+                        let n1 = Math.floor(Math.random() * 50) + 40;
+                        let n2 = Math.floor(Math.random() * 35) + 5;
+                        doc.text(`Soal Ke-${i} (Lembar ${page}) :    ${n1}   +   ${n2}   =   ...............`, 20, innerY + 2);
+                        doc.setDrawColor(activePrimaryColor); doc.rect(w - 5, innerY - 3, 6, 6);
+                        innerY += 15;
+                    }
+                } else if (mode === "hijaiyah") {
+                    doc.setFont("Courier", "bold"); doc.setFontSize(22); doc.setTextColor(190, 190, 190);
+                    for (let j = 1; j <= 6; j++) {
+                        doc.setDrawColor(220, 230, 250); doc.line(15, innerY + 5, w, innerY + 5);
+                        doc.text("أ   ب   ت   ث   ج   ح   خ", 25, innerY); innerY += 25;
+                    }
+                } else {
+                    doc.setFont("Helvetica", "normal"); doc.setFontSize(10); doc.setTextColor(140, 140, 140);
+                    doc.text(`[ Area Lembar Kerja Kreatif Halaman ${page} Siap Digambar Anak ]`, 25, 70);
+                }
+
+                // Footer Hak Cipta Rebranding Komersial MRR
+                doc.setFont("Helvetica", "normal"); doc.setFontSize(7); doc.setTextColor(160, 160, 160);
+                doc.text("Kids Worksheet Cyber Engine v8.9 Enterprise - Hak Cipta Komersial Jualan Koh Ojiek", 15, h + 3);
+            }
+
+            // Eksekusi trigger penyimpanan file ke folder download lokal secara otomatis
+            doc.save(`Worksheet_Enterprise_${mode}_${sizeOption.toUpperCase()}.pdf`);
         }
 
         document.getElementById("configPersonalKey").value = localStorage.getItem("KEY_PERSONAL_CONFIG");
