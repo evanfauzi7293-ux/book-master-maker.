@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Kids Worksheet & Planner Creator v10.6 (Bulletproof Engine)</title>
+    <title>Kids Worksheet & Planner Creator v10.7 (Smart Notification)</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
@@ -82,12 +82,10 @@
                     <button type="button" onclick="simpanKunciMasterToko()" class="w-full bg-gradient-to-r from-amber-500 to-amber-600 text-gray-950 font-extrabold text-[10px] py-1.5 rounded-lg uppercase tracking-wide"><i class="fa-solid fa-floppy-disk mr-1"></i> Simpan Konfigurasi Toko</button>
                 </div>
 
-                <div class="border-t border-gray-800/60 pt-2 flex flex-col gap-1.5">
-                    <div class="grid grid-cols-2 gap-2">
-                        <input type="email" id="mrrEmail" placeholder="Email Terdaftar..." class="w-full bg-gray-950/20 border border-gray-800/80 rounded-xl px-2.5 py-1 text-[11px] text-gray-300 outline-none">
-                        <input type="text" id="mrrPhone" placeholder="No HP/WhatsApp..." class="w-full bg-gray-950/20 border border-gray-800/80 rounded-xl px-2.5 py-1 text-[11px] text-gray-300 outline-none">
-                    </div>
-                    <button type="button" onclick="resetPasswordEngine()" class="w-full bg-gray-900 text-gray-400 text-[10px] py-1 rounded-lg"><i class="fa-solid fa-rotate-left mr-1"></i> Reset Sistem Lisensi</button>
+                <div class="border-t border-gray-800/60 pt-2.5 space-y-2">
+                    <label class="text-[10px] text-rose-400 font-bold uppercase block"><i class="fa-solid fa-triangle-exclamation mr-1"></i> Reset Aplikasi (Lupa Kunci)</label>
+                    <p class="text-[9px] text-gray-400 leading-normal">Gunakan fitur ini untuk menghapus riwayat aktivasi lama di perangkat ini agar bisa memasukkan lisensi baru.</p>
+                    <button type="button" onclick="resetPerangkatSaja()" class="w-full bg-rose-950/30 text-rose-400 border border-rose-900/40 text-[10px] py-1.5 rounded-lg font-bold"><i class="fa-solid fa-rotate-left mr-1"></i> Bersihkan Memori & Kunci Ulang Perangkat Ini</button>
                 </div>
             </div>
 
@@ -155,7 +153,7 @@
                 </div>
             </div>
 
-            <button id="btnGenerate" type="button" onclick="downloadMasterV106PDF()" class="w-full bg-gradient-to-r from-indigo-500 via-purple-500 to-pink-500 text-white font-extrabold py-3.5 rounded-xl text-xs tracking-widest uppercase shadow-lg">
+            <button id="btnGenerate" type="button" onclick="downloadMasterV107PDF()" class="w-full bg-gradient-to-r from-indigo-500 via-purple-500 to-pink-500 text-white font-extrabold py-3.5 rounded-xl text-xs tracking-widest uppercase shadow-lg">
                 <i class="fa-solid fa-sparkles mr-2"></i> GENERATE DOCUMENT
             </button>
         </div>
@@ -186,7 +184,6 @@
         const DEFAULT_PERSONAL_KEY = "AKUANAKPINTAR";
         const DEFAULT_MRR_KEY = "MASTERPRO2026";
         
-        // State management independen agar status tidak bocor atau reset otomatis
         let currentLicenseMode = "demo"; 
         let activeThemeName = "amber", activePrimaryColor = "#f59e0b", activeSecondaryColor = "#d97706";
 
@@ -205,7 +202,6 @@
             
             terapkanBrandingUI(currentTitle, currentSub);
             
-            // Mengambil status lisensi ter-update dari penyimpanan internal browser
             currentLicenseMode = localStorage.getItem("CURRENT_ACTIVE_MODE") || "demo";
             switchLicenseMode(currentLicenseMode);
         });
@@ -227,7 +223,7 @@
             localStorage.setItem("CUSTOM_APP_SUB", cSub);
             
             terapkanBrandingUI(cTitle, cSub);
-            alert("Pengaturan Toko dan Master Kunci Sukses Disimpan.");
+            alert("Konfigurasi kunci master berhasil disimpan!");
             validasiProsesKunci(false);
         }
 
@@ -300,9 +296,9 @@
 
             if (showAlert) {
                 if (statusValid) {
-                    alert(`Sukses! Lisensi ${currentLicenseMode.toUpperCase()} Anda Valid dan Dikunci.`);
+                    alert(`Sukses! Lisensi ${currentLicenseMode.toUpperCase()} Berhasil Diaktifkan.`);
                 } else {
-                    alert("Kunci Salah! Periksa kembali susunan huruf kapital.");
+                    alert("Kunci salah! Silakan hubungi tempat Anda membeli aplikasi ini jika lupa.");
                 }
             }
         }
@@ -312,7 +308,6 @@
             const previewBadge = document.getElementById("badgeLicensePreview");
             const btnGenerate = document.getElementById("btnGenerate");
 
-            // Membuka blokir penuh jika mode adalah demo (tanpa melihat status input)
             if (currentLicenseMode === "demo") {
                 btnGenerate.removeAttribute("disabled");
                 btnGenerate.className = "w-full bg-gradient-to-r from-indigo-500 via-purple-500 to-pink-500 text-white font-extrabold py-3.5 rounded-xl text-xs tracking-widest uppercase shadow-lg cursor-pointer";
@@ -348,12 +343,10 @@
             }
         }
 
-        function resetPasswordEngine() {
-            const email = document.getElementById("mrrEmail").value.trim();
-            const phone = document.getElementById("mrrPhone").value.trim();
-            if(!email || !phone) { alert("Silakan isi kolom Email dan No HP/WA!"); return; }
+        function resetPerangkatSaja() {
             localStorage.clear();
-            alert("Seluruh memori lisensi dibersihkan."); location.reload();
+            alert("Aplikasi Berhasil Direset!\n\nSeluruh riwayat kunci di HP/Perangkat ini sudah dibersihkan. Aplikasi kembali ke mode Demo ter-kunci.");
+            location.reload();
         }
 
         function toggleInputs() {
@@ -394,8 +387,8 @@
             document.getElementById("previewContainer").innerHTML = `
                 <div class="border-2 border-dashed rounded-2xl p-6 text-center bg-gray-50 flex flex-col items-center justify-center min-h-[160px]" style="border-color:${activePrimaryColor}">
                     <span class="text-4xl opacity-50 mb-1">🕌</span>
-                    <p class="text-xs font-mono font-bold text-gray-700">[ BULLETPROOF ENGINE v10.6 ]</p>
-                    <p class="text-[10px] text-gray-400 mt-1">Sistem sinkronisasi aman. Siap diakses dari perangkat HP mana pun.</p>
+                    <p class="text-xs font-mono font-bold text-gray-700">[ SMART NOTIFICATION ENGINE v10.7 ]</p>
+                    <p class="text-[10px] text-gray-400 mt-1">Sistem sinkronisasi offline aman. Jika pembeli lupa kunci, arahkan untuk menghubungi Anda.</p>
                 </div>`;
         }
 
@@ -417,7 +410,7 @@
             }
         }
 
-        function downloadMasterV106PDF() {
+        function downloadMasterV107PDF() {
             const mode = document.getElementById("workMode").value;
             const sizeOption = document.getElementById("paperSize").value;
             let maxPages = parseInt(document.getElementById("totalPdfPages").value);
@@ -427,7 +420,7 @@
             const cSub = localStorage.getItem("CUSTOM_APP_SUB") || "by. koh Ojiek";
 
             if(currentLicenseMode === "demo" && maxPages > 1) {
-                alert("Mode Demo: Jumlah halaman dipangkas otomatis menjadi 1 lembar."); maxPages = 1;
+                alert("Mode Demo: Halaman dipotong otomatis menjadi 1 lembar."); maxPages = 1;
             }
 
             const { jsPDF } = window.jspdf;
