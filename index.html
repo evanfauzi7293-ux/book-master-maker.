@@ -507,4 +507,36 @@
                 else if (mode === "math_100") {
                     doc.setFont("Helvetica", "bold"); doc.setFontSize(11); doc.setTextColor(60, 60, 60);
                     let innerY = 44;
-                    for (let i = 1; i <= 10;
+                    for (let i = 1; i <= 10; i++) {
+                        doc.setDrawColor(240, 240, 240); doc.rect(15, innerY - 4, w - 14, 10, "D"); doc.text(`Soal ${i}:      ${35 + i + page}   +   ${12 + i}   =   ...............`, 20, innerY + 3); innerY += 13;
+                    }
+                } 
+                else if (mode === "suku_kata") {
+                    doc.setFont("Helvetica", "bold"); doc.setFontSize(18); doc.setTextColor(80, 80, 80); doc.text("b a - b u  |  c a - c i  |  d a - d u", cx - 45, cy - 20);
+                    doc.setDrawColor(200, 200, 200); for(let s=0; s<4; s++) { doc.rect(15, cy - 5 + (s * 15), w - 14, 11, "D"); }
+                } 
+                else if (mode === "mencari_perbedaan") {
+                    doc.setDrawColor(50, 50, 50); doc.rect(15, cy - 35, w/2 - 12, 70, "D"); doc.rect(w/2 + 8, cy - 35, w/2 - 12, 70, "D"); doc.circle(35, cy, 10, "D"); doc.circle(w/2 + 28, cy, 10, "D"); doc.circle(60, cy + 15, 6, "D");
+                } 
+                else if (mode === "mencocokkan_bayangan") {
+                    doc.setFont("Helvetica", "bold"); doc.setFontSize(11); doc.text("OBJEK ASLI", 20, cy - 32); doc.text("SILUET BAYANGAN", w - 60, cy - 32);
+                    for(let m=0; m<3; m++) { doc.setDrawColor(50, 50, 50); doc.rect(20, cy - 20 + (m * 22), 15, 15, "D"); doc.setFillColor(30, 30, 30); doc.rect(w - 45, cy - 20 + (((m+1)%3) * 22), 15, 15, "F"); }
+                } 
+                else if (mode === "dot_to_dot") {
+                    doc.setDrawColor(40, 40, 40); doc.setFontSize(8);
+                    for(let d=1; d<=15; d++) { let dx = cx + 35 * Math.cos((d * 2 * Math.PI) / 15); let dy = cy + 35 * Math.sin((d * 2 * Math.PI) / 15); doc.circle(dx, dy, 0.8, "F"); doc.text(String(d), dx + 2, dy); }
+                } 
+                else if (mode === "flashcard_kosakata") {
+                    doc.setDrawColor(100, 100, 100); doc.setLineWidth(0.4); doc.rect(15, cy - 38, w/2 - 12, 36, "D"); doc.rect(w/2 + 5, cy - 38, w/2 - 12, 36, "D"); doc.rect(15, cy + 5, w/2 - 12, 36, "D"); doc.rect(w/2 + 5, cy + 5, w/2 - 12, 36, "D"); doc.setFont("Helvetica", "bold"); doc.setFontSize(12); doc.text("APEL", 30, cy - 20); doc.text("SINGA", w - 50, cy - 20);
+                }
+
+                doc.setFont("Helvetica", "normal"); doc.setFontSize(7); doc.setTextColor(160, 160, 160);
+                doc.text(`${cTitle} Premium [${currentLicenseMode.toUpperCase()}] - ${cSub}`, 15, h + 3);
+            }
+            doc.save(`Worksheet_${currentLicenseMode}_${mode}.pdf`);
+        }
+
+        toggleInputs(); updateLivePreview();
+    </script>
+</body>
+</html>
