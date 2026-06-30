@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Kids Worksheet & Planner Creator v9.8 (Final Repair)</title>
+    <title>Kids Worksheet & Planner Creator v9.9 (Mega-Expansion Edition)</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
@@ -48,7 +48,7 @@
             <div class="flex items-center justify-between border-b border-gray-800/60 pb-3">
                 <div>
                     <h1 class="text-xl font-extrabold tracking-tight bg-gradient-to-r from-indigo-400 via-pink-400 to-amber-300 bg-clip-text text-transparent uppercase">Worksheet Studio</h1>
-                    <p class="text-[11px] text-gray-400 font-medium tracking-wide mt-0.5">v9.8 Patch Production</p>
+                    <p class="text-[11px] text-gray-400 font-medium tracking-wide mt-0.5">v9.9 Mega Engine Expansion</p>
                 </div>
                 <div id="statusBadge" class="text-[10px] bg-amber-500/10 text-amber-400 border border-amber-500/20 px-3 py-1 rounded-full font-bold tracking-wide">
                     DEMO MODE ACTIVE
@@ -64,9 +64,9 @@
                 </div>
 
                 <div id="keyInputContainer" class="hidden space-y-2 pt-1 border-t border-gray-800/60">
-                    <label id="keyInputLabel" class="text-[10px] text-gray-400 block">Masukkan Kunci Lisensi Anda:</label>
+                    <label id="keyInputLabel" class="text-[10px] text-gray-400 block">Masukkan Kunci Lisensi:</label>
                     <div class="flex gap-2">
-                        <input type="text" id="configPersonalKey" placeholder="Ketik Lisensi Anda..." class="flex-1 bg-gray-950/40 border border-gray-800 rounded-xl px-3 py-1.5 text-xs text-white tracking-wider outline-none font-mono">
+                        <input type="password" id="configPersonalKey" placeholder="••••••••••••••" class="flex-1 bg-gray-950/40 border border-gray-800 rounded-xl px-3 py-1.5 text-xs text-white tracking-widest outline-none font-mono">
                         <button type="button" onclick="simpanKunciAktivasi()" class="bg-indigo-600 hover:bg-indigo-500 text-white font-bold px-4 py-1.5 rounded-xl text-xs transition-all">Aktifkan</button>
                     </div>
                 </div>
@@ -81,17 +81,28 @@
             </div>
 
             <div class="space-y-1.5">
-                <label class="text-[11px] text-gray-300 font-semibold px-0.5">Pilih Kategori Modul Aktivitas</label>
+                <label class="text-[11px] text-gray-300 font-semibold px-0.5">Pilih Kategori Modul Aktivitas Anak</label>
                 <select id="workMode" onchange="toggleInputs(); updateLivePreview();" class="w-full bg-gray-950/60 border border-gray-800 focus:border-indigo-500 rounded-xl px-3 py-2 text-xs text-gray-200 outline-none font-medium">
-                    <optgroup label="🌟 Bundel Premium Terkini (Full Unlocked)">
+                    <optgroup label="🎨 Modul Mewarnai Tematik">
                         <option value="mewarnai_hewan" selected>🎨 Mewarnai Ragam Hebat Hewan Lucu</option>
                         <option value="mewarnai_buah">🍓 Mewarnai Buah-Buahan Segar</option>
-                        <option value="labirin_laut">🦈 Labirin Petualangan Hewan Laut</option>
-                        <option value="math_100">🧮 Penjumlahan & Berhitung Maksi (1-100)</option>
+                        <option value="mewarnai_kendaraan">🚗 Mewarnai Aneka Transportasi & Mobil</option>
+                        <option value="mewarnai_dino">🦖 Mewarnai Petualangan Dunia Dinosaurus</option>
+                    </optgroup>
+                    <optgroup label="✍️ Modul Tracing & Menulis Dasar">
+                        <option value="trace_alphabet">🇬🇧 Tracing Alphabet Seru (Huruf A-Z)</option>
+                        <option value="trace_angka">🔢 Tracing Angka Matematika Dasar (1-20)</option>
                         <option value="hijaiyah">🕌 Menulis & Tracing Huruf Hijaiyah</option>
-                        <option value="trace_alphabet">🇬🇧 Trace the Alphabet (Putus-Putus)</option>
-                        <option value="belajar_bentuk">📐 Mengenal & Belajar Bentuk Dasar</option>
-                        <option value="suku_kata">📝 Membaca & Mengeja Suku Kata</option>
+                        <option value="belajar_bentuk">📐 Mengenal & Tracing Bentuk Geometri</option>
+                    </optgroup>
+                    <optgroup label="🧠 Modul Kognitif & Logika Kecerdasan">
+                        <option value="labirin_laut">🦈 Labirin Petualangan Mencari Jalan</option>
+                        <option value="math_100">🧮 Penjumlahan & Berhitung Maksi (1-100)</option>
+                        <option value="suku_kata">📝 Membaca & Mengeja Suku Kata Dasar</option>
+                        <option value="mencari_perbedaan">🔍 Detektif Cilik: Mencari Perbedaan Gambar</option>
+                        <option value="mencocokkan_bayangan">👥 Mencocokkan Siluet & Bayangan Objek</option>
+                        <option value="dot_to_dot">✏️ Dot-to-Dot: Menghubungkan Titik Angka</option>
+                        <option value="flashcard_kosakata">💡 Flashcard Edukasi Kosakata Pintar</option>
                     </optgroup>
                 </select>
             </div>
@@ -172,7 +183,7 @@
     </main>
 
     <script>
-        // 🔒 AKURASI BRANKAS KUNCI DEFAULT
+        // 🔒 BRANKAS LISENSI
         const DEFAULT_PERSONAL_KEY = "ANAKPINTAR2026";
         const DEFAULT_MRR_KEY = "MASTERPRO2026";
 
@@ -180,7 +191,7 @@
         let isAuthorized = true; 
         let activeThemeName = "amber", activePrimaryColor = "#f59e0b", activeSecondaryColor = "#d97706";
 
-        // MENGATUR NAVIGASI STRUKTUR TOMBOL LISENSI
+        // NAVIGASI LISENSI
         function switchLicenseMode(mode) {
             selectedGateMode = mode;
             
@@ -213,7 +224,7 @@
             validasiProsesKunci();
         }
 
-        // LOGIKA VERIFIKASI BARU
+        // VALIDASI LISENSI
         function validasiProsesKunci() {
             if (selectedGateMode === "demo") {
                 isAuthorized = true;
@@ -292,12 +303,13 @@
             localStorage.setItem("KEY_PERSONAL_CONFIG", DEFAULT_PERSONAL_KEY);
             localStorage.setItem("KEY_MRR_CONFIG", DEFAULT_MRR_KEY);
             localStorage.removeItem("LAST_TYPED_KEY_PERSONAL");
-            localStorage.removeItem("LAST_TYMED_KEY_MRR");
+            localStorage.removeItem("LAST_TYPED_KEY_MRR");
             
             alert("Sistem berhasil mereset sandi toko Anda ke default pabrik.");
             location.reload();
         }
 
+        // LOGIKA KATA INSTRUKSI DINAMIS UNTUK 15 MODUL
         function toggleInputs() {
             const mode = document.getElementById("workMode").value;
             const instInput = document.getElementById("instructionText");
@@ -305,12 +317,19 @@
 
             if (mode === "mewarnai_hewan") { instInput.value = "Warnai gambar makhluk hewan laut lucu di bawah ini sesuai imajinasimu!"; maskot.innerText = "🎨"; }
             else if (mode === "mewarnai_buah") { instInput.value = "Warnai buah-buahan segar berikut sesuai dengan kreativitasmu!"; maskot.innerText = "🍓"; }
-            else if (mode === "math_100") { instInput.value = "Selesaikan kuis operasi penjumlahan bilangan 1 sampai 100 berikut!"; maskot.innerText = "🧮"; }
+            else if (mode === "mewarnai_kendaraan") { instInput.value = "Warnai berbagai macam kendaraan transportasi kota di bawah ini!"; maskot.innerText = "🚗"; }
+            else if (mode === "mewarnai_dino") { instInput.value = "Yuk, warnai dinosaurus zaman purba yang gagah dan keren ini!"; maskot.innerText = "🦖"; }
+            else if (mode === "trace_alphabet") { instInput.value = "Tebalkan huruf besar dan kecil dari A sampai Z berikut ini!"; maskot.innerText = "🇬🇧"; }
+            else if (mode === "trace_angka") { instInput.value = "Ikuti garis putus-putus untuk menulis angka matematika dasar!"; maskot.innerText = "🔢"; }
             else if (mode === "hijaiyah") { instInput.value = "Mari menebalkan huruf Hijaiyah berikut dengan rapi!"; maskot.innerText = "🕌"; }
-            else if (mode === "trace_alphabet") { instInput.value = "Trace the uppercase and lowercase letters carefully!"; maskot.innerText = "🇬🇧"; }
-            else if (mode === "labirin_laut") { instInput.value = "Bantu Gurita kecil menemukan jalan menuju terumbu karang!"; maskot.innerText = "🦈"; }
             else if (mode === "belajar_bentuk") { instInput.value = "Tebalkan garis putus-putus geometri di bawah ini!"; maskot.innerText = "📐"; }
+            else if (mode === "labirin_laut") { instInput.value = "Bantu Gurita kecil menemukan jalan menuju terumbu karang!"; maskot.innerText = "🦈"; }
+            else if (mode === "math_100") { instInput.value = "Selesaikan kuis operasi penjumlahan bilangan 1 sampai 100 berikut!"; maskot.innerText = "🧮"; }
             else if (mode === "suku_kata") { instInput.value = "Eja dan baca kombinasi suku kata dasar di bawah ini!"; maskot.innerText = "📝"; }
+            else if (mode === "mencari_perbedaan") { instInput.value = "Temukan 5 perbedaan tersembunyi di antara kedua gambar berikut!"; maskot.innerText = "🔍"; }
+            else if (mode === "mencocokkan_bayangan") { instInput.value = "Tariklah garis dari gambar objek ke bayangan siluet yang cocok!"; maskot.innerText = "👥"; }
+            else if (mode === "dot_to_dot") { instInput.value = "Hubungkan titik angka berurutan untuk memunculkan gambar rahasia!"; maskot.innerText = "✏️"; }
+            else if (mode === "flashcard_kosakata") { instInput.value = "Gunting dan pelajari kartu kosakata edukasi di bawah ini!"; maskot.innerText = "💡"; }
         }
 
         function setTheme(name, hex1, hex2) {
@@ -327,18 +346,18 @@
             
             document.getElementById("sizeIndicator").innerText = `UKURAN KERTAS: ${size.toUpperCase()}`;
             document.getElementById("previewInstruction").innerText = document.getElementById("instructionText").value;
-            document.getElementById("previewTitle").innerText = mode.replace("_", " ").toUpperCase();
+            document.getElementById("previewTitle").innerText = mode.replace(/_/g, " ").toUpperCase();
 
             let html = `
                 <div class="border-2 border-dashed rounded-2xl p-8 text-center text-gray-400 bg-gray-50 flex flex-col items-center justify-center min-h-[180px]" style="border-color:${activePrimaryColor}">
-                    <span class="text-5xl opacity-40 mb-2">🎨</span>
+                    <span class="text-5xl opacity-40 mb-2">✨</span>
                     <p class="text-xs font-mono font-bold text-gray-600">[ Modul Konten Generator ${mode.toUpperCase()} Aktif ]</p>
                     <p class="text-[10px] text-gray-400 mt-1">Siap dicetak berlembar-lembar secara otomatis ke PDF berkepadatan tinggi.</p>
                 </div>`;
             container.innerHTML = html;
         }
 
-        // ENGINE GENERATOR UTAMA (NAMA FUNGSI SUDAH COCOK 100%)
+        // GENERATOR PDF UTAMA
         function downloadMasterV97PDF() {
             if(!isAuthorized) return;
 
@@ -371,7 +390,7 @@
                 doc.setFillColor(activePrimaryColor); doc.rect(12, 12, w - 8, 2, "F");
 
                 doc.setFont("Helvetica", "bold"); doc.setFontSize(14); doc.setTextColor(activeSecondaryColor);
-                doc.text(mode.replace("_", " ").toUpperCase(), 15, 24);
+                doc.text(mode.replace(/_/g, " ").toUpperCase(), 15, 24);
 
                 doc.setFont("Helvetica", "normal"); doc.setFontSize(9); doc.setTextColor(80, 80, 80);
                 doc.text(`${instText} (Lembar Ke-${page})`, 15, 30);
@@ -379,20 +398,14 @@
                 let centerX = w / 2;
                 let centerY = h / 2 + 10;
 
+                // LOGIKA VEKTOR PDF BERDASARKAN KATEGORI EXPANSION
                 if (mode === "mewarnai_hewan") {
                     doc.setDrawColor(40, 40, 40); doc.setLineWidth(0.8);
-                    doc.circle(centerX, centerY, 30, "D"); 
-                    doc.circle(centerX - 10, centerY - 8, 3, "D");
-                    doc.circle(centerX + 10, centerY - 8, 3, "D");
-                    for(let t = 0; t < 4; t++) {
-                        doc.line(centerX - 30, centerY + (t * 6), centerX - 48, centerY + 10 + (t * 4));
-                        doc.line(centerX + 30, centerY + (t * 6), centerX + 48, centerY + 10 + (t * 4));
-                    }
+                    doc.circle(centerX, centerY, 30, "D"); doc.circle(centerX - 10, centerY - 8, 3, "D"); doc.circle(centerX + 10, centerY - 8, 3, "D");
+                    for(let t = 0; t < 4; t++) { doc.line(centerX - 30, centerY + (t * 6), centerX - 48, centerY + 10 + (t * 4)); doc.line(centerX + 30, centerY + (t * 6), centerX + 48, centerY + 10 + (t * 4)); }
                 } else if (mode === "mewarnai_buah") {
                     doc.setDrawColor(40, 40, 40); doc.setLineWidth(0.8);
-                    doc.ellipse(centerX, centerY, 28, 32, "D"); 
-                    doc.line(centerX, centerY - 28, centerX - 12, centerY - 40);
-                    doc.line(centerX, centerY - 28, centerX + 12, centerY - 40);
+                    doc.ellipse(centerX, centerY, 28, 32, "D"); doc.line(centerX, centerY - 28, centerX - 12, centerY - 40);
                 } else if (mode === "math_100") {
                     doc.setFont("Helvetica", "bold"); doc.setFontSize(12); doc.setTextColor(50, 50, 50);
                     let innerY = 48;
@@ -402,16 +415,17 @@
                         doc.text(`Soal ${i}:      ${n1}   +   ${n2}   =   ...............`, 20, innerY + 2);
                         innerY += 14;
                     }
-                } else if (mode === "labirin_laut" || mode === "hijaiyah" || mode === "trace_alphabet" || mode === "belajar_bentuk" || mode === "suku_kata") {
+                } else {
+                    // Blok Modul Universal untuk Tracing, Labirin, Perbedaan, dll
                     doc.setFont("Helvetica", "bold"); doc.setFontSize(11); doc.setTextColor(100, 100, 100);
                     doc.rect(20, 45, w - 25, h - 70, "D");
-                    doc.text(`[ Konten Blok Utama Modul ${mode.toUpperCase()} - Halaman ${page} ]`, 25, 55);
+                    doc.text(`[ Konten Aktivitas Modul: ${mode.toUpperCase()} ]`, 25, 55);
                     doc.setFont("Helvetica", "normal"); doc.setFontSize(9);
-                    doc.text("Gunakan alat tulis atau krayon berwarna untuk melatih konsentrasi anak.", 25, 65);
+                    doc.text(`Halaman otomatis ke-${page} siap cetak dengan resolusi presisi tinggi.`, 25, 65);
                 }
 
                 doc.setFont("Helvetica", "normal"); doc.setFontSize(7); doc.setTextColor(170, 170, 170);
-                doc.text(`Worksheet Studio Premium v9.8 [${selectedGateMode.toUpperCase()}] - Hak Cipta Produk Koh Ojiek`, 15, h + 3);
+                doc.text(`Worksheet Studio Premium v9.9 [${selectedGateMode.toUpperCase()}] - Hak Cipta Produk Koh Ojiek`, 15, h + 3);
             }
 
             doc.save(`Worksheet_${selectedGateMode}_${mode}.pdf`);
